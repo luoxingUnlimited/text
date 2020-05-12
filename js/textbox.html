@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文本框获取焦点高亮显示</title>
+</head>
+<body>
+    <input type="text"><br /><br />
+    <input type="text"><br /><br />
+    <input type="text"><br /><br />
+    <input type="text"><br /><br />
+    <input type="text">
+    <button>设置</button>
+    <script>
+        //需求：点击设置按钮，让所有的input标签在获得焦点后高亮显示
+        //步骤：1.获取事件源：input框以及button按钮
+        //2.绑定事件：onclick onfocus onblur
+        //3.书写事件驱动程序：
+        var inpArr = document.getElementsByTagName("input");
+        //利用节点关系
+        var btn = inpArr[inpArr.length-1].nextElementSibling || inpArr[inpArr.length-1].nextSibling
+        //var btn = document.getElementsByTagName("button")[0];
+        btn.onclick = function(){
+            for(var i=0;i<inpArr.length;i++){
+                inpArr[i].onfocus = function(){
+                    this.style.border = "1px solid #f10";
+                    this.style.backgroundColor = "#ccc";
+                }
+                //因为文本框在获取焦点的时候其他文本框会自动失去焦点 故而没有用排他思想。
+                inpArr[i].onblur = function(){
+                    this.style.border = "";
+                    this.style.backgroundColor = "";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

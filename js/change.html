@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>改变盒子的大小以及透明度</title>
+</head>
+<body>
+    <div style="width: 100px;height: 100px;background-color: #1f0;"></div>
+    <script>
+        //步骤：1.获取事件源
+        //2.绑定事件onmouseover
+        //3.书写事件驱动程序
+        var div = document.getElementsByTagName("div")[0];
+        div.onmouseover = function(){
+            div.style.width = "200px";
+            div.style.height = "200px";
+            div.style.backgroundColor = "#10f";
+            //opacity透明度，取值范围0-1
+            div.style.opacity = "0.2";
+            //透明度ie8以前的兼容性写法取值范围是0-100
+            div.style.filter = "alpha(opacity=20)";
+        }
+    </script>
+</body>
+</html>

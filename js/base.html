@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js基础练习</title>
+    
+</head>
+<body>
+    <script>
+       /*  //需求：1.判断当天星期几
+        //步骤：1.获取今天星期几
+        //2.做出判断，然后弹框显示；
+        var date = new Date();
+            console.log(date.getDay());
+        var num = date.getDay();
+            switch(num){//判断条件出现的比较多的时候使用switch语句，比较常用的是if判断语句
+                case 0:
+                    alert("星期天");
+                break;
+                case 1:
+                    alert("星期一");
+                break;
+                case 2:
+                    alert("星期二");
+                break;
+                case 3:
+                    alert("星期三");
+                break;
+                case 4:
+                    alert("星期四");
+                break;
+                case 5:
+                    alert("星期五");
+                break;
+                default:
+                    alert("星期六");
+            } */
+
+       /*  //需求：2.百分制转换成优良中可差
+        //思路1：获取值，判断在90-100，80-90，...区间
+        //思路2：获取值，除以10然后取整，==10满分，==9优，==8良，==7中，==6可，其余差
+        var num = prompt("请输入成绩：");
+        num = parseInt(num/10);
+        switch(num){
+            case 10:alert("满分");
+            break;
+            case 9:alert("优");
+            break;
+            case 8:alert("良");
+            break;
+            case 7:alert("中");
+            break;
+            case 6:alert("可");
+            break;
+            default:alert("差");
+        } 
+        var num = prompt("请输入成绩：");
+        if(num > 90 && num <= 100){
+            alert("优");
+        }if(num > 80 && num <= 90){
+            alert("良");
+        }if(num > 70 && num <= 80){
+            alert("中");
+        }if(num >= 60 && num <= 70){
+            alert("可");
+        }if(num < 60){
+            alert("差");
+        }*/
+
+    /*   ⭐  //需求：3.交换两个数值类型变量
+        //步骤：先求和，然后再用其中一个减去另一个
+        var a = 10;
+        var b = 20;
+        var a = a + b;
+        var b = a - b;
+        var a = a - b;
+        console.log(a);
+        console.log(b); */
+        /* var message;
+        if (message) {
+            alert("有值");
+        }else{
+            alert("无值");
+        }
+    //输出无值 */
+
+//for循环
+/* //需求：打印1-100；
+        for(var i=1;i<=100;i++){
+            alert(i);
+        }
+ */
+ /* //需求：4.求1-100的数字和；以及平均值
+ //1.给定一个和；
+ //2.每次循环的i都与前一个i相加
+        var sum = 0;//sum求和
+        var avg = 0;//avg求平均值
+        for(var i=1;i<=100;i++){
+            sum += i;//sum = sum + 1
+        }
+        avg = sum/(i-1);
+        console.log(sum);//5050
+        console.log(avg);//50.5 */
+
+  /* //需求：5.求1-100之间所有偶数的和、所有奇数的和
+        var sumOdd = 0;//odd奇数的
+        var sumEven = 0;//even偶数的
+        for(var i=1;i<=100;i++){
+            if(i%2==0){
+                sumEven += i;
+            }else{
+                sumOdd += i;
+                }
+        }
+        console.log(sumOdd);//2500
+        console.log(sumEven);//2550 */
+
+ /* //6.本金10000元存入银行，年利率是千分之三，每过1年，将本金和利息相加作为新的本金。计算5年后，获得的本金是多少？
+ //需求：存入10000元，年利率是3/1000，求5年能拿到的钱。
+ //1.每存一年就可以拿到本金和当年的利息，当年的利息和本金又会作为下一年的本金。
+ //2.循环5次
+        var money = 10000;
+        for(var i=1;i<=5;i++){
+            money += money*(3/1000);
+        }
+        console.log(money);//10150.90270405243 */
+
+       /*  //⭐⭐⭐7.斐波那契数列：1，1，2，3，5，8，13，21，34，55，89，144...........
+        //       从第三项开始每一项都是前两项之和
+        //需求：求斐波那契数列的第12项
+        //思路：设置两个变量，分别代表前两项，然后从第三项开始每一项都是前两项之和
+        //步骤：1.定义两个变量和一个中间值
+        //2.利用循环交换变量和以及变量（循环从第三项开始，到12项结束）
+        //打印num2
+        var num1 = 1;
+        var num2 = 1;
+        for(var i=3;i<=12;i++){
+            temp = num2;
+            num2 += num1;
+            num1 = temp;
+        }
+        alert(num2); //144 */
+
+        /* //需求：8.打印正方形以及直角三角形
+        for(var i=1;i<=5;i++){//外循环控制行，内循环控制列？
+            for(var j=1;j<=5;j++){//将内循环j<=5改成j<=i即可满足三角形
+                document.write("⭐");//document.write()输出内容到页面
+            }
+            document.write("</br>");//</br>换行的意思
+        } */
+
+        /* //⭐//需求：9.打印九九乘法表
+        //思路：利用for循环以及表单table里的tr和td标签实现 有了标签就不需要换行了
+        //步骤：1.整个表单就一个 不需要循环
+        //2.有9行 需要9个tr
+        //3.有45个单元格，故而需要循环45个td
+        document.write("<table border='1px'>");
+        for(var i=1;i<=9;i++){
+            document.write("<tr>");
+            for(var j=1;j<=i;j++){//关于内外循环，外循环一定情况下保持不变，内循环保持变动
+                document.write("<td>");
+                document.write(j+"×"+i+"="+j*i);
+                document.write("</td>");
+            }
+            document.write("</tr>");
+        }
+        document.write("</table>"); */
+
+        /* //需求：10.计算1乘到100；
+        var product = 1;
+        for(var i=1;i<=100;i++){
+            product *= i;
+        }
+        console.log(product);//9.33262154439441e+157 */
+
+        /* //需求：11.计算出1-100之间所有不能被7整除的整数的数字之和。
+        //思路：先找出1-100中不能被7整除的数，然后求和输出
+        var sum = 0;
+        for(var i=1;i<=100;i++){
+            if(i%7!==0){
+                sum += i;
+            }
+        }
+        console.log(sum);//4315 */
+
+        /* //需求：12.计算出1-100之间所有不能被3整除的整数和大于（或等于）2000的数字。
+        //思路：先找出1-100中不能被3整除的整数和，再判断和是否大于（或等于）2000，然后输出满足条件的和
+        var sum = 0;
+        for(var i=1;i<=100;i++){
+            if(i%3!==0){
+                sum += i;
+                if(sum>=2000){
+                    console.log(sum)
+                }//此处如果sum那个if判断放到整除那个if判断的外面的话 会导致满足sum>=2000
+                //之后所有对应的i都会输出一次sum，因此第二个判断要被第一个判断包裹
+            }
+        } */
+
+        /* //需求：13.计算出1到1000之间所有不能被7整除的整数之和（用continue）
+        var sum = 0;
+        for(var i=1;i<=1000;i++){
+            if(i%7===0){
+                continue;//满足能被7整除就立刻跳出当前循环，然后进行下一次循环
+            }
+            sum += i;
+        }
+        console.log(sum);//429429 */
+
+        /* //需求：14.计算出1到100之间所有不能被3整除的整数的和（用continue）
+        var sum = 0;
+        for(var i=1;i<=100;i++){
+            if(i%3===0){
+                continue;
+            }
+            sum += i;
+        }
+        console.log(sum);//3367 */
+
+        /* //需求：15.求1到100之间所有不能被3整除的整数的第一个大于2000的和
+        var sum = 0;
+        for(var i=1;i<=100;i++){
+            if(i%3!==0){
+                sum += i;
+                if(sum>2000){
+                    break;//找到第一个满足条件的就立即跳出整个循环
+                }
+            }
+        }
+        console.log(sum);//2028 */
+
+        /* //需求：16.求200-300之间所有的奇数的和
+        var sumOdd = 0;
+        for(var i=200;i<=300;i++){
+            if(i%2!==0){
+                continue;
+            }
+            sumOdd += i;
+        }
+        console.log(sumOdd);//12500 */
+
+        //需求：17.求200-300之间第一个能被7整数的数
+        /* for(var i=200;i<=300;i++){
+            if(i%7===0){
+                break;
+            }
+        }
+        console.log(i);//203 */
+
+       /*  //需求：18.求1—100之和（三种循环）
+        var sum = 0;
+        for(var i=1;i<=100;i++){//for循环 for(变量;条件1;条件2)
+            sum += i;
+        }
+        console.log(sum);
+
+        var sum = 0;
+        var i =1;
+        while(i<=100){//while循环 while(条件1){程序;条件2;}
+            sum += i;
+            i++;
+        }
+        console.log(sum);
+
+        var i = 1;
+        var sum = 0;
+        do{//do...while循环 do{程序;条件2}while(条件1);
+            sum += i;     //do...while循环至少会循环一次
+            i++;
+        }while(i<=100);
+        console.log(sum); */
+
+        /* while案例 */
+ 
+
+
+
+        /* //需求：把1-100之间所有的奇数，放到数组中
+        var arr = [];
+        for(var i=1;i<=100;i++){
+            if(i%2!==0)
+            arr[arr.length] = i;//数组的长度从0开始 每新增一个元素，数组的长度便自增1
+        }//所以数组的索引值可以直接用数组长度arr.length
+        console.log(arr); */
+
+        //需求：1-100之间能被3整数的数字，存到数组中
+        /* var array = [];
+        for(var i=1;i<=100;i++){
+            if(i%3===0){
+                array[array.length] = i;
+            }
+        }
+        console.log(array); */
+          
+        /* //需求：求一组数中的所有数的和 和平均值
+        var array = [10,20,30];
+        var sum = 0;
+        for(var i=0;i<array.length;i++){//array.length是数组的长度
+            sum += array[i];
+        }
+        console.log(sum);
+        console.log(array.length);//3
+        var avg = sum/array.length;
+        console.log(avg); */
+
+        /* //需求：求一组数中的最大值和最小值，以及所在位置
+        var array = [1,8,2,6,3,5,9,4];
+        var maxVaule = array[0];
+        var minVaule = array[0];
+        var maxIndex = 0;
+        var minIndex = 0;
+        for(var i=1;i<array.length;i++){
+            if(array[i]>maxVaule){
+                maxVaule = array[i];
+                maxIndex = i;
+            }
+            if(array[i]<minVaule){
+                minVaule = array[i];
+                minIndex = i;
+            }
+        }
+        console.log(maxVaule);
+        console.log(maxIndex);
+        console.log(minVaule);
+        console.log(minIndex); */
+
+        /* //需求：将数组转换成字符串用|或其他符号分割（3种）
+        var arr = ["风","琴","娜","璐"];
+        var str = arr[0];
+        var separator = "|";
+        for(var i=1;i<arr.length;i++){
+            str += separator + arr[i];
+        }
+        console.log(arr);
+        console.log(str); */
+
+        /* //需求：将数组中值为0的去掉，不为0的存入新数组
+        var arr = [0,1,5,2,0,6,4,3,0,9];
+        var arr1 = [];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]!==0){
+                arr1[arr1.length] = arr[i];
+            }
+        }
+        console.log(arr);
+        console.log(arr1); */
+        
+        /* //需求：翻转数组（反向，新数组）
+        //思路1：定义新数组，将原数组的元素从后往前放入新数组中
+        //简单版：
+        var arr = [1,2,3,4,5];
+        var newArr = [];
+        for(var i=arr.length-1;i>=0;i--){
+            newArr[newArr.length] = arr[i];
+        }
+        console.log(newArr);
+        //复杂版：
+        var arr = [1,2,3,4,5];
+        var newArr = [];
+        for(var i=0;i<arr.length;i++){
+        //用新数组的长度作为索引值，给定数组的最大索引-i，因为i自增，所以将会获取都最大索引值到0
+            newArr[newArr.length] = arr[arr.length-1-i];
+        }
+        console.log(newArr);
+        //思路2：直接修改原数组，让原数组的前后元素依次对换
+        var arr = [1,2,3,4,5,6];
+        for(var i=0;i<arr.length/2;i++){//等于的话 会多执行一次 导致中间两元素位置复原
+            var temp = arr[i];//交换变量
+            arr[i] = arr[arr.length-1-i];
+            arr[arr.length-1-i] = temp;
+        }
+        console.log(arr); */
+
+        /* //需求：冒泡排序，从小到大
+        //属于位置上的比较，核心：双重for循环，外循环控制轮，内循环控制次
+        //1.比较轮数：n-1,2.比较次数：n-1,3.满足某个条件交换位置
+        var arr = [2,1,5,4,0,7];
+        var m = 0;//更好的看清轮数和次数
+        var n = 0;
+        for(var i=0;i<arr.length-1;i++){//外循环控制轮数
+        //每轮比较少比较一次。（每一轮都会比较出一个最大值，然后后一轮没有必要再比较了，所以没比较一轮，就少比较一次。。。）
+            for(var j=0;j<arr.length-1-i;j++){//内循环控制次数
+                if(arr[j]>arr[j+1]){//满足条件就交换变量位置
+                    var temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+                m++;//15
+            }
+            n++;//5
+        }
+        console.log(arr);
+        console.log(m);
+        console.log(n);
+        //终极版：
+        var arr = [1,2,5,0,4,7];
+        var m = 0;//更好的看清轮数和次数
+        var n = 0;
+        for(var i=0;i<arr.length-1;i++){//外循环控制轮数
+        //开闭原则。（写在第一个for循环里，是为了，每轮比较初始化bool变量变为true。）
+        var bool = true;
+        //每轮比较少比较一次。（每一轮都会比较出一个最大值，然后后一轮没有必要再比较了，所以没比较一轮，就少比较一次。。。）
+            for(var j=0;j<arr.length-1-i;j++){//内循环控制次数
+                if(arr[j]>arr[j+1]){//满足条件就交换变量位置
+                    var temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                    bool = false;//如果有一对变量位置需要交换，则进入循环输出false
+                }
+                m++;//15
+            }
+            n++;//5
+            if(bool){//如果没有变量位置交换 则跳出循环
+                break;
+            }
+        }
+        console.log(arr);
+        console.log(m);
+        console.log(n); */
+
+
+        //函数
+        /* //需求：1-100的累加问题
+        fn();//函数不调用不执行
+        function fn(sum){
+            var sum = 0;
+            for(var i=1;i<=100;i++){
+                sum += i;
+            }
+            alert(sum);
+        }*/
+
+        /* //需求：求圆的周长和面积
+        //var l = getLong(5);
+        //alert(l);
+        alert(getLong(5));
+        function getLong(r){
+            var l = 2*Math.PI*r;//Math.PI圆周率Π
+            return l;
+        }
+        
+        var a = getArea(10);
+        alert(a);
+        function getArea(r){
+            return Math.PI*Math.pow(r,2);//Math.pow(r,n)r的n次方
+        } */
+
+
+        /* //需求：求2个数中的最大值
+        alert(getMax(5,1));
+        function getMax(a,b){
+            if(a>b){
+                return a;
+            }
+            return b;//return会切断函数 故而不用写else
+        }
+        alert(getMax(9,1));
+        function getMax(a,b){
+            return a>b?a:b;//三元运算，a大于b吗？是：返回a，不是：返回b。
+        } */
+
+        /* //需求：求3个数中的最大值
+        alert(getMax(9,1,0));
+        alert(getMax(0,7,5));
+        function getMax(a,b,c){
+            if(a>b){//如果a>b，判断a和c的大小
+                if(a>c){
+                    return a;//如果a也大于c，a就是最大值，直接返回c
+                }else{
+                    return c;//反之c就是最大值
+                }
+            }else{//如果a小于b，就要判断b和c的大小
+                if(b>c){
+                    return b;
+                }else{
+                    return c;
+                }
+            }
+        }
+
+        alert(getMax(1,2,3));
+        function getMax(a,b,c){
+            return (a>b?a:b)>c?(a>b?a:b):c;//三元运算
+        } */
+
+        /* //需求：求一组数中的最大值
+        var arr = [1,5,0,3,9];
+        alert(getMax(arr));
+        function getMax(array){
+            var max = array[0];//假设数组中的第一项是最大项，
+            for(var i=1;i<array.length;i++){
+                if(max<array[i]){//数组后面的每项与第一项比较，如果大于第一项则赋值给max
+                    max = array[i];
+                }
+            }
+            return max;//最后返回max
+        } */
+
+        /* //需求：求一组数中的最小值
+        var arr = [3,1,5,2,9,7];
+        var arr2 = [-3,-5,0,5,9,6,-2];
+        alert(getMin(arr));
+        alert(getMin(arr2));
+        function getMin(array){
+            var min = array[0];
+            for(var i=1;i<array.length;i++){
+                if(array[i]<min){
+                    min = array[i];
+                }
+            }
+            return min;
+        } */
+
+        /* //需求：翻转数组，返回一个新数组
+        var arr = [1,2,3,4,5];
+        console.log(reverse(arr));
+        function reverse(array){
+            var newArr = [];//需要先定义一个新数组
+            for(var i=0;i<array.length;i++){
+                //可用新数组的长度作为索引值
+                newArr[newArr.length] = array[array.length-1-i];
+            }
+            return newArr;
+        }
+        //返回原数组：
+        var arr2 = [6,7,8,9];
+        console.log(reverse2(arr2));
+        function reverse2(array){
+            for(var i=0;i<array.length/2;i++){
+                var temp = array[i];
+                array[i] = array[array.length-1-i];
+                array[array.length-1-i] = temp;
+            }
+            return array;
+        } */
+
+       /*  //需求：对数组排序，从小到大
+        var arr = [1,5,6,9,3,2];
+        //理解：比较第一轮，6个数进行5次比较会把最大的数放到最后去，所以还有5个数需要再进行比较
+        //然后再进行第二轮比较，会在剩下的5个数中比较4次把最大的放到后面去
+        //所以需要进行n-1轮比较，每一轮比较中又会进行n-1次比较
+        console.log(bubble(arr));
+        function bubble(array){
+            for(var i=0;i<array.length-1;i++){
+                for(var j=0;j<array.length-1-i;j++){
+                    if(array[j]>array[j+1]){
+                        var temp = array[j];
+                        array[j] = array[j+1];
+                        array[j+1] = temp;
+                    }
+                }
+            }
+            return array;
+        } */
+
+        /* //求阶乘
+        alert(getFactorial(5));//120
+        function getFactorial(number){//factorial是阶乘的意思
+            var product = 1;
+            for(var i=1;i<=number;i++){
+                product *= i;
+            }
+            return product;
+        }
+        //求1!+2!+3!+....+n!
+        alert(getSumFactorial(6));//873
+        function getSumFactorial(number){
+            var sum = 0;
+            for(var i=1;i<=number;i++){
+                sum += getFactorial(i);
+            }
+            return sum;
+        } */
+
+        /* //判断一个数是否是素数
+        //素数：除自身和1以外，不能被其他数整除。也就是num%其他数!==0
+        //须用for循环，判断除1和num以外的每一个数是否满足不能整除num
+        //要判断是否，所以返回值是true/false
+        alert(prime(6));
+        function prime(num){
+            for(var i=2;i<=num;i++){//除1和自身以外，不能被整除，故而i从2开始。
+                if(num%i===0){
+                    return false;
+                }
+                return true;
+            }
+        } */
+           
+        
+        /* //求斐波那契数列Fibonacci中的第n个数是多少？      
+        //1 1 2 3 5 8 13 21...从第三项开始每一项是前两项之和
+        alert(getFibonacci(9));
+        function getFibonacci(n){
+            var num1 = 1;
+            var num2 = 1;
+            for(var i=3;i<=n;i++){
+                var temp = num2;
+                num2 = num2 + num1;
+                num1 = temp;
+            }
+            return num2;
+        } */
+
+        /* //输入某年某月某日，判断这一天是这一年的第几天？
+        //四年一闰，百年不闰，四百年再闰
+        //步骤：1.判断是否是闰年
+        //2.求天数（年份上面判断是否是闰年，月份上面判断是否超过了2月）
+        //把每月的天数组成一个数组，不包含闰年
+        //如果是闰年，且月份超过了二月，直接天数+1
+
+        console.log(getDays(2019,11,20));//324
+        //判断是否是闰年
+        function isLeapYear(year){
+        //四年一闰，百年不闰，四百年再闰
+            if(year%4===0 && year%100!==0 || year%400===0){
+                return true;
+            }
+            return false;
+        }
+
+        //参数问题：年月日是变化的。
+        //处理方法：其一：把参数变成成员变量，不方便
+        //其二：直接把年月日变成参数
+        function getDays(year,month,day){
+            //将每月的天数放入一个数组中（非闰年）
+            var array = [31,28,31,30,31,30,31,31,30,31,30,31];
+            for(var i=0;i<month-1;i++){
+                //用输入的月份当索引值，输入的天数直接+到day中
+                //day = day + arr[i]
+                day += array[i];
+            }
+            //然后判断是否是闰年，而且有没有超过2月份，闰年且月份超过2月，day+1
+            if(isLeapYear(year) && month>2){
+                day += 1;
+            }
+            return day;
+        } */
+
+
+       /*  //求n个数的累加 递归
+        alert(getSum(100));
+        function getSum(n){
+            if(n<1){//递归要有条件 满足某个条件
+                return 0;
+            }
+            return n + getSum(n-1);
+        } */
+        
+        /* var value;
+
+console.log(typeof data); // "undefined"
+console.log(typeof value); // "undefined"
+ */
+       /*  //属性绑定？
+        var str = "bbb";
+        var obj = new Object();
+        obj.str = "aaa";
+        obj[str] = "aaa"; */
+
+        /* //创建数组
+        var arr1 = [1,2,3];
+        var arr2 = new Array(2);//括号内1个值指数组长度
+        var arr3 = new Array(2,3);//括号内两个以上的值指数组内元素
+        console.log(arr1);
+        console.log(arr2);
+        console.log(arr3);
+        console.log(arr1.length);//获取数组长度
+        console.log(arr2 instanceof Array);//判断arr2是不是一个数组
+        console.log(Array.isArray(arr3));//判断arr3是不是一个数组 */
+        
+        /* //将一个字符串数组输出为|分割的形式，比如“刘备|张飞|关羽”。使用两种方式实现
+        var arr = ["刘备","张飞","关羽"];
+        var arr1 = arr.join("|");//数组元素用特殊方式连接成字符串
+        console.log(arr1);
+        console.log(arr.toString());//把数组转换成字符串，每一项用 ","分隔
+        console.log(arr.valueOf());//返回数组对象本身 */
+
+        /* //将一个字符串数组的元素的顺序进行反转。["a","b","c","d"] ["d","c","b","a"]。
+        //使用两种种方式实现。提示：第i个和第length-i-1个进行交换
+        var array = ["a","b","c","d"];
+        var arr = array.reverse();
+        //console.log(array.reverse());
+        console.log(arr); */
+
+        /* //工资的数组[1500,1200,2000,2100,1800],把工资超过2000的删除
+        var arr = [1500,1200,2000,2100,1800];
+        var arr1 = arr.filter(//filter的返回值是一个新数组，return为true的数组。
+            function(element,index,arr){
+                if(element>2000){
+                    return false;
+                }
+                return true;
+            }
+        );
+        console.log(arr);
+        console.log(arr1); */
+
+        //["c","a","z","a","x","a"]找到数组中每一个元素出现的次数
+        
+        //编写一个方法 去掉一个数组的重复元素
+
+
+
+
+            /* var a = "a"+"b";
+            var b = "a"+"b"+"c";
+            var c = "a"+b+"c";
+            console.log(a);
+            console.log(b);
+            console.log(c); */
+
+
+
+
+
+
+        /* //创建数组
+        var arr1 = [1,2,3];
+        var arr2 = new Array(4);//创建的新数组只有一个数，指的是新数组长度
+        var arr3 = new Array(5,6);//创建的新数组有两个多两个以上的数，指的是数组内的元素
+        console.log(arr1);
+        console.log(arr2);
+        console.log(arr3);
+
+        //获取array对象属性
+        console.log(arr1.length);
+
+        //检测数组1.instanceof
+        console.log(arr2 instanceof Array);
+        //检测数组2.Array.isArray()
+        console.log(Array.isArray(arr3));
+
+        //转换数组1.toString() 把数组转换成字符串，每一项用,连接
+        console.log(arr3.toString());
+        //转换数组2.valueOf() 返回数组对象本身
+        console.log(arr1.valueOf());
+
+        //join（加入）把数组元素用特殊方式连接成字符串
+        var str1 = arr1.join();//无参默认用,连接
+        var str2 = arr1.join("");//空字符串，表示无缝连接
+        var str3 = arr1.join(" ");//空格连接
+        var str4 = arr1.join("|");//特殊符号连接
+        console.log(str1);
+        console.log(str2);
+        console.log(str3);
+        console.log(str4);
+
+        //栈操作（先进的后出）
+        //push()在数组最后面插入项，返回数组长度
+        console.log(arr1.push("a"));//4
+        console.log(arr1);
+        //pop()取出数组的最后一项，length属性被修改，返回被取出的项
+        console.log(arr1.pop());//a
+
+        //队列操作（先进的先出）
+        //shift()删除数组最前面的元素，返回被删掉的项
+        console.log(arr1.shift());//1
+        //unshift()在数组的最前面添加一项，返回数组长度
+        console.log(arr1.unshift(1));//3
+
+        //排序方法
+        //reverse()翻转数组
+        console.log(arr1.reverse());//在原数组上进行翻转。故而原数组已改变
+        //sort()数组排序
+        var arr4 = [5,1,2,9,3];
+        console.log(arr4.sort());//从小到大
+
+        //操作方法
+        //concat()把参数拼接到当前数组，可以连接两个数组，原数组并未被修改
+        var arr5 = ["a","b","c"];
+        var arr6 = arr5.concat(arr1);
+        console.log(arr5);
+        console.log(arr6);
+        //slice(开始位置，结束位置)从当前数组中截取新数组，不影响原数组，可以不写结束位置
+        //开始位置：数组片段开始处的数组下标。
+        //结束位置：数组片段结束处的后一个元素的数组下标。
+        console.log(arr6.slice(1));
+        console.log(arr6.slice(2,6));
+        //splice()删除或者是替换当前数组的某些项,原数组会被修改
+        console.log(arr6.splice(5));
+        console.log(arr6.splice(2,1));
+        console.log(arr6.splice(0,1,"f"));
+
+        //位置方法：查找元素
+        //indexOf()从前往后查找，找到一个后立马返回，返回的是索引值，如果不存在返回-1
+        var arr7 = ["a","b","c","f","a","c","b","c"];
+        console.log(arr7.indexOf("b"));//1
+        console.log(arr7.indexOf("f"));//3
+        console.log(arr7.indexOf("x"));//-1
+        //lastIndexOf()从后往前查找元素，找到一个后立马返回。如果不存在返回-1
+        console.log(arr7.lastIndexOf("a"));//4
+        console.log(arr7.lastIndexOf("c"));//7
+        console.log(arr7.lastIndexOf("f"));//3
+        console.log(arr7.lastIndexOf("x"));//-1 */
+        
+        /* //迭代方法 
+        var arr = ["关长","张飞","赵龙","马超","黄忠"];
+        //every()他的返回值是一个boolean类型值。而参数是一个回调函数。
+        //对数组中的每一项运行以下回调函数
+        //如果都返回true，every返回true，如果有一项返回false，则停止遍历，返回false
+        var bool = arr.every(function(element,index,array){
+            //element = "aaa";
+            //array[index] = "aaa";
+            console.log(element);
+            console.log(index);
+            console.log(array);
+            return true;//一定要写返回值，否则遍历一项便返回
+            if(element.length>2){
+                return false;
+            }
+            return true;
+        });
+        alert(bool);
+
+        //filter()返回值是一个新数组。return为true的数组。
+        //对数组中的每一项运行以下函数，返回值是该函数返回结果为true的项组成的新数组
+        var arr1 = arr.filter(function(element,index,array){
+            if(element.length>2){
+                return true;
+            }
+            return false;
+        });
+        console.log(arr1);
+
+        //forEach()遍历数组，没有返回值，纯操作数组中的元素
+        var str = "|";
+        arr.forEach(function(element,index,aray){
+            str += element;
+        });
+        console.log(str);
+
+        //map()有返回值，返回什么都添加到新数组中。
+        //对数组中的每一项运行以下函数，返回该函数的结果组成新数组。
+        var arr2 = arr.map(function(element,index,array){
+            return element + "你好";
+        });
+        console.log(arr2);
+
+        //some()有返回值，函数的结果有一项是true，本方法结果就是true
+        //对数组中的每一项运行以下函数，有一项的返回值是true，some返回true
+        var flag = arr.some(function(ele,index,array){
+            if(ele.length<2){
+                return true;
+            }
+            return false;
+        });
+        alert(flag); */
+
+        /* //清空数组
+        var arr = [1,2,3,4,5];
+        console.log(arr);
+        //方式1.删除数组中所有的项，array.splice(0,array.length),可只写0
+        //arr.splice(0);
+        //console.log(arr);//原数组被修改
+
+        //方式2.给length属性赋值 array.length=0 伪数组不能用
+        //arr.length = 0;
+        //console.log(arr);//原数组会被修改
+
+        //方式3：开辟新空间 比较推荐 array=[]
+        arr = [];
+        console.log(arr);//不修改原数组 */
+
+
+
+       /*  var num = 5;
+        console.log(num++);
+        console.log(num);
+        var num1 = 2;
+        console.log(++num1); */
+        var a = 1+1&&3;
+        var b = 0 && 1+1; 
+        var c = 1 ||  2 && 3-1;
+        alert(a);alert(b);alert(c);
+
+
+    </script>
+</body>
+</html>

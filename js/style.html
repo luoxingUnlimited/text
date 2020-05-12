@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>style属性的演示</title>
+</head>
+<body>
+    <div class="box" style="width: 100px;height: 100px;background-color: #f01;">
+
+    </div>
+    <script>
+        var box = document.getElementsByClassName("box")[0];
+
+        //1.样式少的时候使用
+        console.log(box.style.backgroundColor);//rgb(255,0,17)
+
+        //2.style是对象
+        console.log(box.style);//CSSStyleDeclaration组
+        console.log(typeof box.style);//object
+
+        //3.style属性的值是字符串，没有设置值是空字符串；
+        console.log(box.style.height);
+        console.log(box.style.border);
+
+        //4.命名规则，驼峰命名。和css不一样
+        console.log(box.style.backgroundColor);
+
+        //5.设置了类样式不能获取。（只和行内式交互，和内嵌和外链无关）
+        console.log(box.className);//box
+        console.log(typeof box.className);//string
+
+        //6.box.style.cssText = “字符串形式的样式”；
+        console.log(box.style.cssText);
+        box.style.cssText = "width: 200px; height: 200px; background-color: #1f0;line-height:200px; border: 1px solid #f01;"
+
+ 
+    </script>
+</body>
+</html>

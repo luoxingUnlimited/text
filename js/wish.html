@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>祝愿墙</title>
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 0px;
+            font-size: 12px;
+            background: url(images/bg.gif) repeat center 36px;
+            text-align: center;
+            background-color: #c30230;
+        }
+        #content {
+            margin: 0 auto;
+            width: 960px;
+            background: url(images/content_bg.jpg) no-repeat left top;
+            height: 627px;
+            position: relative;
+        }
+
+        #content .tip1, #content .tip2, #content .tip3, #content .tip4, #content .tip5, #content .tip6, #content .tip7, #content .tip8 {
+            position: absolute;
+            width: 227px;
+            left: 200px;
+            top: 100px;
+        }
+
+        #content .tip1 .tip_h {
+            background: url(images/tip1_h.gif) no-repeat left top;
+        }
+
+        #content .tip1 .tip_h, #content .tip2 .tip_h, #content .tip3 .tip_h, #content .tip4 .tip_h, #content .tip5 .tip_h, #content .tip6 .tip_h, #content .tip7 .tip_h, #content .tip8 .tip_h {
+            width: 227px;
+            padding-top: 45px;
+            height: 23px;
+            text-align: left;
+            cursor: move;
+        }
+        #content .tip1 .tip_c {
+            background: url(images/tip1_c.gif) repeat-y;
+        }
+
+        #content .tip1 .tip_c, #content .tip2 .tip_c, #content .tip3 .tip_c, #content .tip4 .tip_c, #content .tip5 .tip_c, #content .tip6 .tip_c, #content .tip7 .tip_c, #content .tip8 .tip_c {
+            width: 200px;
+            padding-left: 12px;
+            padding-right: 15px;
+            min-height: 40px;
+            text-align: left;
+            line-height: 20px;
+            max-height: 160px;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+
+        #content .tip1 .tip_f {
+            background: url(images/tip1_f.gif) no-repeat left top;
+        }
+
+        #content .tip1 .tip_f, #content .tip2 .tip_f, #content .tip3 .tip_f, #content .tip4 .tip_f, #content .tip5 .tip_f, #content .tip6 .tip_f, #content .tip7 .tip_f, #content .tip8 .tip_f {
+            width: 227px;
+            height: 53px;
+            padding-top: 20px;
+        }
+        #content .close, #content .close2 {
+            float: left;
+            font-size: 12px;
+            cursor: pointer;
+            color: #000000;
+        }
+        .clr {
+            clear: both;
+            overflow: auto;
+            display: block;
+            height: 0px;
+        }
+        #content .icon {
+            float: left;
+            width: 35px;
+            padding-left: 15px;
+            height: 35px;
+            text-align: center;
+        }
+        #content .name {
+            float: right;
+            padding-right: 15px;
+            text-align: right;
+            font-size: 14px;
+            line-height: 35px;
+            color: #C0F;
+        }
+        #content .num {
+            float: left;
+            padding-left: 7px;
+            width: 195px;
+        }
+    </style>
+</head>
+<body>
+    <!--纸条墙-->
+    <div id="content">
+        <!--纸条-->
+        <div class="tip1" id="tip" >
+            <div class="tip_h" title="双击关闭纸条">
+                <div class="num">第[49568]条 2018-07-7 22:51:52</div>
+                <div class="close" title="关闭纸条" >×</div>
+                <div class="clr"></div>
+            </div>
+            <div class="tip_c">
+                普天同庆，天下大同！
+            </div>
+            <div class="tip_f">
+                <div class="icon">
+                    <img src="images/bpic_1.gif" alt="" title="">
+                </div>
+                <div class="name">不愿意透露姓名的吕先生</div>
+                <div class="clr"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //需求：克隆盒子，然后在固定范围里随机显示，点击某张纸条，那张纸条就会在最上面显示
+        //思路：获取纸条，然后克隆，随机数值绑定到纸条上，添加到父盒子中，然后绑定事件，让其层级最高
+        //步骤：1.获取事件源：纸条，然后克隆，随机数值绑定到克隆的纸条上，最后添加到父盒子中
+        //2.绑定事件：点击哪个纸条，哪张纸条就显示在最上面
+        //3.书写事件驱动程序：层级最高
+
+        for(var i=0;i<=11;i++){//因为需要克隆多个，所以采用for循环
+            var content = document.getElementById("content");//获取父盒子
+            var tip = document.getElementById("tip");//获取纸条
+            var newTip = tip.cloneNode(true);//克隆纸条，深层克隆
+            //id问题，因为id具有唯一性，所以，克隆的每个纸条的id都要不一样
+            newTip.id = tip.id + i;
+            //书写纸条随机出现的固定范围
+            var topValue = parseInt(Math.random()*400);//Math.random()的浮点数范围是0-1;parseInt()取整
+            var leftValue = parseInt(Math.random()*700);
+            newTip.style.top = topValue + "px";
+            newTip.style.left = leftValue + "px";
+            content.appendChild(newTip);//把克隆出来的纸条装进父盒子中
+            //给克隆的纸条绑定事件
+            newTip.onclick = fn;
+            }
+            //关于tip自身这个纸条，可以保留绑定一样的事件，也可以删除
+            //保留
+            //tip.onclick = fn;
+            //删除
+            //tip.parentNode.removeChild(tip);
+            content.removeChild(tip);
+            
+            //书写事件驱动程序：层级设定
+            var index = 1;
+            function fn(){
+                this.style.zIndex = index;
+                index++;//每点击一下，index自增1，所以点击的那个永远是最大的
+            }
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册高亮显示</title>
+    <style>
+        .wrong {
+            border: 2px solid red;
+        }
+        .right {
+            border: 2px solid #91B81D;
+        }
+    </style>
+</head>
+<body>
+    账号：<input type="text" /><br /><br />
+    密码：<input type="password" />
+    <script>
+    //需求：失去焦点的时候判断input按钮中的值，如果账号或密码在6-12个字符之间通过，否则报错。
+    //思路：更改input标签的class属性
+    //步骤：1.获取事件源：input框
+    //2.绑定事件：onblur失去光标
+    //3.书写事件驱动程序：判断input框里的输入内容 
+        var inp = document.getElementsByTagName("input")[1];
+        inp.onblur = function(){
+            if(this.value.length < 6 || this.value.length > 12){//此处要注意是输入的value的长度而不是value本身
+                this.className = "wrong";
+            }else{
+                this.className = "right";
+            }
+        }
+    </script>
+</body>
+</html>

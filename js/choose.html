@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择水果</title>
+    <style>
+        select {
+            width: 150px;
+            height: 200px;
+            font-size: 16px;
+            background-color: #1f0;
+        }
+    </style>
+</head>
+<body>
+    <select name="" id="sel1" multiple size="10">
+        <option value="0">0桃子</option>
+        <option value="1">1榴莲</option>
+        <option value="2">2橙子</option>
+        <option value="3">3火龙果</option>
+        <option value="4">4猕猴桃</option>
+    </select>
+    <input type="button" value="<<<">
+    <input type="button" value=">>>">
+    <input type="button" value="<">
+    <input type="button" value=">">
+    <select name="" id="sel2" multiple size="10">
+
+    </select>
+    <!-- <script>
+        //需求1：点击<<<右边选框中所有子元素被移到左边选框，点击>>>左边选框中的所有子元素移到右边选框
+        //步骤：1.获取事件源：选框以及button按钮
+        //2.绑定事件：onclick
+        //3.书写事件驱动程序：左边选框的所有子元素移到右边，或者右边选框的所有子元素移到左边
+        var sel1 = document.getElementById("sel1");
+        var sel2 = document.getElementById("sel2");
+        var inpArr = document.getElementsByTagName("input");
+        inpArr[0].onclick = function(){
+            var arr = sel2.children;//因为子元素在变化，所以先绑定事件，再获取
+            for(var i=arr.length-1;i>=0;i--){//此处倒着写，是为了移过去的元素顺序不变。
+                sel1.appendChild(arr[0]);
+                //appendChild()是给元素标签添加子元素，push()是给数组添加元素，故此处用appendChild()
+                //始终添加arr[0],是因为select子元素的数组是在变化的，意味着第一项也一直在变化，把每一个存在的第一项都移到对面，就相当于全部移过去了
+            }
+        }
+        inpArr[1].onclick = function(){
+            var arr = sel1.children;
+            for(var i=arr.length-1;i>=0;i--){
+                sel2.appendChild(arr[0]);
+            }
+        }
+        //需求2：点击<,右边选框里面的被选中的子元素会被移到左边选框；点击>左边选框里面被选中的子元素会被移到右边选框
+        //思路：利用selected属性，selected属性是true的就是被选中的，因此需要获取子元素之后循环判断
+        inpArr[2].onclick = function(){
+            var arr = sel2.children;
+            for(var i=arr.length-1;i>=0;i--){
+                if(arr[i].selected === true){
+                    arr[i].selected = false;//这两项位置不能写反，要取消选定之后再放进对面选框中
+                    sel1.appendChild(arr[i]);//不然会出现，一个一个执行的效果
+                }
+            }
+        }
+        inpArr[3].onclick = function(){
+            var arr = sel1.children;
+            for(var i=arr.length-1;i>=0;i--){
+                if(arr[i].selected === true){
+                    arr[i].selected = false;
+                    sel2.appendChild(arr[i]);
+                }
+            }
+        }
+    </script> -->
+    <!-- <script>
+        //封装版
+        var sel1 = document.getElementById("sel1");
+        var sel2 = document.getElementById("sel2");
+        var inpArr = document.getElementsByTagName("input");
+        //如果不带参数，可以直接绑定函数，因为带有参数，所以需要调用，再书写事件驱动程序中调用。
+        inpArr[0].onclick = function(){//直接绑定函数，只会执行一遍，为什么呢？
+            fn1(sel2,sel1);
+        }
+        inpArr[1].onclick = function(){
+            fn1(sel1,sel2);
+        }
+        inpArr[2].onclick = function(){
+            fn2(sel2,sel1);
+        }
+        inpArr[3].onclick = function(){
+            fn2(sel1,sel2);
+        }
+        function fn1(ele1,ele2){
+            var arr = ele1.children;
+            for(var i=arr.length-1;i>=0;i--){
+                ele2.appendChild(arr[0]);
+            }
+        }
+        function fn2(ele1,ele2){
+            var arr = ele1.children;
+            for(var i=arr.length-1;i>=0;i--){
+                if(arr[i].selected === true){
+                    arr[i].selected = false;
+                    ele2.appendChild(arr[i]);
+                }
+            }
+        }
+    </script> -->
+    <script>
+        //排序版
+        var sel1 = document.getElementById("sel1");
+        var sel2 = document.getElementById("sel2");
+        var inpArr = document.getElementsByTagName("input");
+        inpArr[0].onclick = function(){
+            var arr = sel2.children;
+            for(var i=0;i<arr.length;){//此处i不自增也是可以满足要求的
+                sel1.appendChild(arr[i]);
+            }
+        }
+        inpArr[1].onclick = function(){
+            var arr = sel1.children;
+            for(var i=0;i<arr.length;){
+                sel2.appendChild(arr[i]);
+            }
+        }
+        inpArr[2].onclick = function(){
+            var arr = sel2.children;
+            for(var i=arr.length-1;i>=0;i--){
+                if(arr[i].selected === true){
+                    arr[i].selected = false;
+                    sel1.appendChild(arr[i]);
+                }
+            }
+            //获取sel1中的所有子元素，变成真数组，然后排序
+            var aaa = Array.from(sel1.children).sort(function(a,b){
+                return a.value-b.value;//从小到大
+            });
+            //删除所有子元素
+            for(var i=0;i<sel1.children.length;i++){
+                sel1.removeChild(sel1.children[i]);
+            }
+            //把排好序的元素全部再放进sel1中
+            for(var i=0;i<aaa.length;i++){
+                sel1.appendChild(aaa[i]);
+            }
+        }
+        inpArr[3].onclick = function(){
+            var arr = sel1.children;
+            for(var i=arr.length-1;i>=0;i--){
+                if(arr[i].selected === true){
+                    arr[i].selected = false;
+                    sel2.appendChild(arr[i]);
+                }
+            }
+            var bbb = Array.from(sel2.children).sort(function(a,b){
+                return a.value-b.value;
+            });
+            for(var i=0;i<sel2.children.length;i++){
+                sel2.removeChild(sel2.children[i]);
+            }
+            for(var i=0;i<bbb.length;i++){
+                sel2.appendChild(bbb[i]);
+            }
+        }
+    </script>
+</body>
+</html>

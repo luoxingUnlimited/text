@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关闭ad盒子</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #box {
+            width: 20px;
+            height: 20px;
+            margin: 10px auto;
+            background-color: #adf;
+            cursor: pointer;/* 设置鼠标状态 */
+        }
+        #box1 {
+            margin: 10px auto;
+            background-color: #ccc;
+        }
+        #box2 {
+            width: 1200px;
+            height: 80px;
+            margin: 0 auto;
+            background-color: #0af;
+            position: relative;
+        }
+        #box1 #box2 a {
+            text-decoration: none;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1">
+        <div id="box2">
+            <a href="#" id="close">x</a>
+        </div>
+    </div>
+    <script>
+        //需求：点击盒子弹出对话框alert(1)
+        //1.获取事件源(document.getElementById(""))
+        //2.绑定事件(事件源.事件=function(){事件驱动程序})
+        //3.书写事件驱动程序
+        var box = document.getElementById("box");
+        box.onclick = function(){
+            alert(1);
+        }
+        //需求：点击x。盒子关掉
+        //1.获取事件源，获取要点击的x
+        //2.绑定事件，将x与点击绑定
+        //3.盒子消失display：none；
+        var close = document.getElementById("close");
+        close.onclick = function(){
+            box2.style.display = "none";
+        }
+    </script>
+</body>
+</html>

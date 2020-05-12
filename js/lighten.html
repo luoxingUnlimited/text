@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点亮盒子并绑定索引值</title>
+    <style>
+        button {
+            margin: 10px;
+            width: 100px;
+            height: 40px;
+            cursor: pointer;
+        }
+        .current {
+            background-color: rgb(248, 223, 0);
+        }
+    </style>
+</head>
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        //需求1：鼠标放在哪个button上，哪个按钮的背景颜色发生改变，也就是添加类
+        //需求2：弹出盒子的索引值
+        //步骤：1.获取事件源：button
+        //2.绑定事件：onmouseover鼠标悬停
+        //3.书写事件驱动程序：鼠标悬停在哪个按钮上 哪个按钮就添加current这个类
+        var btnArr = document.getElementsByTagName("button");
+        //数组中的每一项都要绑定，所以需要for循环遍历数组
+        for(var i=0;i<btnArr.length;i++){
+            //每次循环都给每个元素绑定一个属性，属性为该盒子的索引值
+            //btnArr[i].setAttribute("index",i);
+            btnArr[i].index = i;
+            btnArr[i].onmouseover = function(){
+                //因为需要的是鼠标悬停背景色变化 鼠标离开并没有发生变化 
+                //而是鼠标悬停在另一个按钮上时。之前按钮的背景色恢复原状。
+                //因此需要让所有的都保持原色，而选中的那个再添加即可。
+                //即排他思想，先去掉所有的，然后留下选中的
+                //排他思想一般与for循环连用
+                for(var j=0;j<btnArr.length;j++){
+                    btnArr[j].className = "";
+                }
+                this.className = "current";
+                //alert(this.getAttribute("index"));
+                alert(this.index);
+            }
+        }
+    </script>
+</body>
+</html>

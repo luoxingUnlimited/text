@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>更换皮肤</title>
+    <style>
+        body,div,img {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: url(images/6.jpg) no-repeat;
+        }
+        div {
+            height: 180px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        img {
+            width: 200px;
+            margin: 20px 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img src="images/6.jpg" alt="">
+        <img src="images/7.jpg" alt="">
+        <img src="images/8.jpg" alt="">
+        <img src="images/9.jpg" alt="">
+        <img src="images/10.jpg" alt="">
+    </div>
+    <script>    
+        //需求：点击图片，body的背景图变成相应的图片
+        //步骤：1.获取事件源：img以及body
+        //2.绑定事件：onclick
+        //3.书写事件驱动程序：背景图image发生改变
+        var imgArr = document.getElementsByTagName("img");
+        //获取body，js内部会帮我们优化完毕，所以直接这样获取即可
+        var body = document.body;
+        //因为是数组，每一项都要绑定，所以用for循环绑定
+        for(var i=0;i<imgArr.length;i++){
+            imgArr[i].onclick = function(){
+                body.style.backgroundImage = "url("+this.src+")";
+            }
+        }
+        /* //在此案例中还可通过更换图片的index
+        for(var i=0;i<imgArr.length;i++){
+            imgArr[i].index = i;
+            imgArr[i].onclick = function(){
+                body.style.backgroundImage = "url(images/"+(this.index+6)+".jpg)";
+            }
+        } */
+    </script>
+</body>
+</html>

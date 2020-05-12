@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>隐藏和显示盒子</title>
+    <style>
+        button {
+            display: block;
+            margin: 20px auto;
+        }
+        div {
+            width: 99px;
+            height: 99px;
+            background-color: #000;
+            color: #fff;
+            margin: 0 auto;
+        }
+        .show {
+            display: block;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <button id="btn">隐藏</button>
+    <div>
+        选一个方向，定一个时间，剩下的只管努力和坚持。
+    </div>
+    <script>
+        //需求：点击隐藏按钮 盒子隐藏 按钮变显示。 点击显示按钮 盒子显示按钮变隐藏
+        //盒子的隐藏和显示通过给盒子添加class，事先书写class的相关样式
+        //步骤：1.获取事件源及其相关元素：button按钮以及盒子
+        //2.绑定事件：按钮绑定onclick
+        //3.书写事件驱动程序：盒子隐藏，button按钮字变显示。盒子显示，button按钮字变隐藏。
+        var btn = document.getElementById("btn");
+        var div = document.getElementsByTagName("div")[0];
+        btn.onclick = function(){
+            //此处需要判断实现 innerHTML是获取双闭合标签里面的内容（识别双闭合标签内的标签）
+            //如果btn的innerHTML属性为"隐藏"，则盒子隐藏，button按钮内容改为显示
+            //反之btn的innerHTML属性为"显示"，则盒子显示，button按钮内容改为隐藏
+            if(btn.innerHTML === "隐藏"){
+                div.className = "hide";
+                btn.innerHTML = "显示";
+            }else{
+                div.className = "show";
+                btn.innerHTML = "隐藏";
+            }
+        }
+    </script>
+</body>
+</html>

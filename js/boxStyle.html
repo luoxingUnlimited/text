@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分别用两种方式改变盒子的颜色以及大小</title>
+    <style>
+        li {
+            width: 100px;
+            height: 100px;
+            background-color: #f7c;
+            list-style: none;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li id="box"></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <!-- 方法1.利用封装改变背景色 需要内链js文件 -->
+    <script src="tools.js"></script>
+    <script>
+        //获取box，改变其颜色为#b7c;
+        var box = getEle("box");
+        box.style.backgroundColor = "#b7c";
+        
+        //获取第一个和最后一个子节点；
+        var parent = box.parentNode;
+        getFirstNode(parent).style.backgroundColor = "#9f1";
+        getLastNode(parent).style.backgroundColor = "#9f1";
+
+        //获取box的上一个和下一个兄弟节点；
+        getPrevNode(box).style.backgroundColor = "#a12";
+        getNextNode(box).style.backgroundColor = "#a12";
+
+        //获取box所在的子元素中索引为1的元素,也就是指定的兄弟节点
+        getEleOfIndex(box,1).style.backgroundColor = "#177";
+
+        //获取box的所有兄弟节点，因为获取的是数组。所以需要for循环赋值
+        var arr = getAllSiblings(box);
+        for(var i=0;i<arr.length;i++){
+            arr[i].style.backgroundColor = "#111";
+        }
+    </script>
+    <!-- 方法2.直接书写 改变盒子大小-->
+    <script>
+        //获取盒子
+        var box = document.getElementById("box");
+        box.style.width = "120px";
+        //获取第一个元素和最后一个元素（切记兼容性写法）
+        var box1 = box.parentNode.firstElementChild || box.parentNode.firstChild;
+        box1.style.width = "80px";
+        var box2 = box.parentNode.lastElementChild || box.parentNode.lastChild;
+        box2.style.width = "180px";
+        //获取盒子的上一个兄弟节点和下一个兄弟节点（切记兼容性写法）
+        var box3 = box.previousElementSibling || box.previousSibling;
+        box3.style.width = "240px";
+        var box4 = box.nextElementSibling || box.nextSibling;
+        box4.style.width = "150px";
+        //获取index是4的兄弟节点
+        var box5 = box.parentNode.children[4];
+        box5.style.width = "60px";
+        //获取box的全部兄弟节点
+        var arr = box.parentNode.children;
+        for(var i=0;i<arr.length;i++){
+            //arr[i].style.width = "200px";因为是获取全部兄弟节点 所以不包含本身 故而需要判断
+            if(arr[i]!==box){
+                arr[i].style.width = "200px";
+            }
+        }
+
+//    //父节点
+//    div.parentNode;
+//
+//    //访问兄弟节点
+//    div.previousSibling;
+//    div.previousElementSibling;
+//    div.nextSibling;
+//    div.nextElementSibling;
+//
+//    //访问单个子节点
+//    div.firstChild;
+//    div.firstElementChild;
+//    div.lastChild;
+//    div.lastElementChild;
+//
+//
+//    //获取所有子节点
+//    div.childNodes;
+//    div.children;
+//
+//
+//    //获取指定的兄弟节点
+//    div.parentNode.children[index];
+//
+//    //获取所有的兄弟节点（返回值是一个数组）
+//    function fn(ele){
+//        //定义一个新数组，装所有的兄弟元素，将来返回
+//        var newArr = [];
+//        var arr = ele.parentNode.children;
+//        for(var i=0;i<arr.length;i++){
+//            //判断，如果不是传递过来的元素本身，那么添加到新数组中。
+//            if(arr[i]!==ele){
+//               newArr.push(arr[i]);
+//               newArr[newArr.length] = arr[i];
+//            }
+//        }
+//        return newArr;
+//    }
+    </script>
+</body>
+</html>

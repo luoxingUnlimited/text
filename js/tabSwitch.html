@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab栏切换(switch)</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box {
+            width: 500px;
+            height: 400px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        ul {
+            width: 600px;
+            height: 40px;
+            margin-left: -1px;
+            list-style: none;
+        }
+        li {
+            float: left;
+            width: 101px;
+            height: 40px;
+            text-align: center;
+            font: 600 18px/40px "simsun";
+            background-color: pink;
+            cursor: pointer;
+        }
+        span {
+            display: none;
+            width: 500px;
+            height: 360px;
+            background-color: rgb(67, 99, 245);
+            text-align: center;
+            font: 700 150px/360px "simsun";
+        }
+        .show {
+            display: block;
+        }
+        .current {
+            background-color: rgb(67, 99, 245);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li class="current">鞋子</li>
+            <li>袜子</li>
+            <li>帽子</li>
+            <li>裤子</li>
+            <li>裙子</li>
+        </ul>
+        <span class="show">鞋子</span>
+        <span>袜子</span>
+        <span>帽子</span>
+        <span>裤子</span>
+        <span>裙子</span>
+    </div>
+    <div class="box">
+        <ul>
+            <li class="current">鞋子</li>
+            <li>袜子</li>
+            <li>帽子</li>
+            <li>裤子</li>
+            <li>裙子</li>
+        </ul>
+        <span class="show">鞋子</span>
+        <span>袜子</span>
+        <span>帽子</span>
+        <span>裤子</span>
+        <span>裙子</span>
+    </div>
+    <div class="box">
+        <ul>
+            <li class="current">鞋子</li>
+            <li>袜子</li>
+            <li>帽子</li>
+            <li>裤子</li>
+            <li>裙子</li>
+        </ul>
+        <span class="show">鞋子</span>
+        <span>袜子</span>
+        <span>帽子</span>
+        <span>裤子</span>
+        <span>裙子</span>
+    </div>
+    <script>
+        //需求：鼠标放在li上面，li本身变颜色（为其添加类），对应的span也要显示出来（为其添加类）；
+        //思路：1.点亮li盒子。2.利用索引值显示span盒子
+        //步骤：1.获取事件源：li数组以及span数组
+        //2.绑定事件：onmouseover
+        //3.书写事件驱动程序：移动到哪个li盒子上 哪个li盒子的颜色就发生变化，
+        //同时利用索引值显示对应的span盒子
+        /* var liArr = document.getElementsByTagName("li");
+        var spanArr = document.getElementsByTagName("span");
+        for(var i=0;i<liArr.length;i++){
+            liArr[i].setAttribute("index",i);
+            //liArr[i].index = i;
+            liArr[i].onmouseover = function(){
+                for(var j=0;j<liArr.length;j++){//排他思想
+                    liArr[j].className = "";
+                    spanArr[j].className = "";
+                }
+                this.className = "current";
+                spanArr[this.getAttribute("index")].className = "show";
+                //spanArr[this.index].className = "show";
+            }
+        } */
+
+        //当有多个一样的盒子时。需要利用函数封装来达到互不影响的效果
+        //获取多个盒子组成的数组
+        var boxArr = document.getElementsByClassName("box");
+        //函数调用:因为是数组，所以需要循环调用
+        for(var i=0;i<boxArr.length;i++){
+            fn(boxArr[i]);
+        }
+        //函数封装
+        function fn(element){
+            var liArr = element.getElementsByTagName("li");
+            var spanArr = element.getElementsByTagName("span");
+            for(var i=0;i<liArr.length;i++){
+                liArr[i].setAttribute("index",i);
+                //liArr[i].index = i;
+                liArr[i].onmouseover = function(){
+                    //1.点亮盒子。   2.利用索引值显示盒子。(排他思想)
+                    for(var j=0;j<liArr.length;j++){
+                        liArr[j].removeAttribute("class");
+                        spanArr[j].removeAttribute("class");
+                    }
+                    this.setAttribute("class","current");
+                    spanArr[this.getAttribute("index")].setAttribute("class","show");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

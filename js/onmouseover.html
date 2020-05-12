@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>利用鼠标切换图片</title>
+    <style>
+        a img {
+            width: 500px;
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+    <!-- <script>
+        //页面加载（文本和图片）完毕的时候再触发js
+        window.onload = function(){
+            var img = document.getElementById("jia");
+            img.onclick = function(){
+                img.src = "images/si.png";
+            }
+        }  
+    </script> -->
+</head>
+<body>
+    <a href="#">
+        <img src="images/jia.png" alt="" id="jia">
+    </a>
+    <script>
+        //需求：移动鼠标悬停在图片上，图片切换（switch），移开又切换回去
+        //1.获取事件源：图片
+        //2.绑定事件源：onclick点击
+        //3.书写事件驱动程序：图片切换
+        var img = document.getElementById("jia");
+        img.onmouseover = function(){
+            img.src = "images/si.png";
+        }
+        img.onmouseout = function(){//用this或者是img都可以 this表函数的调用者
+            img.src = "images/jia.png";
+        }
+    </script>
+</body>
+</html>

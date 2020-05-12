@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全选与反选</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap {
+            width: 300px;
+            margin: 100px auto 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            width: 300px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+        }
+
+        td {
+            font: 14px "微软雅黑";
+        }
+
+        tbody tr {
+            background-color: #f0f0f0;
+        }
+
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+    </style>
+    <script>
+        //如果不是书写在body最下方 书写在页面其他位置 就需要用window.onload=function包起来
+        window.onload = function(){
+            //需求1：点击th里面的input框，下面tb里面的input框全选或反选
+            //思路：获取th里面的input框，判断checked属性，是true，那么tb里面的input框的checked属性为true，反之为false。
+            //checked属性指默认被选中的项，其值是布尔类型，默认true
+            //步骤：1.获取事件源：th里面的input框，tb以及tb里面的input数组
+            //2.绑定事件：onclick
+            //3.书写事件驱动程序：判断input框的checked属性
+            var thInp = document.getElementById("theadInp");
+            var tbody = document.getElementById("tbody");
+            var tdInpArr = tbody.getElementsByTagName("input");
+            //先判断在进行循环赋值
+            thInp.onclick = function(){
+                if(thInp.checked === true){
+                    for(var i=0;i<tdInpArr.length;i++){
+                        tdInpArr[i].checked = true;
+                    }
+                }else{
+                    for(var i=0;i<tdInpArr.length;i++){
+                        tdInpArr[i].checked = false;
+                    }
+                }
+            }
+            //复杂版：先循环，再判断之后再赋值,意味着数组中的每一项都要判断赋值
+            thInp.onclick = function(){
+                for(var i=0;i<tdInpArr.length;i++){
+                    if(thInp.checked === true){
+                        tdInpArr[i].checked = true;
+                    }else{
+                        tdInpArr[i].checked = false;
+                    }
+                }
+            }
+            //优化版：直接把被点击的th里面input框的checked属性值,作为tb里面所有input框checked的属性值
+            thInp.onclick = function(){
+                for(var i=0;i<tdInpArr.length;i++){
+                    tdInpArr[i].checked = this.checked;
+                }
+            }
+
+
+            //需求2：点击tb里面的input框，如果全部选定，那么th里面的input框显示被选定
+            //如果tb里面的input框有一项未被选定，则th不被选定
+            //思路：为tb里面的input框绑定事件，每点击一次都要判断所有按钮的checked属性值
+            //如果全部都是true，那么th的input框的checked属性值为true，
+            //如果有一项是false，则th的input框的checked属性值为false。
+            //步骤：1.获取事件源。上面已经获取：th里面的input框，tb以及tb里面的input数组
+            //2.绑定事件：onclick
+            //3.书写事件驱动程序：for循环给tb里面的input框绑定事件，然后for循环对每一项进行判断
+            for(var i=0;i<tdInpArr.length;i++){
+                tdInpArr[i].onclick = function(){
+                    //开闭原则
+                    var bool = true;
+                    for(var j=0;j<tdInpArr.length;j++){
+                        if(tdInpArr[j].checked === false){
+                            bool = false;
+                        }
+                    }
+                    thInp.checked = bool;
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="theadInp" />
+                    </th>
+                    <th>全明星赛阵容</th>
+                    <th>选手</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>Top</td>
+                    <td>TheShy</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>Jungle</td>
+                    <td>Tian</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>Mid</td>
+                    <td>Rookie</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>Bottom</td>
+                    <td>JackeyLove</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>Sup</td>
+                    <td>Crisp</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+</body>
+</html>

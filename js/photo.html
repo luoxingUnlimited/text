@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>相册</title>
+    <style type="text/css">
+        body {
+            font-family: "Helvetica", "Arial", serif;
+            color: #333;
+            background-color: #ccc;
+            margin: 1em 10%;
+        }
+        h1 {
+            color: #333;
+            background-color: transparent;
+        }
+        a {
+            color: #c60;
+            background-color: transparent;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        ul {
+            padding: 0;
+        }
+        li {
+            float: left;
+            padding: 1em;
+            list-style: none;
+        }
+        #imagegallery {
+            list-style: none;
+        }
+        #imagegallery li {
+            margin: 0px 20px 20px 0px;
+            padding: 0px;
+            display: inline;
+        }
+        #imagegallery li a img {
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        美女画廊
+    </h2>
+    <a href="#">注册</a>
+    <ul id="imagegallery">
+        <li>
+            <a href="images/1.jpg" title="美女A">
+                <img src="images/1-small.jpg" width="100" alt="美女1"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/2.jpg" title="美女B">
+                <img src="images/2-small.jpg" width="100" alt="美女2"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/3.jpg" title="美女C">
+                <img src="images/3-small.jpg" width="100" alt="美女3"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/4.jpg" title="美女D">
+                <img src="images/4-small.jpg" width="100" alt="美女4"/>
+            </a>
+        </li>
+    </ul>
+    <div style="clear:both"></div>
+    <img id="image" src="images/placeholder.png" width="450px"/>
+    <p id="des">选择一个图片</p>
+    <script>
+        //需求：点击小照片，下面image的src赋值为a链接的href值，p的文字赋值为a链接的title内容
+        //可用innerHTML获取p标签内的文字
+        //步骤：1.获取事件源及相关元素：小图片以及下面空白大图片和p
+        //2.绑定事件：a链接和onclick
+        //3.书写事件驱动程序：
+        //因为获取的是所有a链接，故而是一个数组
+        //对数组中的每一项都要进行绑定的话，也就是遍历数组，需要用到for循环
+        //下面空白大图的src赋值为a链接的href值，p的文字赋值为a链接的title内容
+        //利用元素获取其下标签
+        var ul = document.getElementById("imagegallery");
+        var aArr = ul.getElementsByTagName("a");
+        //获取空白大图以及p
+        var img = document.getElementById("image");
+        var p = document.getElementById("des");
+        for(var i=0;i<aArr.length;i++){
+            aArr[i].onclick = function(){
+                img.src = this.href;//this为函数调用者 和i并无关系 遍历时。谁调用就是指谁的href
+                //如果用aArr[i]会出现报错，因为此时的i和调用者的i并非同一个值，而是4
+                p.innerHTML = this.title;
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

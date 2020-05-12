@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>for循环给文本框赋值(assign)和取值</title>
+</head>
+<body>
+    <input type="text" /><br /><br />
+    <input type="text" /><br /><br />
+    <input type="text" /><br /><br />
+    <input type="text" /><br /><br />
+    <input type="text" /><br /><br />
+    <button>赋值</button>&nbsp;&nbsp;
+    <button>取值</button><br /><br />
+    <script>
+        //需求：点击赋值按钮，把arr中的每一项赋值给input。点击取值按钮，打印input框中的元素并用-连接
+        //思路：要求每一项都不错过 故而遍历数组 所以用上for循环
+        //步骤：1.获取事件源：input框以及button按钮 和arr
+        //2.绑定事件：onclick
+        //3.书写事件驱动程序：for循环赋值 以及取值
+        var arr = ["星期一","星期二","星期三","星期四","星期五","星期六"];
+        var inpArr = document.getElementsByTagName("input");
+        var btnArr = document.getElementsByTagName("button");
+        btnArr[0].onclick = function(){
+            for(var i=0;i<inpArr.length;i++){
+                inpArr[i].value = arr[i];
+            //需要提供赋值的数组arr元素只能多不能少，如果少了会有被赋值的元素取不到值，即值为undefined
+            }
+        }
+        btnArr[1].onclick = function(){
+            var newArr = [];
+            for(var i=0;i<inpArr.length;i++){
+                newArr.push(inpArr[i].value);//此处切记push进去的是inpArr数组中的每个元素的值
+            }   //push 指在数组最后面插入项，返回值是数组的长度
+            console.log(newArr.join(";"));//join 把数组中的每个元素用指定方式连接
+        }
+    </script>
+</body>
+</html>

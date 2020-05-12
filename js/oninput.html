@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取文本框焦点</title>
+    <style>
+        input {
+            width: 300px;
+            height: 36px;
+            padding-left: 5px;
+            color: #ccc;
+        }
+        label {
+            position: absolute;
+            top: 82px;
+            left: 56px;
+            font-size: 12px;
+            color: #ccc;
+            cursor: text;
+        }
+        .hide {
+            display: none;
+        }
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    京东:<input id="inp1" type="text" value="我是京东"/><br><br>
+    淘宝:<label for="inp2">我是淘宝</label><input id="inp2" type="text"/><br><br>
+    placeholder:<input type="text" placeholder="我是placeholder"/>
+    <script>
+        //需求：京东的获取焦点。
+        //思路：京东的input按钮获取了插入条光标后立刻删除内容。失去插入条光标则又显示文字。
+        //步骤：1.获取事件源：京东的input框
+        //2.绑定事件：onfocus获取焦点 onblur失去焦点
+        //3.书写事件驱动程序：input框获取到光标内容删除 失去光标内容恢复
+        var inp1 = document.getElementById("inp1");
+        inp1.onfocus = function(){
+            //获取焦点，判断input框的内容 如果为"我是京东"则赋值为""
+            if(this.value === "我是京东"){
+                this.style.color = "#000"
+                this.value = "";
+            }
+        }
+        inp1.onblur = function(){
+            //失去焦点，判断input框内容是否为空，如果是则赋值为"我是京东"
+            if(this.value === ""){
+                this.style.color = "#ccc";
+                this.value = "我是京东";
+            }
+        }
+
+        //需求：淘宝获取焦点
+        //思路：在input框内输入文字 label标签隐藏。input标签内内容为空字符串，label标签显示。
+        //步骤：1.获取事件源：input框以及label标签
+        //2.绑定事件：oninput元素获取用户输入时触发
+        //3.书写事件驱动程序：判断input框是否有输入内容
+        var inp2 = document.getElementById("inp2");
+        var lab = document.getElementsByTagName("label")[0];
+        inp2.oninput = function(){
+            if(this.value === ""){
+                lab.className = "show";
+            }else{
+                lab.className = "hide";
+                this.style.color = "#000";
+            }
+        }
+    </script>
+</body>
+</html>

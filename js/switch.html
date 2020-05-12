@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击切换(switch)图片</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 900px;
+            border: 1px solid #000;
+            margin: 20px auto;
+        }
+        .box img {
+            width: 500px;
+        }
+        .box a {
+            display: block;/* a是行内元素 需转换为块元素才能使其在图片上方 */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <a href="#">切换</a>
+        <img src="images/lan.png" alt="">
+    </div>
+    <script>
+        //需求：点击切换 对应的图片会切换
+        //步骤：1.获取事件源及相关元素：a链接和图片
+        //2.绑定事件：点击a链接
+        //3.书写事件驱动程序：图片会切换
+        var a = document.getElementsByTagName("a")[0];//获取的是数组，指定元素一定要索引
+        var img = document.getElementsByTagName("img")[0];
+        a.onclick = function(){
+            img.src = "images/li.png";
+            return false;//禁止a链接跳转
+        }
+    </script>
+</body>
+</html>

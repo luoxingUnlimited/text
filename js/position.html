@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>层级与定位</title>
+    <style>
+        body,button,div,img {
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            margin-top: 20px;
+            margin-left: 50px;
+        }
+        div {
+            width: 200px;
+            height: 300px;
+            background-color: #1f0;
+            position: absolute;
+            left: 20px;
+            top: 50px;
+            z-index: 1;
+        }
+        img {
+            width: 200px;
+            position: absolute;
+            left: 20px;
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <button>移动</button>
+    <div></div>
+    <img src="images/lan.png" alt="">
+    <script>
+        //需求：点击移动按钮，图片和盒子同时移动，并且图片覆盖在盒子之上
+        //步骤：1.获取事件源：button按钮 div盒子 以及img图片
+        //2.绑定事件：onclick
+        //3.书写事件驱动程序：盒子以及图片移动，并且层级关系发生变化
+        var btn = document.getElementsByTagName("button")[0];
+        var div= document.getElementsByTagName("div")[0];
+        var img = div.nextElementSibling || div.nextSibling;
+        btn.onclick = function(){
+            div.style.left = "150px";
+            div.style.top = "150px";
+            img.style.left = "150px";
+            img.style.left = "150px";
+            div.style.zIndex = "-1";
+            //z-index取值大的在上层，可取负数
+            //img.style.zIndex = "1";
+            //img.style.zIndex = "2";
+        }
+    </script>
+</body>
+</html>

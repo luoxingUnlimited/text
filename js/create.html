@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建列表并高亮显示</title>
+</head>
+<body>
+    <button>创建列表</button>
+    <ul></ul>
+    <script>
+        //需求：创建列表，给ul里面添加4个li，然后鼠标放在哪个li上哪个li便高亮显示
+        //步骤：1.获取button按钮以及ul 创建数组，要放进li里的内容数组
+        //2.创建列表，然后绑定事件
+        //3.书写事件驱动程序
+        var btn = document.getElementsByTagName("button")[0];
+        var ul = document.getElementsByTagName("ul")[0];
+        var arr = ["昭君出塞","西施浣纱","贵妃醉酒","貂蝉拜月"];
+        btn.onclick = function(){
+            //是要点击按钮之后才开始创建列表 
+            for(var i=0;i<arr.length;i++){
+                //创建li，此处的for循环是为了把内容放进li里
+                var newLi = document.createElement("li");
+                //innerHTML表示双闭合标签内的内容
+                newLi.innerHTML = arr[i];
+                ul.appendChild(newLi);
+            }
+            //获取li 绑定事件 然后让想要的li高亮显示
+            var liArr = ul.children;
+            for(var j=0;j<liArr.length;j++){
+                /*此方法移开后始终有一项是高亮显示的
+                 liArr[j].onmouseover = function(){
+                    //先要让所有的li都保持原状，排他思想。
+                    for(var k=0;k<liArr.length;k++){
+                        liArr[k].style.backgroundColor = "";
+                    }
+                    //然后鼠标移动到的那个li高亮显示
+                    this.style.backgroundColor = "#1f0";
+                } */
+                //此方法，移开后直接就恢复原状
+                liArr[j].onmouseover = function(){
+                    this.style.backgroundColor = "#ff0";
+                }
+                liArr[j].onmouseout = function(){
+                    this.style.backgroundColor = "";
+                }
+            }
+        }
+        //如何才能点击出来一组li之后，再点击就不会再有li了
+    </script>
+</body>
+</html>
