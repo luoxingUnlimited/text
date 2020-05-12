@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>垂直居中</title>
+    <style>
+    /*  先让盒子走父盒子的一半，然后向反方向走自身的一半
+        .box1 {
+            width: 500px;
+            height: 500px;
+            border: 2px dashed blue; 虚线 
+            margin: 20px auto;
+            position: relative;  相对定位 
+        }
+        .box2 {
+            width: 200px;
+            height: 300px;
+            border: 4px double pink;  双实线 
+            top: 250px;
+            margin-top: -150px;
+            position: absolute;  绝对定位  子绝父相
+        }  */
+        /* 使用表格vertical-align实现
+        .box1 {
+            width: 500px;
+            height: 500px;
+            border: 2px dotted black;  点线 
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .box2 {
+            width: 200px;
+            height: 300px;
+            border: 4px solid pink;单实线 
+        } */
+        .box1 {
+            width: 500px;
+            height: 500px;
+            border: 2px dashed blue; /* 虚线 */
+            margin: 20px auto;
+        }
+        .box2 {
+            width: 200px;
+            height: 300px;
+            border: 4px double pink; /* 双实线 */
+            margin-top: 98px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+</body>
+</html>

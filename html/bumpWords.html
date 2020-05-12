@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>凹凸文字效果</title>
+    <style>
+        body {
+            background-color: #ccc;
+        }
+        div {
+            color: #ccc;
+            font: 700 80px "微软雅黑";
+        }
+        div:first-child {
+            text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff;
+        }
+
+        div:nth-child(2) {
+            text-shadow: -1px -1px 1px #000, 1px 1px 1px #fff;
+        }
+    </style>
+</head>
+<body>
+    <div>薇恩</div>
+    <div>璐璐</div>
+</body>
+</html>
