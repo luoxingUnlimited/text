@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全选反选</title>
+    <style>
+        * {
+            margin: 0;/* 外边距 */
+            padding: 0;/* 内边距 */
+        }
+        #box {
+            width: 300px;
+            margin: 100px auto;
+        }
+        table {
+            border-collapse: collapse;/* collapse合并 separate分隔 */
+            /* 用来决定表格的边框是分开的还是合并的。在分隔模式下，相邻的单元格都拥有独立的边框。在合并模式下，相邻单元格共享边框。 */
+            /* border-spacing: 0; */
+            /* 相邻单元格边框之间的距离（只适用于 边框分离模式 ）。  即 border-collapse 值是 separate 的时候。 */
+            border: 1px solid #c0c0c0;
+            width: 300px;
+        }
+        th,
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+        }
+        td {
+            font: 14px "微软雅黑";
+        }
+        tbody tr {
+            background-color:#f0f0f0;
+        }
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+        #btn:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="theadInp">
+                    </th>
+                    <th>四大名著</th>
+                    <th>作者</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>西游记</td>
+                    <td>吴承恩（明）</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>水浒传</td>
+                    <td>施耐庵（元末明初）</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>红楼梦</td>
+                    <td>曹雪芹（清）</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>三国演义</td>
+                    <td>罗贯中（元末明初）</td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="button" value=" 反 选 " id="btn">
+    </div>
+    <script>
+        //全选
+        //1.获取父checkbox，注册点击事件
+        //获取父checkbox
+        var theadInp = document.getElementById('theadInp');
+        //获取子checkbox集合
+        var tbody = document.getElementById('tbody');
+        var inputs = tbody.getElementsByTagName('input');
+        theadInp.onclick = function () {
+            //2.找到所有子checkbox，让这些checkbox的状态与父checkbox保持一致
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                //让所有子checkbox的checked属性与父的checkbox的checked属性保持一致
+                //checked属性的值是布尔类型
+                input.checked = this.checked;
+            }
+        }
+        
+        //单个点击子的checkbox，当所有的子的checkbox都被选中的时候，父的checkbox也要被选中
+        //如果有一个子的checkbox没被选中 父的checkbox就不被选中
+        //循环给子的checkbox注册点击事件
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            input.onclick = function () {
+                //点击之后，需要判断子的checkbox是否全部被选中了
+                //假设法：假设子的checkbox全部被选中了
+                var isAllCheckbox = true;
+                for (var i = 0; i < inputs.length; i++) {
+                    var input = inputs[i];
+                    //循环判断子的checkbox，当有子的checkbox没被选中的时候，isAllCheckbox取反
+                    if (!input.checked) {
+                        isAllCheckbox = false;
+                    }
+                }
+                //此时，父的checkbox的值与isAllCheckbox的值保持一致
+                theadInp.checked = isAllCheckbox;
+            }
+        }
+        
+        //反选
+        //1.获取反选按钮 给其注册点击事件
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            //2.找到所有的子的checkbox，让其取反
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                input.checked = !input.checked;
+            }
+        }
+        
+    </script>
+    
+</body>
+</html>

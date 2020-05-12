@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相册</title>
+    <style>
+        body {
+            background-color: #ccc;
+            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 10px 10%;
+        }
+        h2 {
+            color: #333;
+            background-color: transparent;
+        }
+        a {
+            color: #c60;
+            background-color: transparent;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        ul {
+            padding: 0;
+        }
+        li {
+            float: left;
+            padding: 10px;
+            list-style: none;/* 取消li标签的小圆点 */
+        }
+        #imagegallery {
+            list-style: none;
+        }
+        #imagegallery li {
+            margin: 0px 20px 20px 0px;
+            padding: 0px;
+            display: inline;
+        }
+        #imagegallery li a img {
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>相册</h2>
+    <a href="#">注册</a>
+    <ul id="imagegallery">
+        <li>
+            <a href="image/1.jpg" title="图片A">
+                <img src="image/1-small.jpg" alt="图片1" width="100">
+            </a>
+        </li>
+        <li>
+            <a href="image/2.jpg" title="图片B">
+                <img src="image/2-small.jpg" alt="图片2" width="100">
+            </a>
+        </li>
+        <li>
+            <a href="image/3.jpg" title="图片C">
+                <img src="image/3-small.jpg" alt="图片3" width="100">
+            </a>
+        </li>
+        <li>
+            <a href="image/4.jpg" title="图片D">
+                <img src="image/4-small.jpg" alt="图片4" width="100">
+            </a>
+        </li>
+    </ul>
+    <div style="clear:both">
+        <img src="image/placeholder.png" width="450" id="image">
+    </div>
+    <p id="des">选择一张图片</p>
+    <script>
+        //需求：点击li里面的每张小图片 最下方的img里的图片会展示出相应图片的大图，并且下方的p标签内容要变成队友的图片名字
+        //注意：点击的每一个a链接
+        //获取ul里面的每一个a链接，以及最下方的img和p段落
+
+        //获取ul以及下方的每一个a链接
+        var ul = document.getElementById('imagegallery');
+        var links = ul.getElementsByTagName('a');
+        //利用循环给a链接的每一项绑定点击事件
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            link.onclick = function () {
+                //获取最下方的img
+                var image = document.getElementById('image');
+                //让image的src路径用a链接的href属性替换
+                image.src = this.href;
+                //获取最下方的p标签，其内容用a链接的title属性替换
+                var p = document.getElementById('des');
+                des.innerHTML = this.title;
+                return false;//取消a链接的跳转行为
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高亮显示正在输入的文本框</title>
+</head>
+<body>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="button" value="提交">
+    <script>
+        //当文本框获取焦点的时候，让其高亮显示
+        //获取焦点事件 focus
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            //通过判断获取到文本框
+            if (input.type !== 'text') {
+                //如果type值不为text就不是文本框，就直接进行下面一次循环
+                continue;
+            }
+            //给文本框绑定事件
+            input.onclick = function () {//为什么此处时点击事件而不是获取焦点事件？？？？？
+                //此时先让所有的文本框都不高亮显示
+                for (var i = 0; i < inputs.length; i++) {
+                    var input = inputs[i];
+                    if (input.type !== 'text') {
+                        continue;
+                    }
+                    input.style.backgroundColor = '';
+                }
+                //被获取焦点的文本框高亮显示
+                this.style.backgroundColor = 'lightgray';
+            }
+        }
+    </script>
+</body>
+</html>

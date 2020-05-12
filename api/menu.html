@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜单</title>
+    <style>
+        body, ul, li, a {
+            margin: 0;
+            padding: 0;
+        }
+        #menu {
+            margin: 2% 10%;
+        }
+        #menu ul li {
+            float: left;
+            list-style: none;
+            margin-left: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            width: 60px;
+            background-color: lightyellow;
+        }
+        #menu ul li a {
+            text-decoration: none;
+            color: black;
+        }
+        #menu ul li.current {
+            background-color: #c99;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <ul>
+            <li class="current"><a href="javascript:void(0)">首页</a></li>
+            <li><a href="javascript:void(0)">播客</a></li>
+            <li><a href="javascript:void(0)">博客</a></li>
+            <li><a href="javascript:void(0)">相册</a></li>
+            <li><a href="javascript:void(0)">关于</a></li>
+            <li><a href="javascript:undefined">帮助</a></li>
+        </ul>
+        <!--  javascript:void(0)和javascript:undefined均是阻止a标签跳转-->
+    </div>
+    <script src="common.js"></script>
+    <script>
+        //当鼠标点击哪个li上就让哪个高亮显示
+        //获取所有的li标签
+        var menu = my$('menu');
+        var ul = getFirstElementChild(menu);
+        var lists = ul.children;
+        //给li标签绑定事件，先取消所有li的高亮显示，然后让当前li高亮显示
+        for (var i = 0; i < lists.length; i++) {
+            var li = lists[i];
+            li.onclick = liClick;
+        }
+        //click事件函数，在外部书写，避免循环过程中多次创建函数
+        function liClick() {
+            //取消所有li的高亮显示
+            for (var i = 0; i < lists.length; i++) {
+                lists[i].className = '';
+            }
+            //当前被点击的li高亮显示
+            this.className = 'current';
+        }
+    </script>
+</body>
+</html>

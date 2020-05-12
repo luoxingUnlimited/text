@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟（imitate）DOM对象</title>
+</head>
+<body>
+    <div id="box">这是div标签</div>
+    <p id="p">这是p标签</p>
+    <!-- 这是注释 -->
+    <script>
+        //通过创建对象来模拟DOM树，DOM树由各个节点组成
+        //创建一个node对象
+         function Node(options) {
+            this.nodeName = options.nodeName || '';
+            // 或||运算中，当两边的布尔类型均为false时，返回后者；当两边布尔类型有一项为true时，返回第一个遇到的true
+            this.nodeType = options.nodeType || 1;
+            //nodeType值为1时，记录的是元素节点，2记录的是属性节点
+            this.nodeValue = options.nodeValue || null;
+            //元素节点的nodeValue值始终为null
+            this.children = options.children || [];
+            //记录子节点
+        }
+
+        //创建html节点 树干
+        var html = new Node({
+            nodeName: 'html'
+        });
+        //创建head节点 树枝
+        var head = new Node({
+            nodeName: 'head'
+        });
+        //创建body节点 树枝
+        var body = new Node({
+            nodeName: 'body'
+        });
+        //创建div节点 树枝下面的树枝
+        var div = new Node({
+            nodeName: 'div'
+        });
+        //创建p节点 树枝下面的树枝
+        var p = new Node({
+            nodeName: 'p'
+        });
+        
+        //把head和body添加进 html的子节点中
+        html.children.push(head);
+        html.children.push(body);
+        //把div和p添加进body的子节点中
+        body.children.push(div);
+        body.children.push(p);
+        console.dir(html);
+    </script>
+</body>
+</html>

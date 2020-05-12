@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建表格</title>
+    <style>
+        #box #tab {
+            border-collapse: collapse;/* collapse收缩，边线重合的意思 */
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script src="common.js"></script>
+    <script>
+        //先模拟一个数据库
+        var data = [
+            //对象和数组中的各个项均用,隔开
+            {name: '小明', subject: '语文', score: 90},
+            {name: '小红', subject: '数学', score: 85},
+            {name: '小小', subject: '英语', score: 96},
+            {name: '小五', subject: '历史', score: 72},
+            {name: '小西', subject: '地理', score: 99},
+            {name: '阿牛', subject: '政治', score: 88}
+        ];
+        //创建表头数组
+        var theadArr = ['姓名', '科目', '成绩', '操作'];
+        var box = my$('box');
+        //1.创建table元素
+        var table = document.createElement('table');
+        table.id = 'tab';
+        table.border = '1px solid #000'
+        table.width = '400px';
+        box.appendChild(table);
+        //2.创建thead元素
+        var thead = document.createElement('thead');
+        table.appendChild(thead);
+        //3.创建thead内的tr与th
+        var tr = document.createElement('tr');
+        tr.style.backgroundColor = 'lightgray';
+        tr.style.height = '40px';
+        thead.appendChild(tr);
+        /* var th = document.createElement('th');
+        tr.appendChild(th);
+        setInnerText(th, '姓名');
+
+        var th = document.createElement('th');
+        tr.appendChild(th);
+        setInnerText(th, '科目');
+
+        var th = document.createElement('th');
+        tr.appendChild(th);
+        setInnerText(th, '成绩');
+
+        var th = document.createElement('th');
+        tr.appendChild(th);
+        setInnerText(th, '操作'); */
+        //利用表头数组，循环创建表头内部的单元格
+        for (var i = 0; i < theadArr.length; i++) {
+            //创建单元格
+            var th = document.createElement('th');
+            //把单元格添加进行内
+            tr.appendChild(th);
+            //给单元格设置内容
+            setInnerText(th, theadArr[i]);
+        }
+        //4.创建tbody
+        var tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+        //5.创建tbody内的tr和td
+        for (var i = 0; i < data.length; i++) {
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            //遍历对象
+            for (var key in data[i]) {
+                var td = document.createElement('td');
+                td.style.textAlign = 'center';
+                tr.appendChild(td);
+                setInnerText(td, data[i][key]);
+            }
+            //6.创建最后的操作单元格
+            td = document.createElement('td');
+            td.style.textAlign = 'center';
+            tr.appendChild(td);
+            //7.创建内部的删除链接
+            var link = document.createElement('a');
+            link.style.textDecoration = 'none';
+            link.href = 'javascript:void(0)';//阻止链接跳转
+            td.appendChild(link);
+            //给链接设置内容
+            setInnerText(link, '删除');
+            //8.点击链接的时候删除整行
+            link.onclick = linkClick;
+        }
+        //9.点击链接删除整行的函数
+        function linkClick() {
+            //点击的时候获取到要被删掉的tr 
+            //点击的链接的父元素是最后哪个td，td的父元素是tr 也就是要被删除的项
+            var tr = this.parentNode.parentNode;
+            //tr的父元素是tbody   元素.removeChild()
+            tbody.removeChild(tr);
+        }
+    </script>
+</body>
+</html>

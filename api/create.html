@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态创建元素，并添加事件</title>
+</head>
+<body>
+    <input type="button" value="创建" id="btn">
+    <div id="box"></div>
+    <script src="common.js"></script>
+    <script>
+        //需求：点击按钮，动态创建li标签，并改变li的背景颜色
+        //1.模拟创建一数据库
+        var data = ['土豆', '番茄', '西兰花', '芹菜'];
+        //2.获取按钮 以及box
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+        //3.绑定事件
+        btn.onclick = function () {
+            //4.给box创建一个子元素ul
+            var ul = document.createElement('ul');
+            //为其添加属性
+            ul.id = 'sc';
+            //5.把创建出来的ul添加进DOM树中
+            box.appendChild(ul);
+            //6.为ul创建li标签
+            for (var i = 0; i < data.length; i++) {
+                var li = document.createElement('li');
+                li.style.backgroundColor = '';
+                //设置innerText的兼容写法
+                setInnerText(li, data[i]);
+                ul.appendChild(li);
+                //给li绑定鼠标移开和鼠标移入事件
+                li.onmouseover = liMouseOver;
+                li.onmouseout = liMouseOut;
+            }
+            //鼠标经过事件
+            var bg;
+            function liMouseOver() {
+                //记录li本来的颜色
+                bg = this.style.backgroundColor;
+                this.style.backgroundColor = 'lightgreen';
+            }
+            //鼠标离开的时候
+            function liMouseOut() {
+                this.style.backgroundColor = bg;
+            }
+            
+             //为什么此处我不能这样直接给li标签设置背景颜色？？？？？
+            /*var sc = document.getElementById('sc');
+            var lists = sc.children;
+            for (var j = 0; j < lists.length; j++) {
+                if (j % 2 === 0) {
+                    lists[i].style.backgroundColor = '#69f';
+                } else {
+                    lists[i].style.backgroundColor = '#9f9';
+                }
+            }  */
+        }
+    </script>
+</body>
+</html>

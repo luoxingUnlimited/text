@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隔行变色和高亮显示</title>
+</head>
+<body>
+    <ul id="mv">
+        <li>貂蝉</li>
+        <li>西施</li>
+        <li>王昭君</li>
+        <li>杨贵妃</li>
+    </ul>
+    <script src="common.js"></script>
+    <script>
+        //获取到所有的li，给偶数行和奇数行的li分别添加不同的背景颜色
+        var mv = my$('mv');
+        var lists = mv.children;
+        if (mv.hasChildNodes()) {//判断是否有子节点的一个方法
+            for (var i = 0; i < lists.length; i++) {
+                var li = lists[i];
+                if (i % 2 === 0) {
+                    //偶数行
+                    li.style.backgroundColor = '#f9f';
+                    //为什么写background也是一样的效果？？？？？
+                } else {
+                    //奇数行
+                    li.style.backgroundColor = '#9af';
+                }
+            }
+
+            //让鼠标经过的li高亮显示
+            for (var i = 0; i < lists.length; i++) {
+                var li = lists[i];
+                var bg;//若在事件函数内部var的话，外部无法获取到，所以需要在外面定义，使其为全局变量
+                li.onmouseover = function () {
+                    //鼠标经过的时候
+                    //记录下该li本来的背景颜色
+                    bg = this.style.backgroundColor;
+                    this.style.backgroundColor = '#6f6';
+                    this.style.cursor = 'pointer';
+                }
+                li.onmouseout = function () {
+                    //鼠标移开的时候
+                    this.style.backgroundColor = bg;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

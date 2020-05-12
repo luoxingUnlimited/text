@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>检测用户名和密码</title>
+    <style>
+        .red {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="txtUserName"><br>
+    <input type="password" id="txtUserPassWord"><br>
+    <input type="button" value=" 登 录 " id="btn">
+    <script>
+        //检测用户名是否事3-6位，密码是否是6-8位，如果不满足要求高亮显示文本框
+        //获取用户名和密码的文本框
+        var txtUserName = document.getElementById('txtUserName');
+        var txtUserPassWord = document.getElementById('txtUserPassWord');
+        var btn = document.getElementById('btn');
+        //点击登录按钮开始验证用户名和密码框是否满足要求
+        btn.onclick = function () {
+            //验证用户名输入的字符长度是否满足要求
+            if (txtUserName.value.length < 3 || txtUserName.value.length > 6) {
+                txtUserName.className = 'red';
+                return;//用于打断function
+            } else {
+                txtUserName.className = '';
+            }
+            //验证密码输入的字符长度是否满足要求
+            if (txtUserPassWord.value.length < 6 || txtUserPassWord.value.length > 8) {
+                txtUserPassWord.className = 'red';
+                return;
+            } else {
+                txtUserPassWord.className = '';
+            }
+            //验证是否登录成功
+            console.log('登录成功');
+        }
+
+    </script>
+</body>
+</html>

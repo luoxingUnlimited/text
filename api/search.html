@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索文本框</title>
+    <style>
+        .gray {
+            color: gray;
+        }
+        .black {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" value="请输入搜索关键字" id="txtSearch" class="gray">
+    <input type="button" value="搜索" id="btnSearch">
+    <script>
+        //获取焦点事件，获取到焦点的时候value值消失，而且字体颜色变成黑色，当输入的文字是“请输入搜索关键字”的时候字体颜色依然是gray
+        //获取文本框与按钮
+        var txtSearch = document.getElementById('txtSearch');
+        var btnSearch = document.getElementById('btnSearch');
+        //获取焦点事件focus 失去焦点事件blur
+        txtSearch.onfocus = function () {
+            //判断文本框的内容
+            if (this.value === '请输入搜索关键字') {
+                //当内容为请输入搜索关键字的时候让其内容变为空，并且字体颜色变成黑色
+                this.value = '';
+                this.className = 'black';
+            }
+        }
+        //当文本框失去焦点的时候，判断其value值是否为空
+        txtSearch.onblur = function () {
+            //可通过判断value的长度是否为0 this.value === ''
+            if (this.value.length === 0 || this.value === '请输入搜索关键字') {
+                this.value = '请输入搜索关键字';
+                this.className = 'gray';
+            }
+        }
+    </script>
+</body>
+</html>

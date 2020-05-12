@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一个页面</title>
+</head>
+<body>
+    <h1>First</h1>
+    <div>
+        <a href="second.html">second</a>
+        <input type="button" value="前进" id="btn">
+    </div>
+    <script>
+        //点击前进按钮，网页跳转到第二个页面
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            //前进，当打开多个网页，有记录浏览历史时 相当于浏览器左上角的 →
+            history.forward();
+            //history.go(1);
+            //当go(0)的时候是刷新页面 与f5一样
+            //history.go(0);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击按钮显示隐藏div</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        .show {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="隐藏" id="btn">
+    <div id="box" class="show"></div>
+    <script>
+        //获取按钮以及要隐藏的div
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+        //给按钮绑定点击事件
+        btn.onclick = function () {
+            //点击按钮“隐藏”的时候div隐藏起来 按钮的文字变成显示
+            //需要判断按钮的文字
+            if (btn.value === '隐藏') {
+                box.className = 'hidden';//dom事件中书写class属性要用className
+                btn.value = '显示';
+            } else if (btn.value === '显示') {
+                box.className = 'show';
+                btn.value = '隐藏';
+            }
+            
+        }
+    </script>
+
+</body>
+</html>

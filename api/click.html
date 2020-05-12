@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击按钮切换图片</title>
+    <style>
+        img {
+            width: 200px;
+            height: 400px;
+            display: block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input id="btn" type="button" value="点击">
+    <img id="img" src="image/jia.png" alt="">
+    <script>
+        //获取按钮以及图片对象
+        var btn = document.getElementById('btn');
+        var img = document.getElementById('img');
+        //如何让按钮点击图片来回切换？
+        var flag = 1;
+        //书写按钮的点击事件
+        btn.onclick = function () {
+            //通过判断在点击的过程中，flag的值的变化，图片来回切换
+            if (flag === 1) {
+                //flag=1的时候。图片切换成ju.png，flag=2
+                img.src = 'image/ju.png';
+                flag = 2;
+            } else if (flag === 2) {
+                //flag=2的时候。图片切换成jia.png，flag=1
+                img.src = 'image/jia.png';
+                flag = 1;
+            }
+        }
+    </script>
+</body>
+</html>

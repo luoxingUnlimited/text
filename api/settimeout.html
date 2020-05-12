@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炸弹定时器，用来一次性删除</title>
+    <style>
+        .box {
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin: 60% auto;
+            background-color: lightgray;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="删除" id="btn">
+    <div id="tip" class="box">删除成功</div>
+    <script>
+        //点击删除按钮的时候，删除成功的盒子弹出来，然后三秒钟之后自动消失
+        //1.获取删除按钮 和div盒子
+        var btn = document.getElementById('btn');
+        var tip = document.getElementById('tip');
+        //2.给按钮注册点击事件
+        //兼容性函数
+        function addEventListener(element, eventName, fn) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, fn);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + eventName, fn);
+            } else {
+                element['on' + eventName] = fn;
+            }
+        }
+        //函数调用
+        addEventListener(btn, 'click', fn);
+        function fn() {
+            //3.函数要将div盒子显示出来三秒之后消失
+            tip.style.display = 'block';
+            var timerId = setTimeout(function () {
+                tip.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

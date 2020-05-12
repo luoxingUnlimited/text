@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击移动按钮，让盒子移动</title>
+    <style>
+        body, input, div {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            position: absolute;/* 加定位取消盒子的文档流，使之可以移动 */
+            top: 30px;
+            width: 100px;
+            height: 100px;
+            background-color: #96a;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="移动" id="btn">
+    <div id="box"></div>
+    <script>
+        //获取盒子和按钮
+        var btn = document.getElementById('btn');     
+        var box = document.getElementById('box');
+        var timerId;
+        var target = 600;
+        var step = 5;
+        //绑定点击事件
+        btn.onclick = function () {
+            //让盒子移动，利用定时器
+            timerId = setInterval(function () {
+
+                //为什么把if判断放在定时器外面没办法停止定时器呢？？？？
+                if (box.offsetLeft >= target) {
+                    clearInterval(timerId);
+                    
+                    //如果目标值不是一个能被step整除的数，可以最后添加目标值
+                    //box.style.left = target + 'px';
+
+                    //要写return退出函数，不然会一直执行
+                    return;
+                }
+                box.style.left = box.offsetLeft + step + 'px';
+                //offset  偏移
+                console.log(box.offsetLeft);
+            }, 30);
+            
+        }
+    </script>
+</body>
+</html>

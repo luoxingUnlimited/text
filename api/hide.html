@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐藏和显示二维码</title>
+    <style>
+        #node_small {
+            width: 50px;
+            height: 50px;
+            background: url(image/bgs.png) no-repeat -159px -51px;
+            position: fixed;
+            right: 10px;
+            top: 40%;
+        }
+        #ma {
+            position: absolute;
+            top: 0;
+            left: -150px;
+        }
+        #node_small a {
+            display: block;
+            width: 50px;
+            height: 50px;
+        }
+        .hide {
+            display: none;
+        }
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="node_small">
+        <a href="#"></a>
+        <div id="ma" class="hide">
+            <img src="image/456.png">
+        </div>
+    </div>
+    <script src="common.js"></script>
+    <script>
+        //当鼠标移入 onmouseover
+        //当鼠标移出 onmouseout
+        //获取到鼠标移入的盒子，给其绑定事件
+        var node_small = my$('node_small');
+        node_small.onmouseover = function () {
+            //当鼠标移入盒子时，让盒子旁边的二维码显示
+            //my$('ma').className = 'show';
+            //当有class属性存在的时候，可以利用替换,用show替换hide
+            my$('ma').className = my$('ma').className.replace('hide', 'show');
+        }
+        node_small.onmouseout = function () {
+            //当鼠标移出的时候，二维码隐藏
+            my$('ma').className = 'hide';
+        }
+    </script>
+</body>
+</html>

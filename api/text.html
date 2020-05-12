@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置文本框的值</title>
+</head>
+<body>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="button" value="获取文本框的值" id="btn">
+    <script>
+        //1.当页面加载完毕，给所有的文本框赋值
+        //获取文本框 通过type值的判断
+        var inputs = document.getElementsByTagName('input');
+        //利用for循环
+        for (var i = 0; i < inputs.length; i++) {
+            //判断type的值，从而给他们赋值
+            if (inputs[i].type === 'text') {
+                inputs[i].value = i;
+            }
+        }
+        //2.当点击按钮的时候，获取所有文本框的值，并使用|分割输出
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            //设置一个空数组，然后把文本框的值放进数组中
+            var arr = [];
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type === 'text') {
+                    arr.push(inputs[i].value);
+                }
+            }
+            //利用数组的join属性输出
+            console.log(arr);
+            console.log(arr.join('|'));
+        }
+    </script>
+</body>
+</html>

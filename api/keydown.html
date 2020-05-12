@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>只能输入数字的文本框</title>
+</head>
+<body>
+    <input type="text" id="txt">
+    <script>
+        var txt = document.getElementById('txt');
+        txt.onkeydown = function (event) {
+            var event = event || window.event;
+            //console.log(event.keyCode);
+            //当按下某个键的时候判断,判断按下的键是否是数字
+            //event.keyCode键盘码
+            //0-9的值为48-57，右边数字键的值为96-105，删除键的值为8
+            if ((event.keyCode > 105 || event.keyCode < 48 || event.keyCode < 96 && event.keyCode > 57) && event.keyCode !== 8) {
+                //不满足范围，且值不为8的时候，取消文本框按键输入行为
+                event.preventDefault();
+                //用return false;会切断函数，导致函数不能继续执行,若没有后续内容即可
+                //return false;
+            }
+        }
+    </script>
+</body>
+</html>

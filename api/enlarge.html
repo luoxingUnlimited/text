@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟放大镜效果</title>
+    <style>
+        body, .box, .small, img, .big, .mask {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 360px;
+            top: 0;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+        .big img {
+            position: absolute;/* 给定位方便移动 */
+        }
+        .small {
+            position: relative;
+        }
+        .mask {
+            width: 175px;
+            height: 175px;
+            background-color: rgba(255, 255, 0, 0.3);
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="box">
+        <div class="small">
+            <img src="image/small.jpg" alt="" width="350px">
+            <div class="mask"></div>
+            <!-- mask 面具，口罩，掩饰的意思 -->
+        </div>
+        <div class="big">
+            <img src="image/big.jpg" alt="" width="800px">
+        </div>
+    </div>
+    <script>
+        //1.鼠标出现在盒子里的时候，mask盒子出来，同时右边的大盒子出来
+        //2.鼠标在盒子里移动的时候，mask盒子跟着鼠标一起移动 同时，右边大盒子里的大图片也要随之移动
+        //3.鼠标离开盒子的时候，mask盒子与大盒子一起隐藏
+
+
+        //获取盒子 大小盒子 小图片 大图片 以及mask盒子
+        var box = document.getElementById('box');
+        var smallBox = box.children[0];
+        var bigBox = box.children[1];
+        var smallImg = smallBox.children[0];
+        var bigImg = bigBox.children[0];
+        var mask = smallBox.children[1];
+        //1.鼠标出现在盒子里的时候，mask盒子出来，同时右边的大盒子出来
+        box.onmouseenter = function () {
+            //鼠标经过
+            mask.style.display = 'block';
+            bigBox.style.display = 'block';
+        }
+        //2.鼠标在盒子里移动的时候，mask盒子跟着鼠标一起移动 同时，右边大盒子里的大图片也要随之移动
+
+        // mouseover mouseout和mouseenter mouseout 均是鼠标经过鼠标离开事件
+        //前者冒泡 后者不冒泡 前者冒泡会导致mask在ie浏览器中闪烁
+    
+        box.onmousemove = function (event) {
+            event = event || window.event;
+            //鼠标移动
+            //获取鼠标在盒子中的位置，使其成为mask在盒子中的坐标
+            //鼠标在盒子中的位置 = 鼠标在页面的位置 - 盒子在页面的位置
+            var maskX = getPage(event).pageX - box.offsetLeft;
+            var maskY = getPage(event).pageY - box.offsetTop;
+            //获取mask的宽高，使mask中心点落在鼠标所在的位置
+            maskX = maskX - mask.offsetWidth / 2;
+            maskY = maskY - mask.offsetHeight / 2;
+
+            //event.stopPropagation();取消事件冒泡并不能阻止mask离开box
+            //这是为什么不能阻止？？？？
+
+            //限制mask的xy的距离，使其强制留在box中
+            //最小xy
+            maskX = maskX < 0 ? 0 : maskX;
+            maskY = maskY < 0 ? 0 : maskY;
+            //最大xy 盒子的宽高-mask的宽高(剩下的就是最大的宽高)
+            maskX = maskX > box.offsetWidth - mask.offsetWidth ? box.offsetWidth - mask.offsetWidth : maskX;
+            maskY = maskY > box.offsetHeight - mask.offsetHeight ? box.offsetHeight - mask.offsetHeight : maskY;
+            //使其成为mask在盒子中的坐标
+            mask.style.left = maskX + 'px';
+            mask.style.top = maskY + 'px';
+
+            //右边大盒子中的图片相应移动
+            //大图片移动的距离/mask移动的距离 = 小盒子的宽高/mask的宽高
+            //var bigImgX = box.offsetWidth * maskX / mask.offsetWidth;
+            //var bigImgY = box.offsetHeight * maskY / mask.offsetHeight;
+            //上述比例并不是完美比例 会出现比例偏差问题，都用距离，也就是下述方式不会有比例偏差问题
+
+            //mask移动的距离/mask最大能够移动的距离 = 大图片移动的距离/大图片最大能够移动的距离
+            var bigImgX = maskX * (bigImg.offsetWidth - bigBox.offsetWidth) / (box.offsetWidth - mask.offsetWidth);
+            var bigImgY = maskY * (bigImg.offsetHeight - bigBox.offsetHeight) / (box.offsetHeight - mask.offsetHeight);
+            //将值赋值给大图片，并向反方向移动
+            bigImg.style.left = -bigImgX + 'px';
+            bigImg.style.top = -bigImgY + 'px';
+
+        }
+        //3.鼠标离开盒子的时候，mask盒子与大盒子一起隐藏
+        box.onmouseleave = function () {
+            //鼠标移开
+            mask.style.display = 'none';
+            bigBox.style.display = 'none';
+        }
+
+        //兼容性问题处理 page 以及其中 scroll的 根元素兼容
+        function getScroll() {
+            var scrollLeft = document.bod.scrollLeft || document.documentElement.scrollLeft;
+            var scrollTop = document.bod.scrollTop || document.documentElement.scrollTop;
+            return {
+                scrollLeft: scrollLeft,
+                scrollTop: scrollTop
+            };
+        }
+        function getPage(event) {
+            var pageX = event.pageX || event.clientX + getScroll().scrollLeft;
+            var pageY = event.pageY || event.clientY + getScroll().scrollTop;
+            return {
+                pageX: pageX,
+                pageY: pageY
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞机大战案例</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 320px;
+            height: 568px;
+            background: url("image/bg.png");
+            position: relative;
+            margin: 0 auto;
+        }
+        .fly_me {
+            width: 34px;
+            height: 24px;
+            background: url("image/me.png");
+            position: absolute;
+        }
+        /* .bullet {
+            width: 6px;
+            height: 14px;
+            background: url(image/b.png);
+            position: absolute;
+        } */
+        /* .foe {
+            width: 34px;
+            height: 24px;
+            background: url(image/foe.png);
+            position: absolute;
+        } */
+    </style>
+</head>
+<body>
+    <div class="container" id="flyBox">
+        <!-- <div class="fly_me"></div> -->
+    </div>
+    <script>
+        //1.在页面动态生成，我方战机
+        //2.让战机能够跟随鼠标
+        //3.在战机上方动态生成子弹
+        //4.让子弹能够随机发射
+        //5.在页面随机生成敌方战机
+        //6.让子弹与敌方战机相遇的时候，战机与子弹同时消失
+        
+        //获取盒子
+        var flyBox = document.getElementById('flyBox');
+        //1.在页面动态生成，我方战机
+        var div = document.createElement('div');
+        div.id = 'flyMe';
+        div.className = 'fly_me';
+        var body = document.body || document.documentElement;
+        body.appendChild(div); 
+        
+        //2.让战机能够跟随鼠标
+        var flyMe = document.getElementById('flyMe');
+        //鼠标在页面上移动的时候，获取鼠标在页面中的位置，将其赋值给战机在页面中的位置
+        document.onmousemove = function (event) {
+            event = event || window.event;
+            var x = event.pageX || event.clientX + body.scrollLeft;
+            var y = event.pageY || event.clientY + body.scrollTop;
+            //设置条件，只在盒子区域内，战机就跟随鼠标
+            var flyX = x > flyBox.offsetLeft + flyMe.offsetWidth / 2 && x < flyBox.offsetLeft - flyMe.offsetWidth / 2 + flyBox.offsetWidth;
+            var flyY = y > flyBox.offsetTop + flyMe.offsetHeight / 2 && y < flyBox.offsetTop + flyBox.offsetHeight - flyMe.offsetHeight / 2;
+            if (flyX && flyY) {
+                flyMe.style.left = x - flyMe.offsetWidth / 2 + 'px';
+                flyMe.style.top = y - flyMe.offsetHeight / 2 + 'px';
+                //给飞机进入战斗区域给一个标识,用于何时给飞机创建子弹
+                flyMe.flag = true;
+            }
+            
+            //console.log(x);
+            //console.log(flyMe.offsetLeft);
+            //console.log(flyMe.offsetWidth);
+
+        }
+
+        //3.在战机上方动态生成子弹
+        //定义一个子弹相关元素的对象
+        var objB = {
+            name: 'bullet',//子弹 bullet
+            num: 1,
+            width: 6,
+            height: 14,
+            path: 'url("image/b.png")',
+            arr: []//定义一个数组，用来记录每个子弹的id|top|left
+        };
+        createBullet(objB);
+        function createBullet(obj) {
+            setInterval(function () {
+                //当飞机的标识flag为true时，给战机创建子弹
+                if (flyMe.flag) {
+                    //创建子弹盒子
+                    var div = document.createElement('div');
+                    var length = obj.arr.length;//控制子弹的个数
+                    if (length < 50) {
+                        //当子弹个数小于50的时候，就创建子弹
+                        div.id = obj.name + obj.num;
+                        obj.num++;
+                        div.style.width = obj.width + 'px';
+                        div.style.height = obj.height + 'px';
+                        div.style.background = obj.path;
+                        div.style.position = 'absolute';
+                        //让子弹处于飞机的正中央
+                        div.style.top = parseInt(flyMe.style.top) + 6 + 'px';
+                        div.style.left = parseInt(flyMe.style.left) + 14 + 'px';
+                        //将每个子弹的id|top|left存储在数组中 
+                        obj.arr[length] = div.id + '|' + div.style.top + '|' + div.style.left;
+                    }
+                    document.body.appendChild(div);
+                }
+            }, 1000);
+        }
+        
+        //4.让子弹能够随机发射
+        //改变每个子弹的top值   
+
+        function moveBullet() {
+            if(flyMe.flag) {
+                //同样要满足飞机标识为true的时候
+                for (var i = 0, len = objB.arr.length; i < len; i++) {
+                    //遍历获得的子弹id|top|left的数组，获得top值
+                    var newArr = objB.arr[i].split('|');
+                    //console.log(newArr);
+                    //根据子弹id获取子弹
+                    var eleBullet = document.getElementById(newArr[0]);
+                    //设置子弹的top
+                    newArr[1] = parseInt(newArr[1]) - 1;//让子弹的top不断减小，实现子弹发射出去的样子
+                    eleBullet.style.top = newArr[1] + 'px';
+                    //更新arr数组中的子弹的id|top|left
+                    objB.arr[i] = newArr[0] + '|' + newArr[1] + '|' + newArr[2];
+                    //console.log(objB.arr[i]);
+                    //当子弹top小于0的时候，就删除子弹,并在DOM树中删除该元素
+                    if (newArr[1] < 0) {
+                        objB.arr.splice(i, 1);//当前位置上删除1个元素
+                        var delBullet = document.getElementById(newArr[0]);
+                        delBullet.parentNode.removeChild(delBullet);
+
+                        //为什么这个子弹删除之后，split就变成未定义了？？？
+                        //console.log(objB.arr);
+                        
+                    }
+                }
+            }
+        }
+
+        
+        //5.在页面随机生成敌方战机
+        //与创建子弹类似
+        var objF = {
+            name: 'foe',//敌人 foe
+            num: 1,
+            width: 34,
+            height: 24,
+            path: 'url("image/foe.png")',
+            arr: []//定义一个数组，用来记录每个敌机的id|top|left
+        };
+        createFoe(objF);
+        function createFoe(obj) {
+            setInterval(function () {
+                if (flyMe.flag) {
+                    var ele = document.createElement('div');
+                    var length = obj.arr.length;
+                    ele.id = obj.name + obj.num;
+                       
+                    if (length < 50) {
+                        obj.arr[length] = ele.id + '|';
+                        obj.num++; 
+                        ele.style.width = objF.width + 'px';
+                        ele.style.height = objF.height + 'px';
+                        ele.style.position = 'absolute';
+                        ele.style.background = obj.path;
+                        ele.style.top = 0;
+                        obj.arr[length] = obj.arr[length] + ele.style.top + '|';
+                        ele.style.left = flyBox.offsetLeft + flyBox.offsetWidth * Math.random() - 34 + 'px';
+                        obj.arr[length] = obj.arr[length] + ele.style.left;
+                    }
+                    document.body.appendChild(ele);
+                }
+            }, 1000);
+        }
+        
+
+        function moveFoe() {
+            if(flyMe.flag) {
+                for (var i = 0, len = objF.arr.length; i < len; i++) {
+                    var newArr = objF.arr[i].split('|');
+                    var eleFoe = document.getElementById(newArr[0]);
+                    newArr[1] = parseInt(newArr[1]) + 1;
+                    eleFoe.style.top = newArr[1] + 'px';
+                    objF.arr[i] = newArr[0] + '|' + newArr[1] + '|' + newArr[2];
+                    if (newArr[1] > flyBox.offsetHeight - eleFoe.offsetHeight) {
+                        objF.arr.splice(i, 1);
+                        var delFoe = document.getElementById(newArr[0]);
+                        delFoe.parentNode.removeChild(delFoe);
+                    }
+                }
+            }
+        }
+        //写一个定时器，让子弹发射的函数，在定时器中调用,以满足不断发射子弹 
+        setInterval(function () {
+            //发射子弹
+            moveBullet();
+            //生成敌机
+            moveFoe();
+            //敌机和子弹相遇，子弹和敌机同时消失
+            for (var i = 0, len = objF.arr.length; i < len; i++) {
+                var newArr = objF.arr[i].split('|');
+                //获取敌机元素
+                var eleFoe = document.getElementById(newArr[0]);
+                //获取敌机再横向上的左右位置
+                var xFoeL = parseInt(newArr[2]);
+                var xFoeR = parseInt(newArr[2]) + 34;
+                //获取敌机纵向上的上下位置
+                var yFoeU = parseInt(newArr[1]);
+                var yFoeD = parseInt(newArr[1]) + 24;
+                for (var j = 0; j < objB.arr.length; j++) {
+                    var newArrB = objB.arr[j].split('|');
+                    var eleBullet = document.getElementById(newArrB[0]);
+                    //获取子弹位置
+                    var xBullet = parseInt(newArrB[2]);
+                    var yBullet = parseInt(newArrB[1]);
+                    //当子弹处于敌机位置时，子弹和敌机消失
+                    var x = xBullet < xFoeR && xBullet > xFoeL;
+                    var y = yBullet < yFoeD && yBullet > yFoeU;
+                    if (x && y) {
+                        objF.arr.splice(i, 1);
+                        eleFoe.parentNode.removeChild(eleFoe);
+                        objB.arr.splice(i, 1);
+                        eleBullet.parentNode.removeChild(eleBullet);
+                    }
+                }
+            }
+
+        }, 10);
+        //6.让子弹与敌方战机相遇的时候，战机与子弹同时消失
+    </script>
+</body>
+</html>

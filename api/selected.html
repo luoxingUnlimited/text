@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置下拉框的选中项</title>
+</head>
+<body>
+    <input type="button" value="设置" id="btn">
+    <select id="sel">
+        <option value="1">top</option>
+        <option value="2">jungle</option>
+        <option value="3">mid</option>
+        <option value="4">bottom</option>
+        <option value="5">support</option>
+    </select>
+    <script>
+        //随机获取下拉框中单选项
+        //获取按钮，以及下拉框中的option
+        var btn = document.getElementById('btn');
+        var sel = document.getElementById('sel');
+        //点击设置按钮，给下拉框中的option随机生成索引
+        btn.onclick = function () {
+            //利用random属性给option随机生成索引
+            //Math.random()取[0,1)中的随机数
+            //option的个数乘以随机数取整 就可以生成随机整数 
+            var optionIndex = parseInt(Math.random()*sel.children.length);
+            //获取到随机的sel子元素中的option，使其被选中
+            var option = sel.children[optionIndex];
+            option.selected = true;//此处要写布尔类型的true。
+            //为什么不能写selected呢？？？？？
+        }
+    </script>
+</body>
+</html>

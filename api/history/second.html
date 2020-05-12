@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二个页面</title>
+</head>
+<body>
+    <h1>Second</h1>
+    <div>
+        <input type="button" value="后退" id="btn">
+    </div>
+    <script>
+        //点击后退按钮，页面跳转到第一个页面
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            //后退 当打开多个网页，相当于浏览器左上角的 ←
+            //history.back();
+            history.go(-1);
+        }
+     </script>
+</body>
+</html>

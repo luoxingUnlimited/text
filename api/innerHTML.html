@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态创建元素</title>
+</head>
+<body>
+    <button id="btn">创建</button>
+    <div id="box"></div>
+    <script src="common.js"></script>
+    <script>
+        //动态创建元素的方法有三种
+        //document.write()
+        //元素.innerHTML
+        //document.createElement()
+        //需求：在页面创建li标签并添加内容   data数据（datum复数形式）
+        //1.模拟一个需要添加进li的内容数据库
+        var data = ['土豆', '番茄', '西兰花', '芹菜'];
+        //2.获取到box，添加ul标签为其内容
+        var box = my$('box');
+        var btn = my$('btn');
+        //3.点击按钮开始创建
+        btn.onclick = function () {
+            //4.创建一个数组，用来存放需要innerHTML添加的内容，最后转换成字符串赋值给innerHTML
+            var array = [];
+            //5.把每创建出来的一个标签就放进数组中
+            array.push('<ul>');
+            for (var i = 0; i < data.length; i++) {
+                //6.创建li并+数组内容 添加进数组
+                array.push('<li>' + data[i] + '</li>');
+            }
+            array.push('</ul>');
+            box.innerHTML = array.join('');//页面仅需此处重绘一次
+            //innerHTML不方便为其添加属性书写事件
+        }
+        /* btn.onclick = function () {
+            var html = '<ul>'; 
+            for (var i = 0; i < data.length; i++) {
+                html += '<li>' + data[i] + '</li>';
+            }
+            html += '</ul>';//字符串的不可变性，需要多次创建内存
+            box.innerHTML = html;
+        } */
+    </script>
+</body>
+</html>

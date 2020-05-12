@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通过事件冒泡演示事件对象</title>
+</head>
+<body>
+    <ul id="ul">
+        <li>土豆</li>
+        <li>番茄</li>
+        <li>玉米</li>
+        <li>辣椒</li>
+        <li>生姜</li>
+    </ul>
+    <script>
+        var ul = document.getElementById('ul');
+        ul.onclick = function (event) {
+            //利用事件冒泡，给目标事件的上一级元素注册事件
+            //系统会调用function 并且给function传递参数event
+            for (var i = 0; i < ul.children.length; i++) {
+                //取消所有li的高亮显示
+                ul.children[i].style.backgroundColor = '';
+            }
+            //事件对象的兼容写法
+            var event = event || window.event;
+            //目标对象的兼容写法
+            var target = event.target || event.srcElement;
+            target.style.backgroundColor = 'lightgreen';
+            //获取目标对象 真正触发事件的对象
+            console.log(target);
+            //获取函数所属的对象 类似this
+            console.log(event.currentTarget);
+            console.log(this);
+            //事件的阶段
+            console.log(event.eventPhase);
+        }
+    </script>
+</body>
+</html>

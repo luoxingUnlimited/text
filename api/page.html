@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取鼠标在页面中的位置</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <script src="common.js"></script>
+    <script>
+       document.onclick = function (event) {
+           //事件对象的兼容
+           var event = event || window. event;
+           console.log('鼠标在页面中的横向位置：' + getPage(event).pageX);
+           //一定要记得传入事件对象event
+           console.log('鼠标在页面中的纵向位置：' + getPage(event).pageY);
+       }
+       /* //获取页面滚动出去的距离 兼容写法  (对象的形式)
+        function getScroll() {
+            var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            return {
+                scrollLeft: scrollLeft,
+                scrollTop: scrollTop
+            };
+        }
+        
+        //获取pageX和pageY  兼容写法
+        function getPage(event) {//记得把event事件对象传进来
+            var pageX = event.pageX || event.clientX + getScroll().scrollLeft;
+            var pageY = event.pageY || event.clientY + getScroll().scrollTop;
+            return {
+                pageX: pageX,
+                pageY: pageY
+            };
+        } */ 
+    </script>
+</body>
+</html>

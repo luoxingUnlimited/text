@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⭐⭐⭐tab栏切换⭐⭐⭐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        #box {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        ul li {
+            display: inline-block;
+            width: 96px;
+            background-color: #f9f;
+            line-height: 45px;
+            text-align: center;
+            cursor: pointer;
+        }
+        ul li.current {
+            background-color: #97f
+        }
+        span {
+            height: 255px;
+            background-color: #97f;
+            display: none;
+        }
+        span.current {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul class="hd" id="hd">
+            <li class="current">体育</li>
+            <li>娱乐</li>
+            <li>新闻</li>
+            <li>综合</li>
+        </ul>
+        <span class="current">我是体育模块</span>
+        <span>我是娱乐模块</span>
+        <span>我是新闻模块</span>
+        <span>我是综合模块</span>
+    </div>
+    <script src="common.js"></script>
+    <script>
+        //1.鼠标在哪个li上，就让那个li高亮显示，也就是那个li的class属性为current
+        //获取到所有的li以及，全部的span
+        var hd = my$('hd');
+        var lists = hd.children;
+        var spans = document.getElementsByTagName('span');
+        for (var i = 0; i < lists.length; i++) {
+            var li = lists[i];
+            //此处需要创建自定义属性，记录当前li的索引
+            li.setAttribute('index', i);
+            li.onmouseover = function () {
+                //鼠标移动到某个li上时，要先让所有的li都取消高亮显示，
+                for (var i = 0; i < lists.length; i++) {
+                    var li = lists[i];
+                    li.className = '';
+                }
+                //然后再让被选中的高亮显示
+                this.className = 'current';
+            
+        
+                //2.高亮显示的li对应的span的class属性也要变成current
+                for (var j = 0; j < spans.length; j++) {
+                    //让所有的span取消高亮显示
+                    var span = spans[j];
+                    span.className = '';
+                }
+                //让当前被高亮显示的li对应的span显示
+                //获取自定义属性
+                var index = this.getAttribute('index');
+                spans[index].className = 'current';   
+            }
+
+        }
+    </script>
+</body>
+</html>

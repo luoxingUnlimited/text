@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通过获取事件名称判断发生何种事件</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: #95f;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var box = document.getElementById('box');
+        box.onclick = fn;
+        box.onmouseover = fn;
+        box.onmouseout = fn;
+        function fn(event) {
+            var event = event || window.event;
+            switch (event.type) {
+                case 'click':
+                    console.log('鼠标点击box事件');
+                    break;
+                case 'mouseover':
+                    console.log('鼠标经过box事件');
+                    break;
+                case 'mouseout':
+                    console.log('鼠标移开box事件');
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

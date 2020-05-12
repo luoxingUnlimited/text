@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽盒子</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .title {
+            height: 30px;
+            line-height: 30px;
+            background-color: #048191;
+            padding-left: 20px;
+            color: #fff;
+            font-size: 16px;
+        }
+        .login {
+            width: 400px;
+            height: 300px;
+            border: 3px solid #ddd;
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5); 
+            /* x偏移量 y偏移量 阴影模糊半径 阴影扩散半径 阴影颜色 */
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            margin-top: -150px;
+        }
+        .login .login_hd {
+            height: 30px;
+            line-height: 30px;
+            background-color: #6094a7;
+            padding-left: 5px;
+            color: #eee;
+            cursor: move;/* 鼠标状态，十字光标 */
+        }
+        .login .login_close {
+            float: right;
+            cursor: pointer;/* 小手 */
+        }
+    </style>
+</head>
+<body>
+    <div id="title" class="title">注册信息</div>
+    <div id="tip" class="login">
+        <div id="tip_hd" class="login_hd">注册信息（可以拖拽）<span id="closeBox" class="login_close">【关闭】</span></div>
+    </div>
+    <script>
+        //鼠标按住注册信息盒子，并可以移动盒子
+        //1.鼠标按下事件mousedown
+        //按下鼠标 获取鼠标在盒子的位置
+        //鼠标移动 盒子跟着鼠标一起在页面中移动 获取盒子在页面中的位置
+        //2.鼠标弹起事件mouseup
+        //鼠标弹起 移除事件
+        //3.点击关闭 盒子隐藏起来
+
+
+        //获取到盒子，盒子头部，以及关闭标签
+        var tip = document.getElementById('tip');
+        var tip_hd = document.getElementById('tip_hd');
+        var closeBox = document.getElementById('closeBox');
+        //1.鼠标按下事件mousedown
+        tip_hd.onmousedown = function (event) {
+            var event = event || window.event;
+            //按下鼠标 在头部中按下鼠标 获取鼠标在盒子的位置
+            //鼠标在盒子中的位置 = 鼠标在页面中的位置 - 盒子在页面中的位置
+            var x = getPage(event).pageX - tip.offsetLeft;//记得传参event
+            var y = getPage(event).pageY - tip.offsetTop;
+            //console.log(x);
+            //console.log(y);
+            //鼠标移动 盒子跟着鼠标一起在页面中移动 获取盒子在页面中的位置
+            //鼠标移动是在页面上移动，
+            document.onmousemove = function (event) {
+                event = event || window.event;//需调用event的每一处都要进行兼容性处理
+                //获取盒子在页面中的位置，使其和鼠标一起在页面中移动
+                //tip.style.left = tip.offsetLeft + 200 + 'px';
+                //tip.style.top = tip.offsetTop + 150 + 'px';
+                //console.log(tip.offsetLeft);
+                //console.log(tip.offsetTop);
+                //上述写法 盒子的位置是一值保持不动的，因为其偏移值一直没发生改变
+                //是通过位置的改变，赋值给tip.style.left和tip.style.top从而使之移动来改变盒子的偏移值的
+                //所以直接获取的偏移值是固定的，所以得利用鼠标在盒子中的位置，求出移动后盒子在页面中的位置
+                var boxX = getPage(event).pageX - x;
+                var boxY = getPage(event).pageY - y;
+                tip.style.left = boxX + 200 + 'px';
+                tip.style.top = boxY + 150 + 'px';
+                //+的值，是设置样式时，让盒子居中的margin值，所以要抵消
+            }
+            
+        }
+        
+        //2.鼠标弹起事件mouseup
+        document.onmouseup = function () {//保险起见就是鼠标在页面上弹起，也可以是在标签头部弹起
+            //鼠标弹起 移除跟随移动事件
+            document.onmousemove = null;
+        }
+        
+        //3.点击关闭 盒子隐藏起来
+        closeBox.onclick = function () {
+            tip.style.display = 'none';
+        }
+
+        //处理兼容性问题 page的获取
+        function getPage(event) {
+            //被卷去的部分也有兼容问题
+            var pageX = event.pageX || event.clientX + getScroll().scrollLeft;
+            var pageY = event.pageY || event.clientY + getScroll().scrollTop;
+            return {
+                pageX: pageX,
+                pageY: pageY
+            };
+        }
+        //处理兼容问题 scroll的根元素
+        function getScroll() {
+            var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            return {
+                scrollLeft: scrollLeft,
+                scrollTop: scrollTop
+            };
+        }
+    </script>
+</body>
+</html>

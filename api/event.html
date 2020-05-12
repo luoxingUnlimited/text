@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>验证注册事件和移除事件的兼容方法</title>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn">
+    <script src="common.js"></script>
+    <script>
+        //事件处理函数
+        function btnClick() {
+            alert('hello!');
+            //移出事件
+            removeEventListener(my$('btn'), 'click', btnClick);
+        }
+        addEventListener(my$('btn'), 'click', btnClick);
+    </script>
+</body>
+</html>

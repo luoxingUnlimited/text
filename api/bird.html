@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素鸟案例</title>
+    <style>
+        body, div, img {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 800px;
+            height: 600px;
+            background: url(image/sky.png);
+            position: relative;
+            overflow: hidden;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        .fly_bird {
+            width: 34px;
+            height: 25px;
+            background: url(image/birds.png) no-repeat -8px -10px;
+            /* 背景：背景颜色 背景地址 是否平铺 是否滚动 位置*/
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+        .upPipe {
+            width: 52px;
+            /* height: 200px; */
+            background: url(image/pipe2.png) no-repeat center bottom;
+            position: absolute;
+            top: 0;
+            /* left: 400px; */
+        }
+        .downPipe {
+            width: 52px;
+            /* height: 200px; */
+            background: url(image/pipe1.png) no-repeat center top;
+            position: absolute;
+            /* top: 400px;
+            left: 400px; */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="game">
+        <div class="fly_bird">
+        </div>
+        <!-- <div class="upPipe"></div>
+        <div class="downPipe"></div>   -->  
+    </div>
+    <script>
+        //1.让背景向左运动模拟出小鸟向前运动的情况
+        //2.点击盒子让小鸟实现上下运动
+        //3.让页面动态生成上下管道，让小鸟通过管道
+        //4.实现小鸟碰到上边框或者下边框，或者碰到管道，页面的动画停止
+
+        //获取盒子，小鸟
+        var game = document.getElementById('game');
+        var bird = game.children[0];
+        //定义一个定时器
+        var timerId = null;
+        //定义背景的初始值 小鸟x和y轴上要移动的步长 获取小鸟当前的位置
+        var skyX = 0;
+        var stepX = 5;
+        var stepY = 0;
+        var currentX = bird.offsetLeft;
+        var currentY = bird.offsetTop;
+        //定义游戏状态
+        var running = true;
+        timerId = setInterval(function () {
+            if (running) {
+                //游戏状态是进行的 就执行代码
+                //不能首先清除定时器，会导致动画停止
+                /* if (timerId) {
+                    clearInterval(timerId);
+                    timerId = null;
+                } */
+                //1.让背景向左运动模拟出小鸟向前运动的情况
+                skyX -= 2;
+                game.style.backgroundPositionX = skyX + 'px';
+                //先让小鸟向下运动，点击的时候向上运动
+                //让步长自增，实现加速效果
+                stepY += 1;
+                currentY += stepY;
+                bird.style.top = currentY + 'px';
+
+                //2.点击盒子让小鸟实现上下运动
+                game.onclick = gameClick;
+            }
+            
+            //当小鸟当前的位置，出盒子上下边界的时候，就停掉定时器
+            if (currentY > game.offsetHeight) {
+                //clearInterval(timerId);
+                //停止游戏状态
+                running = false;
+                bird.style.top = game.offsetHeight - bird.offsetHeight + 'px';
+                //console.log(bird.offsetHeight);
+            }
+            if (currentY < game.offsetTop) {
+                //clearInterval(timerId);
+                running = false;
+                bird.style.top = 0;
+                //console.log(game.offsetTop);
+            }
+            
+            
+
+        }, 30);
+        
+        //2.点击盒子让小鸟实现上下运动
+        function gameClick() {
+            //通过改变小鸟的top值来实现小鸟的上下运动 让小鸟向上移动的步长变大，点击的时候就会先向上运动
+            stepY = -10; 
+        }
+
+        //3.让页面动态生成上下管道，让小鸟通过管道
+        createPipe(400);
+        createPipe(600);
+        createPipe(800);
+        createPipe(1000); 
+        var timer = null;
+        function createPipe(position) {
+            //动态变化的数据：上管道的水平位置，高度  下管道的水平位置 高度 垂直位置
+            //管道水平位置
+            var pipeX = position;
+            //上管道高度 控制在200-300之间随机变化
+            var upHeight = parseInt(200 +  Math.random() * 100);
+            //上下管道之间的固定间距
+            var distance = 200;
+            //下管道的垂直位置 上管道高度 + 固定距离
+            var downPipeY = upHeight + distance;
+            //下管道高度 盒子高度 - 下管道垂直距离
+            var downHeight = game.offsetHeight - downPipeY;
+            //创建上管道盒子
+            var upPipe = document.createElement('div');//方便后面获取该元素，用类名定义
+            upPipe.className = 'upPipe';
+            upPipe.style.height = upHeight + 'px';
+            upPipe.style.left = pipeX + 'px';
+            game.appendChild(upPipe);
+            //console.log(game.offsetHeight);
+            //创建下管道
+            var downPipe = document.createElement('div');//方便后面获取该元素
+            downPipe.className = 'downPipe';
+            downPipe.style.height = downHeight + 'px';
+            downPipe.style.left = pipeX + 'px';
+            downPipe.style.top = downPipeY + 'px';
+            game.appendChild(downPipe);
+            //console.log(downPipeY);
+            
+            //创建管道之后，并让他运动起来
+            upPipe.timer = setInterval(function () {
+                if (running) {
+                    //游戏状态执行代码
+                    //var upPipe = document.getElementById('upPipe');
+                    //var downPipe = document.getElementById('downPipe');
+                    pipeX -= 2;
+                    upPipe.style.left = pipeX + 'px';
+                    downPipe.style.left = pipeX + 'px';
+                    //当管道移动到盒子左侧外部的时候，就让他重新从盒子的宽度开始移动
+                    if (pipeX < - upPipe.offsetWidth) {
+                        pipeX = game.offsetWidth;
+                    }
+                }
+                
+                //当小鸟碰到上管道或者下管道的时候就停止定时器
+                //小鸟处于管道之间的状态  也就是小鸟要在横向上碰到管道
+                //小鸟在盒子中的距离 + 自身的宽度 >管道在盒子中的距离 并且 小鸟在盒子中的距离 < 管道在盒子中的距离 + 管道自身的宽度
+                var birdX = bird.offsetLeft + bird.offsetWidth > pipeX && bird.offsetLeft < pipeX + upPipe.offsetWidth;
+                console.log(birdX && bird.offsetTop < upHeight || birdX && bird.offsetTop + bird.offsetHeight > downPipeY);
+                //小鸟纵向的距离，处在间距之外
+                //碰到上管道的高度bird.offsetTop < upHeight 
+                //碰到下管道的高度bird.offsetTop + bird.offsetHeight > downPipeY;
+
+                if (birdX && bird.offsetTop < upHeight || birdX && bird.offsetTop + bird.offsetHeight > downPipeY) {
+                //只要满足碰到上下管道中的一个，就可以停掉定时器
+                //因为有多个定时器，所以关闭定时器方法不可取
+                    //clearInterval(timer);
+                    //停止游戏状态
+                    running = false;
+                    return;
+                }
+
+            }, 30);
+            //console.log(upPipe.style.left);
+            //console.log(downPipe.style.left);
+            
+            
+
+        }
+        
+        //4.实现小鸟碰到上边框或者下边框，或者碰到管道，页面的动画停止
+        //开始时设置一个游戏状态，游戏状态下就执行代码，
+        //小鸟碰到上下边缘或者碰到管道就停止游戏状态
+        //用定时器的方法不太可取，在管道创建处，创建了多个定时器，无法一次性全部都关闭，导致代码执行bug
+    </script>
+</body>
+</html>

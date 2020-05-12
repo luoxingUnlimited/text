@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟动画</title>
+    <style>
+        body, input, div {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            position: absolute;/* 加定位取消盒子的文档流，使之可以移动 */
+            top: 30px;
+            width: 100px;
+            height: 100px;
+            background-color: #96a;
+        }
+        #box1 {
+            position: absolute;
+            top: 150px;
+            width: 100px;
+            height: 100px;
+            background-color: #f96;
+        }
+        #box2 {
+            position: absolute;
+            top: 270px;
+            width: 100px;
+            height: 100px;
+            background-color: #6f6;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="移动 800" id="btn">
+    <input type="button" value="移动 400" id="btn1">
+    <div id="box"></div>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <script>
+        //获取盒子和按钮
+        var btn = document.getElementById('btn');
+        var btn1 = document.getElementById('btn1');
+        var box = document.getElementById('box');
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        
+        //书写box的移动动画
+        //移动到800
+        var timerId;
+        btn.onclick = function () {
+            animate(box, 800);
+            animate(box1, 800);
+            animate(box2, 800);
+        }
+        //移动到400
+        btn1.onclick = function () {
+            animate(box, 400);
+            animate(box1, 400);
+            animate(box2, 400);
+        }
+        //多处调用的时候，
+        //将动画过程封装成函数，而非点击过程，是事件处理函数里面的内容
+        function animate(element, target) {
+            //调用定时器之前，先清空定时器 防止有多个定时器执行，导致点击次数增多，盒子移速加快
+            if (element.timerId) {
+                clearInterval(element.timerId);
+                element.timerId = null;
+            }
+            //设置定时器，每隔一定时间重复做某件事
+            element.timerId = setInterval(function() {
+                var step = 10;
+                var current = element.offsetLeft;
+
+                //从400-800，current400 < target800 执行动画
+                //从800-400，current800 > target400 关掉了定时器，元素的位置直接定位到了target 所以不执行动画
+                //让其依然执行动画，返回的时候其位置依次减少step值
+                if (current > target) {
+                    //判断当前位置是否大于目标位置，大于则一次减少step值，也就是将其变成负值
+                    step = - Math.abs(step);//绝对值
+                }
+                //停掉定时器的判断 current>=target,是只从小到大的动画
+                //从到到小的动画判断 current-target 可以利用其差值与step的值作比较
+                if (Math.abs(current - target) < Math.abs(step)) {
+                    //移动的距离小于step时，就关掉定时器，不用再增加box的left值来改变位置
+                    clearInterval(element.timerId);
+                    element.style.left = target + 'px';
+                    return;//记得定时器中关掉定时器后要退出函数
+                }
+
+                //让box在页面中的位置不断+step值
+                current += step;
+                element.style.left = current + 'px';
+            }, 30);
+        }
+        //当点击让多个盒子执行动画的时候，如果定时器并不是元素指定属性，
+        //在第二个盒子调用动画函数的时候，会清除掉第一个盒子调用的动画函数中的定时器，导致只有最后那个盒子会移动
+        //JavaScript的动态特性：可以给任意对象随时增加一个属性
+        //在封装动画函数过程中，让每个盒子记录自己的定时器，element.timerId 这样自己的定时器就不会被其他元素清除
+        
+    </script>
+</body>
+</html>

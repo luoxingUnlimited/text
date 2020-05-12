@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>根据鼠标位置设置其图片跟随</title>
+    <style>
+        #img {
+            width: 65px;
+            height: 45px;
+            opacity: 0.6;/* 透明度 */
+            position: absolute;/* 绝对定位，相对于第一个父元素进行定位 */
+        }
+    </style>
+</head>
+<body>
+    <img src="image/timg (1).gif" id="img">
+    <script>
+        var img = document.getElementById('img');
+        //mousemove鼠标移动事件
+        document.onmousemove = function (event) {
+            var event = event || window.event;
+            img.style.top = event.pageY - 5 + 'px';
+            img.style.left = event.pageX - 50 + 'px';
+        }
+    </script>
+</body>
+</html>

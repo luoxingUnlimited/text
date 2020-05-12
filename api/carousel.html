@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图案例 （carousel 轮播 旋转木马 传送）</title>
+    <style>
+        body, div, ul, li, img, ol, span {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: 0;
+        }
+        .box {
+            width: 500px;
+            height: 200px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            position: relative;
+            /* top: 200px; */
+            margin: 200px auto;
+        }
+        .screen {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .screen ul {
+            position: absolute;
+            width: 3000px;
+            left: 0;
+            top: 0;
+        }
+        .screen ul li {
+            width: 500px;
+            height: 200px;
+            float: left;
+            overflow: hidden;
+            /* position: absolute; 给每个li都加定位则li都移动到一起去了 */
+        }
+        .screen ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            line-height: 20px;
+            text-align: center;
+        }
+        .screen ol li {
+            width: 20px;
+            height: 20px;
+            float: left;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-left: 7px;
+        }
+        .screen ol li.current {
+            background-color: yellow;
+        }
+        .arr {
+            display: none;
+            z-index: 999;/* ????? */
+        }
+        .arr .arr_l,
+        .arr .arr_r {
+            width: 40px;
+            height: 40px;
+            /* border: 1px solid #aaa; */
+            display: block;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: '黑体';
+            text-align: center;
+            line-height: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid #ccc;
+            position: absolute;
+            color: #aaa;
+            cursor: pointer;
+            
+        }
+        .arr .arr_l {
+            top: 50%;
+            left: 7px;
+            margin-top: -20px;
+        }
+        .arr .arr_r {
+            top: 50%;
+            right: 7px;
+            margin-top: -20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <div class="screen">
+            <ul>
+                <li><img src="image/wf1.jpg" width="500" height="200"></li>
+                <li><img src="image/wf2.jpg" width="500" height="200"></li>
+                <li><img src="image/wf3.jpg" width="500" height="200"></li>
+                <li><img src="image/wf4.jpg" width="500" height="200"></li>
+                <li><img src="image/wf5.jpg" width="500" height="200"></li>
+            </ul>
+            <ol></ol>
+        </div>
+        <div class="arr">
+            <span class="arr_l">&lt;</span>
+            <span class="arr_r">&gt;</span>
+        </div>
+    </div>
+    <script src="animate.js"></script>
+    <script>
+        //1.动态给轮播图生成序号
+        //2.点击序号，以动画的方式切换图片
+        //3.鼠标放到盒子上 显示左右箭头 
+        //4.点击箭头，实现上一张，下一张的功能
+        //5.盒子内的图片自动切换
+
+        //获取盒子 ul ol ol里面的li 左右箭头
+        var box = document.getElementById('box');
+        var screen = box.children[0];//screen 屏幕
+        var ul = screen.children[0];
+        var ol = screen.children[1];
+        var arr = box.children[1];//arrow 箭头
+        var arr_l = arr.children[0];
+        var arr_r = arr.children[1];
+        //1.动态给轮播图生成序号 
+        //需要根据轮播图内图的张数，也就是ul里li的个数生成 所以for循环创建
+        //获取ul的子元素个数
+        var count = ul.children.length;
+        //获取图片宽度，图片的宽度与这个盒子的宽度一致
+        var imgWidth = screen.offsetWidth;
+        for (var i = 0; i < count; i++) {
+            //在页面上生成li
+            var li = document.createElement('li');
+            //把li添加进ol的子元素
+            ol.appendChild(li);
+            //给li里面放内容
+            li.innerText = i + 1;
+            //if (i === 0) {
+            //    //让第一个序号高亮显示
+            //    li.className = 'current';
+            //}
+
+            //2.点击序号，以动画的方式切换图片
+            //给创建的li注册点击事件
+            li.onclick = liClick;
+            //为了不每循环一次，就在内存中创建一个点击的事件处理函数，浪费内存，将函数写在循环外面
+
+            //创建自定义属性来记录 li的index值，根据index的变化来知道走了多少个li
+            li.setAttribute('index', i);
+        }
+        //默认第一个li高亮显示
+        ol.children[0].className = 'current';
+
+        function liClick() {
+            //2.1点击的时候，取消所有li的高亮显示，让当前的li高亮显示
+            for (var i = 0; i < ol.children.length; i++) {
+                ol.children[i].className = '';
+            }
+            this.className = 'current';
+            //2.2 点击哪个li就出现对应的图片 以动画的形式移动，
+            //此时需要目标距离，可以利用图片的宽度，
+            //获取自定义属性的,获取到的是字符串，要转换成数值形式
+            var liIndex = parseInt(this.getAttribute('index'));
+            //调用动画函数，让图片移动
+            animate(ul, - liIndex * imgWidth, 30);
+        }
+
+        //3.鼠标放到盒子上 显示左右箭头 
+        //鼠标经过盒子，左右箭头显示
+        box.onmouseenter = function () {
+            arr.style.display = 'block';
+            //停止自动切换，清除定时器
+            clearInterval(timerId);
+        }
+        //鼠标离开盒子，左右箭头消失
+        box.onmouseleave = function () {
+            arr.style.display = '';
+            //恢复自动切换，设置定时器
+            timerId = setInterval(function () {
+                arr_r.click();
+            }, 2000);
+        }
+
+        //4.点击箭头，实现上一张，下一张的功能
+        //克隆第一张图片，为无缝滚动做准备
+        var cloneLi = ul.children[0].cloneNode(true);
+        ul.appendChild(cloneLi);
+        var index = 0;//方便全局访问
+        //下一张
+        arr_r.onclick = function () {
+            //判断如果是克隆的图片，就改变ul的坐标，让ul移到第一张图片上
+            if (index === count) {
+                ul.style.left = '0';
+                index = 0;
+
+                //代码是自上而下执行的，那这个地方已经将index赋值为0了，
+                //为什么下面else里面的内容还能执行？？？？？
+
+            }
+            //定义一个索引，点击一次右箭头，就++
+            index++;
+            //克隆的li的索引是5 ul的子元素的最初长度也是5
+            //所以当index的值大于那个长度的时候，就让第一张图片替换最后那张克隆出来的图片
+            if (index < count) {
+                // 当索引小于最初长度的时候 点击一次就让代码自动执行一次ol里面li的点击事件
+                //点一次的时候index的值是1，所以是点击的ol中的第二个li 显示第二个li对应的图片
+                ol.children[index].click();
+            } else {
+                //如果是最后一张图片 就让图片以动画的形式移动到被克隆的li图片那里去
+                animate(ul, - index * imgWidth, 30);
+                //并且让第一张图片对应的ol里面的li高亮显示，取消其他li的高亮显示 不取消的话，最后那个li还是高亮显示的
+                for (var i = 0; i < ol.children.length; i++) {
+                    ol.children[i].className = '';
+                }
+                ol.children[0].className = 'current';
+            }
+        }
+        //上一张
+        arr_l.onclick = function () {
+            //当index = 0的时候，就用克隆的li替换第一张li
+            if (index === 0) {
+                index = count;
+                ul.style.left = - index * imgWidth + 'px';
+            }
+            index--;
+            ol.children[index].click();
+        }
+        //5.盒子内的图片自动切换
+        //也就是隔一定的时间，切换下一张图片 需要用到定时器
+        var timerId = setInterval(function () {
+            //切换下一张 右箭头的点击事件也是切换下一张，所以让代码自动执行右箭头的点击事件
+            arr_r.click();
+        }, 2000);//每隔两秒
+
+        //鼠标经过的时候让图片停下来，鼠标离开的时候图片又自动切换
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开关灯</title>
+</head>
+<body>
+    <input type="button" value="关灯" id="btn">
+    <script src="common.js"></script>
+    <script>
+        //点击开灯按钮，页面背景变为白色，按钮名称变为关灯
+        var btn = my$('btn');
+        var isOk = true;
+        //true为开灯状态，false为关灯状态
+        btn.onclick = function () {
+            if (isOk) {
+                document.body.style.backgroundColor = 'black';
+                this.value = '开灯';
+                isOk = false;
+            } else {
+                document.body.style.backgroundColor = 'white';
+                this.value = '关灯';
+                isOk = true;
+            }
+        }
+    </script>
+</body>
+</html>

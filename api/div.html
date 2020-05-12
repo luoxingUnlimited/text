@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置div的大小和位置</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: #f6f;
+        }
+        .cls {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            margin-left: -250px;
+            background-color: #f5f;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="改变" id="btn">
+    <div id="box">
+
+    </div>
+    <script src="common.js"></script>
+    <script>
+        //点击改变按钮 改变盒子的大小和位置
+        //获取按钮和盒子
+        var btn = my$('btn');
+        var box = my$('box');
+        btn.onclick = function () {
+            box.className = 'cls';
+        }
+        //如何让盒子来回变化
+        var flag = 1;
+        btn.onclick = function () {
+            if (flag === 1) {
+                box.className = 'cls';
+                flag = 2;
+            } else if (flag === 2) {
+                box.className = '';
+                flag = 1;
+            }
+        }
+    </script>
+</body>
+</html>

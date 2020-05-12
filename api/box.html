@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取鼠标在盒子中的位置</title>
+    <style>
+        #box {
+            width: 300px;
+            height: 300px;
+            background-color: #e9a;
+            margin: 100px 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var box = document.getElementById('box');
+        box.onclick = function (event) {
+            //事件对象的兼容写法
+            var event = event || window.event;
+            //点击盒子的时候，获取到盒子在页面中的距离，以及鼠标在页面中的距离
+            //鼠标在盒子中的距离=鼠标在页面中的距离-盒子在页面中的距离
+
+            //鼠标在页面中的距离
+            //鼠标在页面中的距离=鼠标在可视区域的距离+滚动条卷去的距离
+            var pageX = event.pageX || event.clientX + getScroll().scrollLeft;
+            var pageY = event.pageY || event.clientY + getScroll().scrollTop;
+            
+            //盒子在页面中的距离 this.offsetLeft/this.offsetTop
+
+            //鼠标在盒子中的距离=鼠标在页面中的距离-盒子在页面中的距离
+            var x = pageX - this.offsetLeft;
+            var y = pageY - this.offsetTop;
+            this.innerText = '横向：' + x + 'px ; ' + '纵向：' + y + 'px';
+            //innerText有兼容性问题
+            //console.log('鼠标在盒子中的横向距离：' + x + 'px');
+            //console.log('鼠标在盒子中的纵向距离：' + y + 'px');
+
+        }
+        //被卷去距离的兼容函数
+        function getScroll() {
+            var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            return {
+                scrollLeft: scrollLeft,
+                scrollTop: scrollTop
+            };
+        }
+    </script>
+</body>
+</html>

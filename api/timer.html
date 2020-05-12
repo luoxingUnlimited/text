@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>做一个倒计时</title>
+    <style>
+        body, div, h1, span {
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            width: 400px;
+            height: 50px;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 20%;
+            margin-left: -200px;
+            /* margin-top: -150px; */
+        }
+        div {
+            width: 400px;
+            height: 50px;
+            font-size: 36px;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            margin-left: -200px;
+            /* margin-top: -80px; */
+        }
+        div span {
+            color: orange;
+        }
+        div strong {
+            background-color: orange;
+            border-radius: 10px;
+        }
+        div strong span {
+            color: white;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="h">距离6月30日，还有：</h1>
+    <div id="item">
+        <span><span id="day">00</span>天</span>
+        <strong><span><span id="hour">00</span>时</span></strong>
+        <strong><span><span id="minute">00</span>分</span></strong>
+        <strong><span><span id="second">00</span>秒</span></strong>
+    </div>
+    <script>
+        //获取到当前时间，计算与目标时间的时间差
+        //需要用到定时器，每秒钟都会切换页面上的时间
+        //1.获取到需要赋值的时间span
+        var spanDay = document.getElementById('day');
+        var spanHour = document.getElementById('hour');
+        var spanMinute = document.getElementById('minute');
+        var spanSecond = document.getElementById('second');
+        var item = document.getElementById('item');
+        var h = document.getElementById('h');
+        //2.计算时间差，把得到的值，赋值给时间span
+        var timer = setInterval(countdown, 1000);
+        
+        //把全部内容放进定时器中，一秒钟报时一次 需要封装成函数
+        function countdown() {
+            //2.1.获取到当前时间与目标时间
+            var endDay = new Date('2020-6-30 9:40:00');
+            var startDay = new Date();
+            //2.2计算差值
+            var interval = endDay - startDay;//毫秒值
+            //2.3将差值转换成天，时，分，秒
+            interval = interval / 1000;//相差的全部的秒
+            var day = parseInt(interval / 60 / 60 / 24);//取整
+            var hour = parseInt(interval / 60 / 60 % 24);
+            var minute = parseInt(interval / 60 % 60);
+            var second = parseInt(interval % 60);
+            //2.4优化处理，保证每个时间都是两位数
+            day = day < 10 ? '0' + day : day;
+            hour = hour < 10 ? '0' + hour : hour;
+            minute = minute < 10 ? '0' + minute : minute;
+            second = second < 10 ? '0' + second : second;
+            //2.5把得到的时分秒赋值给时间span的内容
+            function setInnerText(element, text) {
+                if (typeof element.innerText === 'string') {
+                    return element.innerText = text;
+                } else {
+                    return element.textContent = text;
+                }
+            }
+            setInnerText(spanDay, day);
+            setInnerText(spanHour, hour);
+            setInnerText(spanMinute, minute);
+            setInnerText(spanSecond, second);
+            
+            //时间到了如何清除定时器？？？？？
+
+
+            //为什么时间的秒钟60还有，为什么分钟到秒钟30的时候才-1？？？？？
+            //用parseInt()取整就不会出现这种情况  
+            //出现上述情况是Math.round()四舍五入取整导致
+
+
+            //当到达目标时间的时候，清除定时器，并且隐藏div，h1的内容变成“准备好了吗？”
+            if (endDay === '2020-5-3 9:40:00') {
+                clearInterval(timer);
+                item.style.display = 'none';
+                setInnerText(h, '准备好了吗？');
+                h.style.color = 'lightred';
+                //退出函数
+                return;
+            }
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择水果</title>
+    <style>
+        select {
+            width: 120px;
+            height: 200px;
+            background-color: #69f;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <select id="sel1" multiple="multiple">
+        <option >苹果</option>
+        <option >梨</option>
+        <option >哈密瓜</option>
+        <option >猕猴桃</option>
+        <option >火龙果</option>
+    </select>
+    <input type="button" value=">>>" id="btn1">
+    <input type="button" value="<<<" id="btn2">
+    <input type="button" value=">" id="btn3">
+    <input type="button" value="<" id="btn4">
+    <select id="sel2" multiple="multiple">
+    </select>
+
+    <script src="common.js"></script>
+    <script>
+        //需求：1.点击>>>，左边下拉框中的内容全部按顺序移动到右边下拉框
+        //      2.点击<<<，右边下拉框的全部内容再移回左边下拉框中
+        //      3.点击>，左边被选中的项移动到右边下拉框
+        //      4.点击<，右边下拉框被选中的项移动到左边下拉框中
+
+        //获取两边下拉框，以及四个按钮
+        var sel1 = my$('sel1');
+        var sel2 = my$('sel2');
+        var btn1 = my$('btn1');
+        var btn2 = my$('btn2');
+        var btn3 = my$('btn3');
+        var btn4 = my$('btn4');
+        //      1.点击>>>，左边下拉框中的内容全部按顺序移动到右边下拉框
+        //在外部设置一个option的集合，这样内部option发生改变的时候，并不会影响到select的全部子元素,从而导致遍历的length发生变化
+        btn1.onclick = function () {
+            //先把sel1中的子元素的长度拿到
+            var len = sel1.children.length;
+            for (var i = 0; i < len;i++){
+                //把左边下拉框中的内容，全部添加到右边下拉框
+                //每移动一项去右边下拉框中，则左边下拉框中的子元素会重新排列，所以不断移动第一项即可
+                var option = sel1.children[0];
+                sel2.appendChild(option);//把第一个子元素添加进sel2下拉框中
+            }
+        }
+        //      2.点击<<<，右边下拉框的全部内容再移回左边下拉框中
+        btn2.onclick = function () {
+            for (var i = 0; i < sel2.children.length;) {
+                //i不自身加1，只要sel2中有一个子元素，循环就会继续
+                var option = sel2.children[i];
+                sel1.appendChild(option);
+                
+            }
+        }
+
+        //为什么要创建新数组接收呢？
+        //有没有什么方法能够直接两个下拉框直接执行？？？？？
+        //如何让控制他们的顺序不发生变化呢？？？？？
+
+
+        //      3.点击>，左边被选中的项移动到右边下拉框
+        btn3.onclick = function () {
+            //遍历所有的子元素，找到被选中的子元素放进数组中
+            var array = [];//需要创建中间数组接收
+            for (var i = 0; i < sel1.children.length; i++) {
+                if (sel1.children[i].selected) {
+                    //如果子元素被选中，则放进数组中
+                    array.push(sel1.children[i]);
+                }
+            }
+            //将数组中的项，添加进sel2中
+            for (var i = 0; i < array.length; i++) {
+                sel2.appendChild(array[i]);
+                array[i].selected = false;//记得取消子元素的被选定状态
+            }
+        }
+        //      4.点击<，右边下拉框被选中的项移动到左边下拉框中
+        btn4.onclick = function () {
+            var array = [];
+            for (var i = 0; i < sel2.children.length; i++) {
+                if (sel2.children[i].selected) {
+                    array.push(sel2.children[i]);
+                }
+            }
+            for (var i = 0; i < array.length; i++) {
+                sel1.appendChild(array[i]);
+                array[i].selected = false;
+            }
+        }
+    </script>
+</body>
+</html>
