@@ -36,7 +36,7 @@
     function remove() {
         //将数组中的元素删除，将页面上的食物div删除
         for (var i = elements.length - 1; i >= 0; i--) {
-            elements[i].parentNode.removeChild(element[i]);
+            elements[i].parentNode.removeChild(elements[i]);
             elements.splice(i, 1);//从第i项，也就是当前项开始删，删除一项
         }
     }
