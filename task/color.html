@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #bod {
+            width: 200px;
+            height: 200px;
+            background-color: rgb(200, 100, 0);
+        }
+    </style>
+</head>
+<body>
+    <div id='bod'>
+        
+    </div>
+    <script>
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        var bod = document.getElementById('bod');
+        bod.onclick = function () {
+            var color1 = random(0, 255);
+            var color2 = random(0, 255);
+            var color3 = random(0, 255);
+            var color = 'rgb(' + color1 + ', ' + color2 + ', ' + color3 + ')';
+            this.style.backgroundColor = color;
+        }    
+    </script>
+</body>
+</html>
