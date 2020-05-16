@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式案例：表单验证</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 300px;
+            height: 400px;
+            margin: 50px auto;
+            font-size: 16px;
+        }
+        .box div {
+            width: 300px;
+            height: 70px;
+        }
+        .box div label {
+            float: left;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .box div input {
+            width: 220px;
+            height: 26px;
+            outline: none;/* 取消文本框自带的高亮 */
+            text-indent: 5px;/* 文本框内容首行缩进 */
+            font-size: 14px;
+        }
+        .box div div {
+            width: 320px;
+            height: 30px;
+            line-height: 30px;
+            margin-top: 5px;
+            margin-left: 60px;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <div>
+            <label for="">QQ：</label>
+            <input type="text" id="txtQQ">
+            <div>请输入正确的QQ号码</div>
+        </div>
+        <div>
+            <label for="">Email：</label>
+            <input type="text" id="txtEmail">
+            <div>请输入正确的邮箱地址</div>
+        </div>
+        <div>
+            <label for="">手机：</label>
+            <input type="text" id="txtPhone">
+            <div>请输入正确的手机号码</div>
+        </div>
+        <div>
+            <label for="">生日：</label>
+            <input type="text" id="txtBirthday">
+            <div>请输入正确的生日格式</div>
+        </div>
+        <div>
+            <label for="">姓名：</label>
+            <input type="text" id="txtName">
+            <div>请输入2-4个汉字格式</div>
+        </div>
+    </div>
+    <script>
+        //当input框获取到标签的时候，验证内容是否满足要求，不满足则给出提示
+        //获取input框
+        //var txtQQ = document.getElementById('txtQQ');
+        //var txtEmail = document.getElementById('txtEmail');
+        //var txtPhone = document.getElementById('txtPhone');
+        //var txtBirthday = document.getElementById('txtBirthday');
+        //var txtName = document.getElementById('txtName');
+        
+        /* txtQQ.onblur = function () {
+            var reg = /^\d{6,12}$/;
+            var divQQ = this.nextElementSibling || this.nextSibling;
+            if (!reg.test(this.value)) {
+                divQQ.style.display = 'block';
+                //console.log(2);
+            } else {
+                divQQ.style.display = 'none';
+                //console.log(1);
+            }
+        } */
+        //表单验证封装
+        function addCheck(elementId, reg) {
+            var element = document.getElementById(elementId);
+            var checkBox = element.nextElementSibling || element.nextSibling;
+            element.onblur = function () {
+                if (!reg.test(this.value)) {
+                    checkBox.style.display = 'block';
+                } else {
+                    checkBox.style.display = 'none';
+                }
+            }
+        }
+        addCheck('txtQQ', /^\d{6,12}$/);
+        addCheck('txtEmail', /^\w+@\w+(\.\w{2,3})+$/);
+        addCheck('txtPhone', /^\d{11}$/);
+        addCheck('txtBirthday', /^\d{4}-\d{1,2}-\d{1,2}$/);
+        addCheck('txtName', /^[\u4e00-\u9fa5]{2,4}$/);
+    </script>
+</body>
+</html>

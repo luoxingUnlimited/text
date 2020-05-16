@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript高级练习</title>
+</head>
+<body>
+    <h1>遍历DOM树</h1>
+    <div id="box1">
+        <ul>
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript</li>
+            <li>ES6</li>
+            <li>jQuery</li>
+        </ul>
+    </div>
+    <div id="box2">
+        点击按钮更改字体大小
+        <button size="12">按钮1</button>
+        <button size="14">按钮2</button>
+        <button size="18">按钮3</button>
+    </div>
+    <script>
+        /* //将一个对象中的成员复制给另一个对象
+        function extend(parent, child) {
+            //传进来两个对象
+            for(var key in parent) {
+                if (child[key]) {//当有同名属性的时候
+                    continue;//跳出判断，执行下面代码
+                }
+                child[key] = parent[key];
+            }
+        }
+        var obj = {
+            name: 'zs',
+            age: 18
+        };
+        var obj1 = {
+            name: 'ls'
+        };
+        extend(obj, obj1); */
+
+            /* //模拟数组排序sort的内部实现 sort方法内部有个决定排序规则的函数
+            Array.prototype.mySort = function (fn) {
+                for (var i = 0; i < this.length; i++) {
+                    var isOk = true;
+                    for (var j = 0; j < this.length - 1 - i; j++) {
+                        if (fn(this[j], this[j + 1]) > 0) {
+                            //判断方式由函数决定，排序方式由用户决定
+                            var temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                            isOk = false;
+                        }
+                    }
+                    if (isOk) {
+                        break; 
+                    }
+                }
+            }
+            function fn(a, b) {
+                return a - b;
+            }
+            var arr = [10, 3, 21, 5, 9, 2];
+            arr.mySort(fn);
+            console.log(arr);
+            //写一个返回1-10之间随机整数的函数 要求每次都能返回第一次的随机值
+            function getRandom() {
+                var random = parseInt(10 * Math.random()) + 1;
+                return function () {
+                    return random;
+                };
+            }
+            var fn = getRandom();
+            console.log(fn()); */
+            
+            /* //闭包案例：
+            //1.点击li的时候，返回该li对应的索引
+            var box1 = document.getElementById('box1');
+            var ul = box1.children[0];
+            var list = ul.children;
+            for (var i = 0; i < list.length; i++) {
+                var li = list[i];
+                //li.index = i;
+                (function (i) {
+                    //li.onclick = liClick;
+                    li.onclick = function () {
+                        console.log(i);
+                        //此方式不能把事件处理函数写在循环外部？？？？？
+                        //写在外面是一个局部作用域，并不是在这个自调用函数的闭包环境
+                    }
+                })(i);
+            }
+            //function liClick() {
+            //    console.log(this.index);
+            //}
+            //2.点击不同按钮改变body内字体的大小
+            var box2 = document.getElementById('box2');
+            var btn = box2.children;
+            for (var i = 0; i < btn.length; i++) {
+                //btn[i].onclick = function () {
+                //    box2.style.fontSize = this.size + 'px';
+                //    //console.log(this.size);
+                //    //button标签下添加自定义的size属性。btn.size会返回undefined
+                //    //要用获取自定义的方式getAttribute
+                //} 
+                var size = btn[i].getAttribute('size');
+                btn[i].onclick = makeSize(size);
+
+            }
+            function makeSize(size) {
+                return function () {
+                    box2.style.fontSize = size + 'px';
+                };
+            } */
+
+            /* //递归案例
+            //1.用递归求n个数的和
+            function getSum(n) {
+                if (n === 1) {
+                    return 1;
+                }
+                return n + getSum(n - 1);
+            }
+            console.log(getSum(5));
+            //2.用递归求n的阶乘
+            function getProduct(n) {
+                if (n === 1) {
+                    return 1;
+                }
+                return n * getProduct(n - 1);
+            }
+            console.log(getProduct(5));
+            //3.用递归求斐波那契数列的第n个值 1, 1, 2, 3, 5, 8, 13, 21, 34...
+            //从第三项开始，每一项是前两项的和
+            function fn(n) {
+                if (n === 1 || n === 2) {
+                    //当是第一项和第二项的时候
+                    return 1;
+                }
+                return fn(n - 1) + fn(n - 2);
+                //第n项，就等于第n-1项和n-2项的和
+            }
+            console.log(fn(5));
+            console.log(fn(8));
+            //4.利用递归实现对象的深拷贝
+            var obj1 = {
+                name: 'zs',
+                age: 18,
+                dog: {
+                    name: 's',
+                    age: 1
+                },
+                friend: ['ls', 'ww']
+            }
+            var obj2 = {};
+            function deepCopy(parent, child) {
+                for (var key in parent) {
+                    if (child[key]) {
+                        continue;
+                    }
+                    //要记得判断类型，不然就是死循环 会导致内存溢出
+                    if (parent[key] instanceof Object) {
+                        child[key] = {};
+                        deepCopy(parent[key], child[key]);
+                    } else if (parent[key] instanceof Array) {
+                        child[key] = [];
+                        deepCopy(parent[key], child[key]);
+                    } else {
+                        child[key] = parent[key];
+                    }
+                }
+            }
+            deepCopy(obj1, obj2);
+            //深拷贝之后，数据不会随其更换而更改，存储到了不同的内存空间中
+            obj1.sex = '男';
+            obj1.age = 20;
+            obj1.dog.name = 'xs';
+            console.log(obj2);
+            //5.利用递归遍历DOM树
+            function loadTree(parent, callback) {
+                //或者给定第二个参数，让外部决定让找到的子元素执行什么
+                for (var i = 0; i < parent.children.length; i++) {
+                    var child = parent.children[i];
+                    //console.log(child);
+                    //闭包环境存储每个li的index值 实现点击谁就返回相应的index
+                    (function (i) {
+                        child.onclick = function () {
+                        console.log(i)
+                    }})(i);
+                    if (callback) {
+                        callback(child);//如果由该函数存在，就调用
+                    }
+                    //递归调用，让所有DOM枝节都显示出来
+                    loadTree(child);
+                }
+            }
+            //loadTree(document.body);
+            //loadTree(document.getElementById('box1').children[0]);
+            var box1 = document.getElementById('box1');
+            var ul = box1.children[0];
+            loadTree(ul, function (element) {
+                element.onmouseenter = function () {
+                    console.log(this.innerHTML);
+                }
+            }) */
+
+            //正则表达式练习
+            //1.验证邮编 100010
+            //  ^[1-9]\d{5}$
+            //2.验证手机号码 18910000000
+            //  ^[1-9]\d{10}$
+            //3.验证日期 2018-5-05
+            // ^\d{4}-\d{1,2}-\d{1,2}$
+            //4.验证邮箱 xxx@itcast.cn
+            //  ^\w+@\w+(\.\w+)+$
+            //5.验证IP地址 192.168.1.10
+            //  ^(\d{1,3}\.){2}\d{1,3}$
+            
+    </script>
+</body>
+</html>

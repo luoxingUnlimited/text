@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body, div, ul, li, span {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        div {
+            width: 400px;
+            height: 600px;
+            margin: 100px auto;
+        }
+        .box {
+            width: 400px;
+        }
+        .box_li {
+            width: 100px;
+            height: 40px;
+            background-color: #f96;
+            /* display: inline-block; */
+            float: left;
+            text-align: center;
+            line-height: 40px;
+        }
+        .box_li span {
+            cursor: pointer;
+        }
+        .option {
+            width: 220px;
+            height: 150px;
+            display: none;
+            /* margin-top: 10px; */
+            background-color: #f96;
+        }
+        .option li {
+            float: left;
+           /*  width: 220px;
+            height: 40px; */
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //下拉菜单（层次选择器）
+        //鼠标经过的时候下拉框显示出来，鼠标离开的时候下拉框隐藏起来
+        $(function () {
+            //页面加载
+            $('.box>li').mouseover(function () {
+                $(this).children('ul').show();
+                //该li的其他兄弟li里的ul隐藏
+                //$(this).siblings().children('ul').hide();
+            });
+            $('.box>li').mouseout(function () {
+                $(this).children('ul').hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <ul id="box" class="box">
+            <li class="box_li">
+                <span>offset家族</span>
+                <ul class="option">
+                    <li>offsetParent</li>
+                    <li>offsetLeft和offsetTop</li>
+                    <li>offsetWidth和offsetHeight</li>
+                </ul>
+            </li>
+            <li class="box_li">
+                <span>client家族</span>
+                <ul class="option">
+                    <li>clientLeft和clientTop</li>
+                    <li>clientWidth和clientHeight</li>
+                    <li>clientX和clientY</li>
+                </ul>
+            </li>
+            <li class="box_li">
+                <span>scroll家族</span>
+                <ul class="option">
+                    <li>scrollLeft和scrollTop</li>
+                    <li>scrollWidth和scrollHeight</li>
+                    <li>onscroll事件</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

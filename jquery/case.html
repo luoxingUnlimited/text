@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例</title>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //1.点击按钮btn1，设置层中的显示内容为：这是一个层，同时设置这个层的背景颜色（id选择器）
+        $(function () {
+            //页面加载
+            $('#btn1').click(function () {
+                $(this).siblings('div').css('backgroundColor', '#f96');
+                //siblings()获取该元素的所有兄弟元素
+                $(this).siblings('div').text('这是一个div层');
+            });
+        });
+        //2.点击按钮btn2，设置多个p标签中显示内容为：我们都是p（标签选择器）
+        $(function () {
+            $('#btn2').click(function () {
+                $('p').text('这是p标签。');
+            });
+        });
+        //3.点击按钮btn3，设置页面上应用类样式的元素背景颜色（类选择器）
+        $(function () {
+            $('#btn3').click(function () {
+                $('.cls').css('backgroundColor', '#69f');
+            });
+        });
+        //4.点击按钮btn4，设置页面上应用类样式的li标签的背景颜色（标签 + 类选择器）
+        $(function () {
+            $('#btn4').click(function () {
+                $('li.bg').css('backgroundColor', '#96f');
+            });
+        });
+        //5.点击按钮btn5，设置页面中的span标签，li标签，div标签的背景颜色（多条件选择器）
+        $(function () {
+            $('#btn5').click(function () {
+                $('li, span, h2').css('backgroundColor', '#9f6');
+            });
+        });
+        //6.鼠标经过li标签的高亮显示，离开取消高亮显示
+        $(function () {
+            $('#u>li').mouseover(function () {
+                $(this).css('border', '2px solid #0ff');
+            });
+            $('#u>li').mouseout(function () {
+                $(this).css('border', '');
+            });
+        });
+        //7.点击按钮btn6，修改box中标签的背景颜色（层次选择器）
+        //  父子级关系
+        $(function () {
+            $('#btn6').click(function () {
+                //给box下面的h2标签
+                //$('#box h2').css('backgroundColor', '#ff6');
+                //给box下面的所有标签
+                $('#box *').css('backgroundColor', '#ffb');
+            });
+        });
+        //8.隔行变色（奇偶数选择器）
+        //  点击按钮btn7，让ul里面的li隔行变色显示
+        $(function () {
+            $('#btn7').click(function () {
+                $('#u>li:odd').css('backgroundColor', '#99f');
+                $('#u>li:even').css('backgroundColor', '#f66');
+            });
+            //  btn8（索引选择器）
+            $('#btn8').click(function () {
+                //索引为3的项
+                $('#u>li:eq(3)').css({'color':'#36f', 'fontSize':'24px'});
+                //索引大于4的项
+                $('#u>li:gt(4)').css('color', '#f36');
+                //索引小于2的项
+                $('#u>li:lt(2)').css('color', '#966');
+            });
+        });
+        
+
+    </script>
+</head>
+<body>
+    <div>
+        <input type="button" value="通过di选择器 显示内容" id="btn1">
+        <div style="background-color: bisque;"></div>
+    </div>
+    <div>
+        <input type="button" value="通过标签选择器 显示内容" id="btn2">
+        <p>$('#id名')是jQuery中通过id获取元素</p>
+        <p>$('.class名')是jQuery中通过类名获取元素</p>
+        <p>$('标签名')是jQuery中通过标签获取元素</p>
+        <p>$('*')是jQuery中获取页面上所有标签（一般不用该方法）</p>
+        <p>$('标签名.类名')是jQuery中通过类名和标签 获取含有该类名的标签</p>
+    </div>
+    <div id="box">
+        <input type="button" value="通过类选择器 显示背景" id="btn3">
+        <h2>jQuery中的顶级对象是：jQuery/$</h2>
+        <p class="cls">jQuery是JavaScript的框架库之一</p>
+        <span>jQuery中封装了很多函数</span>
+        <ul>
+            <li>jQuery很好的解决了不同浏览器的兼容问题</li>
+            <li class="cls">jQuery write less, do more.</li>
+            <li>jQuery体积小，使用方便</li>
+            <li><h2>链式编程，隐式迭代</h3></li>
+        </ul>
+    </div>
+    <div>
+        <input type="button" value="通过标签+类选择器 显示背景" id="btn4">
+        <ul>
+            <li class="bg">DOM中一个简单的功能需要大量代码实现</li>
+            <li>DOM中的兼容问题很多，代码容错率低 错一点就会影响整个页面的效果</li>
+            <li class="bg">DOM中的页面加载函数只能有一个 window.onload</li>
+        </ul>
+    </div>
+    <div>
+        <input type="button" value="多条件选择器 添加背景" id="btn5">
+    </div>
+    <div>
+        <input type="button" value="层次选择器 背景颜色" id="btn6">
+    </div>
+    <div>
+        <input type="button" value="奇偶数选择器 隔行变色" id="btn7">
+        <input type="button" value="索引选择器 改变字体颜色" id="btn8">
+        <ul id="u">
+            <li>Number</li>
+            <li>String</li>
+            <li>Boolean</li>
+            <li>Array</li>
+            <li>Date</li>
+            <li>jQuery</li>
+        </ul>
+    </div>
+</body>
+</html>

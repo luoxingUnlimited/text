@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格排序</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 400px;
+            /* height: 600px; */
+            border: 1px solid #000; 
+            margin: 100px auto; 
+            border-collapse: collapse;  
+        }
+        /* tr {
+            width: 400px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        } */
+        th,
+        td {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container" class="container">
+        <table>
+           <!--  <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>学号</th>
+                    <th>成绩</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>张三</td>
+                    <td>18</td>
+                    <td>3</td>
+                    <td>98</td>
+                </tr>
+            </tbody> -->
+        </table>
+    </div>
+    <script>
+        //获取容器内的table 
+        //在table内动态生成thead和tbody以及其中的内容
+        //把模拟的数据放进生成好的表格中
+        //点击年龄，学号，成绩会实现排序
+        
+        /* //模拟数据
+        var data = [
+            {'name': '张三', 'age': 16, 'num': 3, 'score': 98},
+            {'name': '李四', 'age': 18, 'num': 1, 'score': 100},
+            {'name': '王五', 'age': 17, 'num': 2, 'score': 90},
+            {'name': '赵六', 'age': 19, 'num': 4, 'score': 99},
+            {'name': '钱八', 'age': 17, 'num': 5, 'score': 97}
+        ];
+        //创建表头数组
+        var thArr = ['姓名', '年龄', '学号', '成绩'];
+        //获取容器
+        var container = document.getElementById('container');
+        var table = container.children[0];
+        //1.创建表头
+        var thead = document.createElement('thead');
+        table.appendChild(thead);
+        var tr = document.createElement('tr');
+        thead.appendChild(tr);
+        //循环为表头单元添加单元格
+        for (var i = 0; i < thArr.length; i++) {
+            var th = document.createElement('th');
+            th.innerHTML = thArr[i];
+            //为表头数据添加自定义属性，索引，方便后续获取
+            th.setAttribute('index', i);
+            tr.appendChild(th);
+            thArr[i] = th;//将值重新赋值给表头数组，满足内部是表头里的单元格标签，方便后面获取自定义属性
+            //console.log(th.getAttribute('index'));
+        }
+        //2.创建tbody
+        
+        //创建三个数组接收需要排序的项
+        //var ageArr = [];
+        //var numArr = [];
+        //var scoreArr = [];
+        function createTd(data) {
+            var tbody = document.createElement('tbody');
+            //table.appendChild(tbody);
+            for (var i = 0; i < data.length; i++) {
+                var tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                var obj = data[i];
+                for (var key in obj) {
+                    var td = document.createElement('td');
+                    td.innerHTML = obj[key];
+                    tr.appendChild(td);
+                    //if (key === 'age') {
+                    //    ageArr.push(obj[key]);
+                    //} else if (key === 'num') {
+                    //    numArr.push(obj[key]);
+                    //} else if (key === 'score') {
+                    //    scoreArr.push(obj[key]);
+                    //}
+                }
+            }
+            return tbody;
+        }
+        var tbody = createTd(data);
+        table.appendChild(tbody);
+        
+        //console.log(ageArr);
+        //console.log(numArr);
+        //console.log(scoreArr);
+        
+    //获取年龄，学号，成绩分别放进数组中...应该可以在创建tbody的循环中就放进去
+    //该方式不太可取，无法动态更改data数据库中的数据
+        //3.点击年龄，学号，成绩会实现排序
+        for (var i = 1; i < thArr.length; i++) {
+            var th = thArr[i];//要在前面将创建出来的th重新赋值给表头数组
+            th.onclick = function () {
+                var index = this.getAttribute('index');
+                //点击一次就会对相应的数据进行排序，就会返回一个值
+                //如果返回的是-1，就让他改变成1，这样实现多次点击，重复不同规则排序
+                this.flag = this.flag == 1 ? - 1 : 1;
+                var that = this;
+                if (index === '1') {
+                    //切记设置的自定义属性都是字符串形式
+                    console.log(data);
+                    data.sort(function (o1, o2) {//传进函数的参数是对象
+                        var n1 = o1.age;
+                        var n2 = o2.age;
+                        if ( n1 > n2) {
+                            return - that.flag;
+                        } else if (n1 < n2) {
+                            return that.flag;
+                        } 
+                        return 0;
+                        
+                    });
+                    var newTbody = createTd(data);
+                    var oldTbody = document.getElementsByTagName('tbody')[0];
+                    table.replaceChild(newTbody, oldTbody); 
+                }
+                if (index === '2') {
+                    data.sort(function (o1, o2) {
+                        var n1 = o1.num;
+                        var n2 = o2.num;
+                        if ( n1 > n2) {
+                            return - that.flag;
+                        } else if (n1 < n2) {
+                            return that.flag;
+                        }
+                        return 0;
+                    });
+                    var newTbody = createTd(data);
+                    var oldTbody = document.getElementsByTagName('tbody')[0];
+                    table.replaceChild(newTbody, oldTbody); 
+                }
+                if (index === '3') {
+                    data.sort(function (o1, o2) {
+                        var n1 = o1.score;
+                        var n2 = o2.score;
+                        if ( n1 > n2) {
+                            return - that.flag;
+                        } else if (n1 < n2) {
+                            return that.flag;
+                        }
+                        return 0;
+                    });
+                    var newTbody = createTd(data);
+                    var oldTbody = document.getElementsByTagName('tbody')[0];
+                    table.replaceChild(newTbody, oldTbody); 
+                }
+            }
+        } */
+        
+
+        //用面向对象的方式实现
+        //创建一个对象来执行这件事，给定table和data,表头数组数据就能实现排序
+        //先创建构造函数
+        function TableSort(id, data, arr) {
+            //获取容器
+            this.container = document.getElementById(id);
+            this.table = this.container.children[0];
+            this.data = data;
+            this.arr = arr;
+        }
+        //模拟数据
+        var data = [
+            {'name': '张三', 'age': 16, 'num': 3, 'score': 98},
+            {'name': '李四', 'age': 18, 'num': 1, 'score': 100},
+            {'name': '王五', 'age': 17, 'num': 2, 'score': 90},
+            {'name': '赵六', 'age': 19, 'num': 4, 'score': 99},
+            {'name': '钱八', 'age': 17, 'num': 5, 'score': 97}
+        ];
+        //创建表头数组
+        var thArr = ['姓名', '年龄', '学号', '成绩'];
+        
+//给构造函数书写相应的方法：
+        //实现整个过程
+        TableSort.prototype.init = function () {
+            //初始化标题
+            var thead = this.createTh(this.arr);
+            //初始化数据
+            var tbody = this.createTd(this.data);
+            //将数据渲染在页面
+            this.table.appendChild(thead);
+            this.table.appendChild(tbody);
+            //绑定点击事件，排序
+            this.addClick(this.data);
+        }
+        
+        //1.创建表头
+        TableSort.prototype.createTh = function (arr) {
+            arr = arr || [];
+            var thead = document.createElement('thead');
+            //table.appendChild(thead);
+            var tr = document.createElement('tr');
+            thead.appendChild(tr);
+            //循环为表头单元添加单元格
+            for (var i = 0; i < arr.length; i++) {
+                var th = document.createElement('th');
+                th.innerHTML = arr[i];
+                th.setAttribute('index', i);
+                tr.appendChild(th);
+                arr[i] = th;
+            }
+            return thead;
+        }        
+        //2.创建tbody
+        TableSort.prototype.createTd = function (data) {
+            data = data || [];
+            var tbody = document.createElement('tbody');
+            for (var i = 0; i < data.length; i++) {
+                var tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                var obj = data[i];
+                for (var key in obj) {
+                    var td = document.createElement('td');
+                    td.innerHTML = obj[key];
+                    tr.appendChild(td);
+                }
+            }
+            return tbody;
+        }
+        //点击事件 实现排序
+        TableSort.prototype.addClick = function (data) {
+            var _this = this;
+            var thArr = document.getElementsByTagName('th');
+            for (var i = 1; i < thArr.length; i++) {
+                var th = thArr[i];
+                th.onclick = function () {
+                    var index = this.getAttribute('index');
+                    this.flag = this.flag == 1 ? - 1 : 1;
+                    var that = this;
+                    if (index === '1') {
+                        console.log(data);
+                        data.sort(function (o1, o2) {
+                            var n1 = o1.age;
+                            var n2 = o2.age;
+                            if ( n1 > n2) {
+                                return - that.flag;
+                            } else if (n1 < n2) {
+                                return that.flag;
+                            } 
+                            return 0;
+                        });
+                        var newTbody = _this.createTd(data);
+                        var oldTbody = document.getElementsByTagName('tbody')[0];
+                        _this.table.replaceChild(newTbody, oldTbody); 
+                    }
+                    if (index === '2') {
+                        data.sort(function (o1, o2) {
+                            var n1 = o1.num;
+                            var n2 = o2.num;
+                            if ( n1 > n2) {
+                                return - that.flag;
+                            } else if (n1 < n2) {
+                                return that.flag;
+                            }
+                            return 0;
+                        });
+                        var newTbody = _this.createTd(data);
+                        var oldTbody = document.getElementsByTagName('tbody')[0];
+                        _this.table.replaceChild(newTbody, oldTbody); 
+                    }
+                    if (index === '3') {
+                        data.sort(function (o1, o2) {
+                            var n1 = o1.score;
+                            var n2 = o2.score;
+                            if ( n1 > n2) {
+                                return - that.flag;
+                            } else if (n1 < n2) {
+                                return that.flag;
+                            }
+                            return 0;
+                        });
+                        var newTbody = _this.createTd(data);
+                        var oldTbody = document.getElementsByTagName('tbody')[0];
+                        _this.table.replaceChild(newTbody, oldTbody); 
+                    }
+                }
+            }
+        }
+
+        //调用这个对象，传入相应的参数，就能实现排序
+        var tb = new TableSort('container', data, thArr);
+        tb.init();
+    </script>
+</body>
+</html>

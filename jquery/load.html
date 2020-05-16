@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //均是jQuery中的页面加载
+        $(window).load(function () {
+            console.log(111);//执行最慢 等标签 文字 图片 外部文件加载完才执行
+        });
+        $(function () {
+            console.log(222);//执行快 基本标签加载完毕就执行
+        });
+        $(document).ready(function () {
+            console.log(333);//执行快 基本标签加载完毕就执行
+        });
+        jQuery(function () {//执行快  后三个 谁在前面就执行谁的先 基本标签加载完毕就执行
+            console.log(444);
+        });
+    </script>
+</body>
+</html>

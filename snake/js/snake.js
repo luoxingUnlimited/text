@@ -88,13 +88,25 @@
             //获取蛇的最后一节，然后添加进蛇body中
             var last = this.body[this.body.length - 1];
             //在body里增加一个蛇身位置，然后将last的xy赋值给他
-            this.body.push({
+            /* this.body.push({
                 x: last.x,
                 y: last.y,
                 color: last.color
-            });
+            }); */
+            var obj = {};
+            extend(last, obj);
+            this.body.push(obj);
             food.render(map);
         }
+    }
+    //将一个对象的成员复制给另一个对象
+    function extend(parent, child) {
+        for (var key in parent) {
+            if (child[key]) {
+                continue;
+            }
+            child[key] = parent[key];
+       }
     }
     //暴露构造函数给外部
     window.Snake = Snake;

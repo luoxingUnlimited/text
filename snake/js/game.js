@@ -82,8 +82,4 @@
     //将Game构造函数暴露在外部
     window.Game = Game;
 })();
-//测试
-var map = document.getElementById('map');
-var game = new Game(map);
-game.start();
-//game.snake.move();
+
