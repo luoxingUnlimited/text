@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取兄弟元素</title>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .wrapper {
+            width: 120px;
+            margin: 100px auto 0;
+        }
+        #u {
+            width: 120px;
+            border: 1px solid #000;
+        }
+        #u li {
+            width: 120px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-bottom: 1px solid #000;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            //页面加载
+            $('#u>li').mouseenter(function () {
+                $(this).next().css('border', '1px solid red').siblings('li').css('border', '');
+            }).click(function () {
+                $(this).nextAll().css('backgroundColor', '#f66').end().prevAll().css('backgroundColor', '#99f');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <ul id="u">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery</li>
+            <li>Vue</li>
+            <li>Node</li>
+            <li>Ajax</li>
+        </ul>
+    </div>
+</body>
+</html>

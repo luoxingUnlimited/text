@@ -1,0 +1,57 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>手风琴案例</title>  
+    <style>  
+        body, ul, li, a, img {  
+            margin: 0;  
+            padding: 0;  
+        }  
+        li {  
+            list-style: none;  
+        }  
+        #container {  
+            width: 1150px;  
+            height: 400px;  
+            margin: 100px auto 0;  
+            overflow: hidden;  
+            border: 1px solid red;  
+        }  
+        #wrapper {  
+            width: 1300px;  
+        }  
+        #wrapper li {  
+            width: 240px;  
+            height: 400px;  
+            float: left;  
+        }  
+    </style>  
+    <script src="jquery-1.12.2.js"></script>  
+    <script>  
+        //当鼠标放在哪张图片上 那张图片就显示出来，其他元素变窄  
+        //鼠标离开就恢复原状  
+        $(function () {  
+            //页面加载函数  
+            $('#wrapper>li').mouseenter(function () {  
+                $(this).css('width', '800px').siblings('li').css('width', '85px');  
+            });  
+            $('#wrapper').mouseleave(function () {  
+                $(this).find('li').css('width', '240px');  
+            });  
+        });  
+    </script>  
+</head>  
+<body>  
+    <div id="container">  
+        <ul id="wrapper">  
+            <li><a href="#"><img src="images/1.jpg" alt=""></a></li>  
+            <li><a href="#"><img src="images/2.jpg" alt=""></a></li>  
+            <li><a href="#"><img src="images/3.jpg" alt=""></a></li>  
+            <li><a href="#"><img src="images/4.jpg" alt=""></a></li>  
+            <li><a href="#"><img src="images/5.jpg" alt=""></a></li>  
+        </ul>  
+    </div>  
+</body>  
+</html>  

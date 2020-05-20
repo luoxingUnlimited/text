@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链式编程案例</title>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //获取列表中的li，鼠标经过，当前li高亮显示，点击的时候当前被点击的li字体变大，字体颜色改变
+        $(function () {
+            //页面加载
+            //链式编程：对象.方法().方法().方法(). ...
+            //对象调用完方法后返回的依然是当前对象，如果返回的不是当前对象或者不是对象再继续调用方法就会报错（断链）
+            $('#wrapper>li').mouseenter(function () {
+                $(this).css('border', '2px solid #966').siblings('li').css('border', '');
+            }).click(function () {
+                $(this).css('fontSize', '24px').css('color', '#669');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <ul id="wrapper">
+            <li>Number</li>
+            <li>String</li>
+            <li>Boolean</li>
+            <li>Undefined</li>
+            <li>Null</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width= , initial-scale=1.0">
     <title>开关灯案例</title>
+    <style>
+        .bg {
+            background-color: black;
+        }
+    </style>
     <script src="jquery-1.12.2.js"></script>
     <script>
         //jquery方式书写的代码
-        $(function () {
+        /* $(function () {
             $('#btn').click(function () {
                 if ($(this).val() === '关灯') {
                     $('body').css('backgroundColor', 'black');
@@ -17,7 +22,22 @@
                     $(this).val('关灯');
                 }
             });
+        }); */
+        //jquery中的样式操作
+        $(function () {
+            //不要忘记写页面加载函数
+            $('#btn').click(function () {
+                if ($('body').hasClass('bg')) {
+                    $('body').removeClass('bg');
+                    $(this).val('关灯');
+                } else {
+                    $('body').addClass('bg');
+                    $(this).val('开灯');
+                } 
+                //$('body').toggleClass('bg');//点击按钮直接进行样式切换
+            });
         });
+        
         //DOM方式书写的代码
         /* window.onload = function () {
             var btn = document.getElementById('btn');

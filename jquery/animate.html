@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery中的动画效果</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #f66;
+            position: absolute;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            //页面加载
+            $('#btnHide').click(function () {
+                //$('.box').hide(2000);//以2000毫秒的速度隐藏
+                $('.box').hide('slow');//以很慢的速度隐藏
+            });
+            $('#btnShow').click(function () {
+                //$('.box').show('fast');//快速显示
+                $('.box').show(5000);//以5秒的速度显示
+            });
+            //点击滑入
+            $('#btn1').click(function () {
+                $('.box').slideUp(1000);
+            });
+            //点击滑出
+            $('#btn2').click(function () {
+                $('.box').slideDown(800);
+            });
+            //点击切换滑入滑出
+            $('#btn3').click(function () {
+                $('.box').slideToggle('normal');
+            });
+            //点击淡入
+            $('#btn4').click(function () {
+                $('.box').fadeIn(2000);
+            });
+            //点击淡出
+            $('#btn5').click(function () {
+                $('.box').fadeOut(200);
+            });
+            //点击切换 淡入淡出
+            $('#btn6').click(function () {
+                $('.box').fadeToggle(500);
+            });
+            //点击切换透明度
+            $('#btn7').click(function () {
+                $('.box').fadeTo(1000, 0.3);//切换透明度有两个参数
+            });
+            //点击，产生动画效果
+            $('#btn').click(function () {
+                $('.box').animate({'width':'500px', 'height':'500px', 'backgroundColor':'#99f', 'left':'300px'}, 800, function () {
+                    $(this).animate({'width':'50px', 'height':'50px', 'left': '700px', 'top':'500px'}, 2000, function () {
+                        $(this).animate({'width':'100px', 'height':'100px', 'backgroundColor':'#f33', 'left':'8px', 'top':'30px'}, 1000);
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+     <input type="button" value="隐藏" id="btnHide">
+     <input type="button" value="显示" id="btnShow">
+     <input type="button" value="滑入" id="btn1">
+     <input type="button" value="滑出" id="btn2">
+     <input type="button" value="切换滑入滑出" id="btn3">
+     <input type="button" value="淡入" id="btn4">
+     <input type="button" value="淡出" id="btn5">
+     <input type="button" value="切换淡入淡出" id="btn6">
+     <input type="button" value="变化透明度" id="btn7">
+     <input type="button" value="动画" id="btn">
+     <div class="box"></div>
+</body>
+</html>

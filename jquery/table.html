@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态创建表格</title>
+    <style>
+        #wrapper {
+            width: 200px;
+            height: 400px;
+            margin: 100px auto 0;
+        }
+        table {
+            font-size: 16px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #ccc;
+        }
+        th,
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+        th {
+            color: #fff;
+        }
+        thead {
+            background-color: rgb(75, 172, 236);
+        }
+        tbody tr {
+            background-color: #f0f0f0;
+        }
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //模拟数据
+        var data = [
+            {
+                name: '百度',
+                url: 'http://www.baidu.com',
+                type: '搜索工具'
+            },
+            {
+                name: '百度',
+                url: 'http://www.baidu.com',
+                type: '搜索工具'
+            },
+            {
+                name: '百度',
+                url: 'http://www.baidu.com',
+                type: '搜索工具'
+            }
+        ];
+        /* $(function () {
+            //点击按钮 生成表格
+            $('#btn').click(function () {
+                var tb = $('<tbody></tbody>');
+                $('table').append(tb);
+                for (var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                    var tr = $('<tr><td><a href="' + obj.url + '">' + obj.name + '</a></td><td>' + obj.type + '</td></tr>');
+                    tb.append(tr);
+                };
+            });
+        }); */
+        //html(),方法
+        $(function () {
+            $('#btn').click(function () {
+                var tb = $('<tbody></tbody>');
+                $('table').append(tb);
+                var arr = [];
+                for (var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                    var tr = $('<tr><td><a href="' + obj.url + '">' + obj.name + '</a></td><td>' + obj.type + '</td></tr>');
+                    arr.push(tr);
+                };
+                tb.html(arr);
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="获取数据" id="btn">
+    <div id="wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>

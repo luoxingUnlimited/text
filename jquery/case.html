@@ -64,6 +64,10 @@
             $('#btn7').click(function () {
                 $('#u>li:odd').css('backgroundColor', '#99f');
                 $('#u>li:even').css('backgroundColor', '#f66');
+                //尝试用奇偶数选择器，对p标签进行操作。可以吗？--也是可以的
+                $('#box1 p:odd').css('border', '2px solid #f36');
+                //$('#box1 *:odd').css('border', '2px solid #f36');
+                //console.log($('#box1 *:odd'));
             });
             //  btn8（索引选择器）
             $('#btn8').click(function () {
@@ -84,7 +88,7 @@
         <input type="button" value="通过di选择器 显示内容" id="btn1">
         <div style="background-color: bisque;"></div>
     </div>
-    <div>
+    <div id="box1">
         <input type="button" value="通过标签选择器 显示内容" id="btn2">
         <p>$('#id名')是jQuery中通过id获取元素</p>
         <p>$('.class名')是jQuery中通过类名获取元素</p>
@@ -125,8 +129,8 @@
             <li>Number</li>
             <li>String</li>
             <li>Boolean</li>
-            <li>Array</li>
-            <li>Date</li>
+            <li>Undefined</li>
+            <li>Null</li>
             <li>jQuery</li>
         </ul>
     </div>

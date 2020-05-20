@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置/获取自定义属性</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: #f96;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //点击设置按钮 给box新添加元素并设置元素的自定义属性
+        //点击获取按钮，获取元素的自定义属性
+        $(function () {
+            $('#btn1').click(function () {
+                $('#box').append($('<a>百度</a>'));
+                $('a').attr('href', 'http://www.baidu.com');
+                $('a').attr('type', '1');
+            });
+            $('#btn2').click(function () {
+                console.log($('a').attr('type'));
+                console.log($('#ch').attr('checked'));
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="设置" id="btn1">
+    <input type="button" value="获取" id="btn2">
+    <div id="box"></div>
+    <input type="checkbox" name="" id="">重庆
+    <input type="checkbox" name="" id="ch" checked="checked">武汉
+    <input type="checkbox" name="" id="">杭州
+</body>
+</html>

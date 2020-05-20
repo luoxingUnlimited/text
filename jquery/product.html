@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品切换案例</title>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            width: 1000px;
+            height: 1000px;
+            overflow: hidden;
+            margin: 100px auto 0;
+        }
+        .wrapper ul {
+            width: 300px;
+            height: 30px;
+            border: 1px solid #999;
+            list-style: none;
+        }
+        .wrapper ul li {
+            float: left;
+            width: 75px;
+            height: 30px;
+            font-size: 16px;
+            border-left: 1px solid #999;
+            text-align: center;
+            line-height: 30px;
+            margin-left: -1px;
+        }
+        .wrapper div {
+            border: 1px solid #999;
+            display: none;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //切换tab栏的产品
+        //鼠标经过哪个产品标签就显示下方的产品，并且产品标签上方添加border 红色
+        //鼠标移开tab栏下方的产品隐藏起来
+        $(function () {
+            //页面加载
+            $('ul>li').mouseenter(function () {
+                var index = $(this).index();
+                $('.wrapper>div:eq(' + index + ')').show().siblings('div').hide();
+                $(this).css('border-top', '1px solid red');
+            }).mouseleave(function () {
+                $(this).css('border-top', '');
+                $('.wrapper>div').hide();
+            })
+
+        })
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <ul>
+            <li>国际大牌</li>
+            <li>国妆名牌</li>
+            <li>男士精品</li>
+            <li>清洁用品</li>
+        </ul>
+        <div><img src="images/guojidapai.jpg" alt=""></div>
+        <div><img src="images/guozhuangmingpin.jpg" alt=""></div>
+        <div><img src="images/nanshijingpin.jpg" alt=""></div>
+        <div><img src="images/qingjieyongpin.jpg" alt=""></div>
+    </div>
+</body>
+</html>

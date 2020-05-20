@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画案例</title>
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            //页面加载
+            $('#btnHide').click(function () {
+                $('.box>img').last().hide(1000, function () {
+                    $(this).prev().hide(1000, arguments.callee);//arguments.callee相当于递归，系统提供的
+                });
+            });
+            $('#btnShow').click(function () {
+                $('.box>img').first().show('fast', function () {
+                    $(this).next().show('fast', arguments.callee);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="隐藏" id="btnHide">
+    <input type="button" value="显示" id="btnShow">
+    <div class="box">
+        <img src="images/11.jpg" alt="">
+        <img src="images/12.jpg" alt="">
+        <img src="images/13.jpg" alt="">
+        <img src="images/14.jpg" alt="">
+    </div>
+</body>
+</html>

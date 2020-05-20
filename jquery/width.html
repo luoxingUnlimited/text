@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置/获取元素的宽高</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: #f69;
+            margin-top: 10px;
+        }
+        body {
+            width: 2000px;
+            height: 5000px;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            //页面加载
+            $('#btn1').click(function () {
+                $('.box1').width('200px').height(200);//width height可以是字符串含px，也可以是数字
+                $('.box2').offset({'left':100, 'top':500});//offset只能是数字
+            });
+            $('#btn2').click(function () {
+                $('.box1').text($('.box1').width());
+                console.log($('.box1').height());
+                $('.box2').text($('.box2').offset().top);
+            });
+            $(window).scroll(function () {
+                console.log($(document).scrollLeft());
+                console.log($(document).scrollTop());
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="设置" id="btn1">
+    <input type="button" value="获取" id="btn2">
+    <div class="box1"></div>
+    <div class="box2"></div>
+</body>
+</html>

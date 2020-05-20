@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单元素的value</title>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //点击按钮获取表单元素的value值
+        $(function () {
+            //页面加载
+            $('#btn').click(function () {
+                //console.log($('#btn').val());
+                //console.log($('#txt').val());
+                //console.log($('#red').val());
+                //console.log($('#check').val());
+                //console.log($('#sub').val());
+                //console.log($('#area').val());
+                //console.log($('#area').text());
+                //console.log($('#sel').val());
+                $('#area').val('这是文本域');
+                $('#sel').val(2);//选中下拉框中的某一项
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn">
+    <input type="text" value="请输入..." id="txt">
+    <input type="radio" value="单选框" id="red">A
+    <input type="checkbox" value="复选框" id="check">喜好
+    <input type="submit" value="提交" id="sub">
+    <textarea name="" id="area" cols="30" rows="10">文本域</textarea>
+    <select name="" id="sel">
+        <option value="1">重庆</option>
+        <option value="2">武汉</option>
+        <option value="3">桂林</option>
+    </select>
+</body>
+</html>

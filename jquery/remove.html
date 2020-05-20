@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除内容/元素</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: #09f;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            //页面加载
+            $('#btn').click(function () {
+                //添加元素
+                //$('#box2').append($('#box1>p'));
+                //$('#box1>p').appendTo($('#box2'));
+                //$('#box1').prepend($('<span>这是一个子span标签</span>'));
+                //$('#box1').append($('<span>这是第二个子span标签</span>'));
+                //$('#box1').before($('<span>这是一个兄弟span标签</span>'));
+                //$('#box1').after($('<span>这是第二个兄弟span标签</span>'));
+                //清除内容
+                //$('#box1').html('');
+                //$('#box1').empty();
+                //$('#box1>p').remove();
+                //$('#box1').remove();
+                //克隆
+                var p = $('#box1>p').clone();//深克隆
+                $('#box2').append(p);
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn">
+    <div id="box1">
+        <p>这是一个p标签
+            <a href="#">这是一个a链接</a>
+        </p>
+    </div>
+    <div id="box2"></div>
+</body>
+</html>

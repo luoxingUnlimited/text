@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好友列表切换</title>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            width: 200px;
+            height: 600px;
+            margin: 100px auto 0;
+            overflow: hidden;
+            border: 1px solid red;
+        }
+        li {
+            list-style: none;
+        }
+        #u li {
+            text-align: center;
+            line-height: 40px;
+            background-color: #99f;
+            font-size: 20px;
+            color: #222;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        /* .hide{
+            display: none;
+        } */
+        #u li ul li {
+            background-color: #f99;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //点击好友分组就会把该分组打开展示该分组下的好友 把其他分组闭合
+        $(function () {
+            //页面加载
+            //先让全部的子li隐藏
+            $('#u>li>ul>li').hide();
+            $('#u>li').click(function () {
+                $(this).siblings('li').children('ul').find('li').hide(500);
+                $(this).children('ul').find('li').show(500);
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <ul id="u">
+            <li>
+                小学同学
+                <ul>
+                    <li>西西</li>
+                    <li>肉肉</li>
+                    <li>球球</li>
+                </ul>
+            </li>
+            <li>
+                初中同学
+                <ul>
+                    <li>小明</li>
+                    <li>小红</li>
+                    <li>小小</li>
+                </ul>
+            </li>
+            <li>
+                高中同学
+                <ul>
+                    <li>张三</li>
+                    <li>李四</li>
+                    <li>王五</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
