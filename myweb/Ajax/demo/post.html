@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初识Ajax开发 post</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 40px;
+        }
+        input {
+            text-indent: 5px;
+            margin-right: 10px;
+        }
+        #btn {
+            margin-top: 10px;
+            margin-left: 110px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            var info = document.getElementById('info');
+            var uName = document.getElementById('userName');
+            var pw = document.getElementById('password');
+            btn.onclick = function () {
+                //1.创建对象
+                //兼容写法：
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();//标准 
+                } else {
+                    xhr = new ActiveXObject('Microsoft');//IE6
+                }
+
+                //2.准备发送
+                var param = 'userName=' + uName.value + '&password=' + pw.value;//拼接参数内容
+                //console.log(uName.value);
+                //console.log(pw.value);
+                xhr.open('post', './postCheck.php', true);
+                //3.执行发送动作
+                //设置请求头信息
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                xhr.send(param);//将参数放入send中
+                console.log(param);
+                //4.指定回调函数
+                xhr.onreadystatechange = function () {
+                    console.log(333);
+                    if (xhr.readyState == 4) {
+                        //判断是否有数据
+                        if (xhr.status == 200) {
+                            //判断数据是否正常
+                            console.log(444);
+                            //var data = xhr.responseText;
+                            console.log(xhr.responseText);
+                            //alert(data);
+                            //if (data == 1) {
+                            //    console.log(111);
+                            //    info.innerText = '登录成功';
+                            //} else if (data == 2) {
+                            //    console.log(222);
+                            //    info.innerText = '用户名或密码错误';
+                            //}
+                        }
+                    }
+                }
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <div>
+        <form>
+            <label>用户名：</label>
+            <input type="text" name="userName" id="userName"><span id="info"></span><br>
+            <label>密码：</label>
+            <input type="password" name="password" id="password"><br>
+            <input type="button" value="登录" id="btn">
+        </form>
+    </div>
+</body>
+</html>

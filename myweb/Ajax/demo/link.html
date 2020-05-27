@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟智能搜索（跨域）</title>
+    <style>
+        body, input {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 400px;
+            min-height: 300px;
+            text-align: center;
+            background-color: #9fc;
+            border: 1px solid #000;
+            margin: 100px auto 0;
+            padding-top: 10px;
+        }
+        #keyWord {
+            margin-right: 10px;
+        }
+        .container #info ul {
+            list-style: none;
+            text-align: left;
+            margin-left: 40px;
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <!-- <script src="template.js"></script>
+    <script type="text/html" id="template">
+        {{if data}}
+            <ul>
+                {{each data.g as value}}
+                    <li>{{value.q}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </script> -->
+    <script>
+        $(function () {
+            //页面加载
+            $('#keyWord').keydown(function () {
+                var kw = $(this).val();
+                $.ajax({
+                    url: 'https://www.baidu.com/sugrec',
+                    data: {"pre":1, "p": 3, "ie": "utf-8", "wd": kw, "json":1, "prod":"pc", "from":"pc_web"},
+                    dataType: 'jsonp',
+                    jsonp: 'cb',
+                    jsonpCallback: 'sc',
+                    success: function (data) {//解析服务器相应的数据，渲染在页面
+                        var tag = '<ul>';
+                        var sug = data.g;
+                        $.each(sug, function(i, e) {//each方法
+                            tag += '<li>' + e.q + '</li>';
+                        });
+                        tag += '</ul>';
+                        $('#info').html(tag);
+                        //var html = template('template', data.g);
+                        //console.log(html);
+                        //$('#info').html(html);
+                        $('#info').find('li').hover(function () {//hover鼠标经过方法，参数为两个函数，鼠标进入和鼠标移出
+                            $(this).css('backgroundColor','#f0f0f0');
+                        }, function () {
+                            $(this).css('backgroundColor', '');
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="keyWord"><input type="button" value="搜索" id="search">
+        <div id="info"></div>
+    </div>
+</body>
+</html>
+<!-- https://www.baidu.com/sugrec
+?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&wd=ja&bs=java&csor=2&pwd=jav
+&cb=jQuery11020557555113567517_1590474955015&_=1590474955019 -->

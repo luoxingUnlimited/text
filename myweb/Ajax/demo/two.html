@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习template</title>
+    <script src="template.js"></script>
+    <script type="text/html" id="test">
+        <p>不转译标签需加#：{{#value}}</p>
+        <p>默认是转译的：{{value}}</p>
+    </script>
+    <script>
+        window.onload = function () {
+            var data = {
+                value: '<span style="color:#f00">hello world!<span>'
+            };
+            var html = template('test', data);
+            var info = document.getElementById('info');
+            info.innerHTML = html;
+        }
+    </script>
+</head>
+<body>
+    <div id="info"></div>
+</body>
+</html>

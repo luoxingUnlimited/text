@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟省市县三级联动</title>
+    <style>
+        body, span, select, label, option {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 500px;
+            min-height: 300px;
+            margin: 100px auto 0;  
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            function queryData(obj, callback) {
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost/Ajax/demo/select.php',
+                    data: obj,
+                    dataType: 'json',
+                    success: function (data) {
+                        callback(data);
+                    }
+                });
+            }
+            //加载省级数据
+            queryData({
+                flag: 1
+            }, function (data) {
+                var option = '';
+                $.each(data, function (i, e) {
+                    option += '<option value="' + e.id + '">' + e.province + '</option>';
+                });
+                //将创建的option添加给父元素
+                $('#province').append(option);//父元素.append()将子元素添加给父元素
+                $('#province').change(function () {
+                    //省级发生变化的时候触发变化事件，加载市级数据
+                    //加载市级数据之前先移除市级数据
+                    $('#city').find('option:gt(0)').remove();//移除option除了索引为0的那一个
+                    queryData({
+                        flag: 2,
+                        pId: $(this).val()//指向省，通过省找下面的市
+                    }, function (data) {
+                        var option = '';
+                        $.each(data, function (i, e) {
+                            option += '<option value="' + e.id + '">' + e.city + '</option>';
+                        });
+                        //将创建的option添加给父元素
+                        $('#city').append(option);
+                        $('#city').change(function () {
+                            //市级变化加载县级数据
+                            $('#county').find('option:gt(0)').remove();
+                            queryData({
+                                flag: 3,
+                                cId: $(this).val()                                
+                            }, function (data) {
+                                var option = '';
+                                $.each(data, function (i, e) {
+                                    option += '<option value="' + e.id + '">' + e.county + '</option>';
+                                });
+                                $('#county').append(option);
+                            });     
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <label for="">
+            省：<select name="" id="province">
+                <option value="">请选择省...</option>
+            </select>
+        </label>
+        <label for="">
+            市：<select name="" id="city">
+                <option value="">请选择市...</option>
+            </select>
+        </label>
+        <label for="">
+            县：<select name="" id="county">
+                <option value="">请选择县...</option>
+            </select>
+        </label>
+        
+    </div>
+</body>
+</html>

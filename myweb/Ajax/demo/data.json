@@ -1,0 +1,11 @@
+{
+    "name": "zs",
+    "age": "18",
+    "lover": ["coding","singing"],
+    "friend": {
+        "name": "ls",
+        "high": "180cm",
+        "lover": [],
+        "friend": {}
+    }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟查询图书</title>
+    <style>
+        body, form, label, input {
+            margin: 0;
+            padding: 0;
+            
+        }
+        .container {
+            width: 300px;
+            height: 150px;
+            background-color: greenyellow;
+            margin: 100px auto 0;
+            /* text-align: center; */
+            /* list-style: none; */
+        }
+    </style>
+    <!-- <script src="./jquery-1.12.2.js"></script> -->
+    <script src="./ajax-2.js"></script>
+    <script>
+     /* 功能需求：页面输入图书编号，查询服务器端的图书信息并且解析渲染*/
+        window.onload = function () {
+            var code = document.getElementById('code');
+            var btn = document.getElementById('btn');
+            var info = document.getElementById('info');
+            btn.onclick = function () {
+                /* var data = ajax({
+                        type: 'post',
+                        url: './oneCheck.php',
+                        //async: true,
+                        data: {code:code.value},
+                        dataType: 'json'
+                    });
+                console.dir(data);//为什么异步处理的时候此处的data未定义
+                if (data.flag == 0) {
+                    info.innerText = '没有这本书';
+                } else {
+                    var tag = '<ul><li>书名：' + data.bookName + '</li><li>作者：' + data.author + '</li><li>描述：' + data.desc + '</li></ul>';
+                    info.innerHTML = tag;
+                } */
+            
+                ajax({
+                    type: 'post',
+                    url: './oneCheck.php',
+                    //async: true,
+                    data: {code:code.value},
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.flag == 0) {
+                            info.innerText = '没有这本书';
+                        } else {
+                            var tag = '<ul><li>书名：' + data.bookName + '</li><li>作者：' + data.author + '</li><li>描述：' + data.desc + '</li></ul>';
+                            info.innerHTML = tag;
+                        }
+                    }
+                });
+
+                /* ajax({
+                    url: './oneCheck.php',
+                    data: {"userName":"zs", "age":18},
+                    jsonp: 'cb',
+                    jsonpCallback: 'abc',
+                    success: function(data) {
+                        console.log(data.userName, data.age);
+                    }
+                }); *///对应echo '{"userName":"zs", "age":18}';
+            }   
+        }
+    //    $(function () {
+    //        $('#btn').click(function () {
+    //            var code = $('#code').val();
+    //            /* $.ajax({
+    //                type: 'post',
+    //                url: './oneCheck.php',
+    //                //async: true,
+    //                data: {code:code},
+    //                dataType: 'json',
+    //                success: function (data) {
+    //                    if (data.flag == 0) {
+    //                        info.innerText = '没有这本书';
+    //                    } else {
+    //                        var tag = '<ul><li>书名：' + data.bookName + '</li><li>作者：' + data.author + '</li><li>描述：' + data.desc + '</li></ul>';
+    //                        info.innerHTML = tag;
+    //                    }
+    //                }
+    //            }) */ 
+    //            var data = $.ajax({
+    //                    type: 'post',
+    //                    url: './oneCheck.php',
+    //                    //async: true,
+    //                    data: {code:code},
+    //                    dataType: 'json'
+    //                });
+    //            console.dir(data);//同样是未定义
+    //            data = data.responseJSON;
+    //            console.log(data.flag);
+    //            if (data.flag == 0) {
+    //                info.innerText = '没有这本书';
+    //            } else {
+    //                var tag = '<ul><li>书名：' + data.bookName + '</li><li>作者：' + data.author + '</li><li>描述：' + data.desc + '</li></ul>';
+    //                info.innerHTML = tag;
+    //            } 
+    //        })
+    //    })
+        
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <form>
+            <label>图书编号：</label>
+            <input type="text" name="code" id="code">
+            <input type="button" value="查询" id="btn">
+        </form>
+        <div id="info"></div>
+    </div>
+</body>
+</html>

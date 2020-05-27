@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>从服务器端获得json接口的数据</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 40px;
+        }
+        input {
+            text-indent: 5px;
+            margin-right: 10px;
+        }
+        #btn {
+            margin-top: 10px;
+            margin-left: 110px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            var info = document.getElementById('info');
+            var uName = document.getElementById('userName');
+            var pw = document.getElementById('password');
+            btn.onclick = function () {
+                var xhr = new XMLHttpRequest();
+                //xhr.open('post', './data.json', true);
+                xhr.open('post', './json.php', true);
+                var param = 'userName=' + uName.value + '&password=' + pw.value;
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(param);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var data = xhr.responseText;
+                            var d = JSON.parse(data);
+                            //console.log(d);
+                            console.log(data);//获得的是字符串数据
+                            console.log(d);//JSON.parse转换成对象
+                            console.log(d.name1);
+                            console.log(d.name2);
+
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form>
+            <label>用户名：</label>
+            <input type="text" name="userName" id="userName"><span id="info"></span><br>
+            <label>密码：</label>
+            <input type="password" name="password" id="password"><br>
+            <input type="button" value="登录" id="btn">
+        </form>
+    </div>
+</body>
+</html>
