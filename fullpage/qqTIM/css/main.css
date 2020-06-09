@@ -1,0 +1,328 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background: url(../images/tim_bg_1.jpg);
+    overflow: hidden;
+}
+body {
+    background-color: pink;
+}
+/* 头部导航 */
+.herder {
+    width: 100%;
+    height: 100px;
+    color: #111;  
+}
+.header .w {
+    width: 1360px;
+    line-height: 100px;
+    position: fixed;
+    left: 50%;
+    margin-left: -680px;
+    z-index: 999;
+}
+.logo,
+.tab,
+.btn {
+    position: absolute;
+    top: 10px;
+}
+.logo {
+    left: 47px;
+    top: 22px;
+}
+.tab {
+    left: 200px;
+    top: 0;
+}
+.tab li{
+    float: left;
+    width: 70px;
+    text-align: center;
+}
+.tab li:hover {
+    background-color: #48c4f1;
+}
+/* 注册按钮 */
+.btn {
+    width: 120px;
+    height: 50px;
+    right: 310px;
+    top: 20px;
+    border-radius: 30px;
+    background: url(../images/icons.png) no-repeat -29px -5px;
+    cursor: pointer;
+}
+/* 登录部分 */
+.login {
+    position: relative;
+}
+.login ul {
+    position: absolute;
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    right: -40px;
+    top: 7px;
+    
+}
+.login li {
+    float: left;
+    height: 40px;
+    width: 90px;
+    margin-bottom: 10px;
+}
+.person {
+    position: absolute;
+    right: 38px;
+    top: 50px;
+    width: 220px;
+    height: 30px;
+    line-height: 30px;
+}
+/* 中间部分 */
+/* .content {
+    width: 100%;
+} */
+.bd {
+    width: 812px;
+    height: 640px;
+    position: relative;
+    margin: 0 auto;
+}
+.bd .logo_bd,
+.bd .btn_bd,
+.bd .icon_bd {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.bd .logo_bd {
+    margin-top: -130px;
+}
+.bd .btn_bd {
+    margin-top: 20px;
+}
+.bd .icon_bd {
+    margin-top: 200px;
+}
+/* 每一天部分 */
+.doc {
+    width: 1400px;
+    margin-left: -50px;
+    margin-top: -20px;
+}
+/* 女孩背景 */
+.firstBg {
+    background: url(../images/fisrtbg.jpg) no-repeat fixed;
+    height: 800px;
+}
+/* 沟通部分 */
+.call {
+    position: relative;
+    height: 583px;
+    background-color: #fff;
+}
+.pic1 {
+    position: absolute;
+    top: -180px;
+    left: 150px;
+}
+.call_txt {
+    position: absolute;
+    right: 150px;
+    top: 100px;
+}
+.know {
+    width: 450px;
+    height: 100px;
+    position: absolute;
+    right: 150px;
+    top: 240px;
+    font-size: 18px;
+    color: #222;
+    text-shadow: 1px 1px #777;
+}
+.know a{
+    position: absolute;
+    right: 0;
+    top: 60px;
+    color: #57ccfa;
+    font-size: 16px;
+}
+.call_fig {
+    position: absolute;
+    right: 150px;
+    top: 400px;
+}
+/* 电脑背景图 */
+.avd {
+    background: url(../images/avd.jpg) no-repeat fixed;
+    height: 800px;
+}
+/* --------------------------------------- */
+.call1 {
+    position: relative;
+    height: 583px;
+    background-color: #fff;
+}
+.pic2 {
+    position: absolute;
+    top: 200px;
+    right: 150px;;
+}
+.txt {
+    position: absolute;
+    left: 150px;
+    top: 100px;
+}
+.know1 {
+    width: 450px;
+    height: 100px;
+    position: absolute;
+    left: 150px;
+    top: 240px;
+    font-size: 18px;
+    color: #222;
+    text-shadow: 1px 1px #777;
+}
+.know1 a{
+    position: absolute;
+    left: 0;
+    top: 60px;
+    color: #57ccfa;
+    font-size: 16px;
+}
+.file_fig {
+    position: absolute;
+    left: 150px;
+    top: 400px;
+}
+/* 自行车背景 */
+.blog {
+    background: url(../images/blog.jpg) no-repeat fixed;
+    height: 800px;
+}
+/* -------------------------------------------------- */
+.call2 {
+    position: relative;
+    height: 583px;
+    background-color: #fff;
+}
+.pic3 {
+    position: absolute;
+    top: 70px;
+    left: 150px;
+}
+.blog_txt {
+    position: absolute;
+    right: 150px;
+    top: 100px;
+}
+.know2 {
+    width: 450px;
+    height: 100px;
+    position: absolute;
+    right: 150px;
+    top: 240px;
+    font-size: 18px;
+    color: #222;
+    text-shadow: 1px 1px #777;
+}
+.know2 a{
+    position: absolute;
+    right: 0;
+    top: 60px;
+    color: #57ccfa;
+    font-size: 16px;
+}
+.blog_fig {
+    position: absolute;
+    right: 150px;
+    top: 400px;
+}
+/* footer部分 */
+.footer {
+    width: 100%;
+    height: 348px;
+    background-color: #2a2a2a;
+    color: #979797;
+}
+.footer .w {
+    position: relative;
+    width: 100%;
+    left: 50%;
+    margin-left: -680px;
+}
+/* 产品部分 */
+.pro,
+.safe {
+    position: absolute;
+}
+.pro {
+    top: 50px;
+    left: 150px;
+}
+.safe {
+    top: 50px;
+    left: 700px;
+}
+.pro li{
+    float: left;
+    width: 80px;
+    padding-top: 65px;
+    margin-right: 35px;
+    background: url(../images/plats1.png) no-repeat 0 0;
+    margin-top: 30px;
+    cursor: pointer;
+}
+.pro span {
+    font-size: 14px;
+}
+.pro .pc {
+    background: url(../images/plats1.png) no-repeat -111px 0;
+}
+.pro .mac {
+    background: url(../images/plats1.png) no-repeat -212px 0;
+}
+.pro .pad {
+    background: url(../images/plats1.png) no-repeat -323px 0;
+}
+/* 鼠标经过的时候 */
+.pro .mb:hover {
+    background: url(../images/plats1.png) no-repeat 0 -93px;
+    color: #12b7f5;
+}
+.pro .pc:hover {
+    background: url(../images/plats1.png) no-repeat -111px -93px;
+    color: #12b7f5;
+}
+.pro .mac:hover {
+    background: url(../images/plats1.png) no-repeat -212px -93px;
+    color: #12b7f5;
+}
+.pro .pad:hover {
+    background: url(../images/plats1.png) no-repeat -323px -93px;
+    color: #12b7f5;
+}
+/* 安全中心 */
+dl {
+    float: left;
+    margin-right: 105px;
+}
+dt {
+    margin-bottom: 15px;
+    color: #777;
+}
+dl dd {
+    font-size: 14px;
+    margin-top: 5px;
+}
+.footer .hr {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #777;
+    position: relative;
+    top: 240px;
+}
