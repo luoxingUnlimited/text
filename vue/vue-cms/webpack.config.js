@@ -33,7 +33,7 @@ module.exports = {
             //配置处理scss文件的第三方loader规则
             {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']},
             //配置处理css中图片url的第三方loader  limit值可以自定义，图片字节数小于这个值时，会进行base64编码，name参数固定写法，name是图片名字，ext是图片对应的后缀
-            {test: /\.(png|jpg|gif|bmp|jpeg)$/,use: 'url-loader?limit=7788&name=[hash]-[name].[ext]'},
+            {test: /\.(png|jpg|gif|bmp|jpeg)$/,use: 'url-loader?limit=10240&name=[hash]-[name].[ext]&esModule=false'},
             //配置处理字体文件的url的第三方loader
             {test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader'},
             //配置Babel 将高版本语法转换成低版本语法的第三方loader 排除node_modules目录之外的js文件
