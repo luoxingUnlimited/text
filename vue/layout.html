@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命名视图实现经典布局 (layout:布局)</title>
+    <!-- 经典布局： 头部header区 左边导航区 右边主体区-->
+    <style>
+        body, h3 {
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            height: 120px;
+            background-color: salmon;
+            border: 2px dotted #69f;
+        }
+        .container {
+            display: flex;/* 实现左右布局 子盒子通过flex确定占的宽度比例*/
+            height: 500px;
+        }
+        .nav {
+            flex: 2;
+            background-color: lightgreen;
+            border: 2px dashed #f69;
+        }
+        .main {
+            background-color: plum;
+            border: 2px solid #6f9;
+            flex: 8;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 创建三个区域渲染组件模板对象 -->
+        <router-view ></router-view>
+        <div class="container">
+            <router-view name="left"></router-view>
+            <router-view name="main"></router-view>
+        </div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+        //创建组件模板对象
+        let headerBox = {
+            template: '<h3 class="header">headerBox头部区域</h3>'
+        };
+        let leftBox = {
+            template: '<h3 class="nav">leftBox侧边栏区域</h3>'
+        };
+        let mainBox = {
+            template: '<h3 class="main">mainBox主体区域</h3>'
+        };
+
+        //创建路由对象
+        let routerObj = new VueRouter({
+            routes: [{
+                path: '/', 
+                components: {
+                    'default': headerBox,
+                    'left': leftBox,
+                    'main': mainBox
+                }
+             }]
+        }) 
+
+        //创建vue实例
+        let vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //将路由挂载在对象上
+            router: routerObj
+        })
+    </script>
+</body>
+</html>

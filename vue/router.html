@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>vue路由的使用案例</title>
+    <style>
+        .my_link {
+            border: 1px solid #f6f;
+            border-radius: 5px;
+            background-color: #f69;
+            color: #fff;
+        }
+
+        /* 给组件添加动画 */
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translate(0, 200px);
+        }
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s linear;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 进行组件切换的标签 -->
+        <router-link to="/login?id=10&name=ls">登录</router-link>
+        <router-link to="/register/12/zs">注册</router-link>
+        <transition mode="out-in">
+            <router-view> <!-- 在页面写该标签，实现匹配到的组件在页面该标签中显示 --> </router-view>
+        </transition>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+        //创建组件模板   注意： 组件要在路由之前创建
+        var login = {
+            template: '<h3>登录组件 --- {{this.$route.query.id}} - {{this.$route.query.name}}</h3>',
+            
+        };
+        var register = {
+            template: '<h3>注册组件 --- {{this.$route.params.id}} - {{this.$route.params.name}}</h3>'
+        };
+        //创建路由规则对象
+        let routerObj = new VueRouter({
+            routes: [
+                {path: '/', redirect: '/login'},//将根路径重定向为/login路径
+                {path: '/login', component: login},
+                {path: '/register/:id/:name', component: register}
+            ],
+            linkActiveClass: 'my_link'
+        });
+        
+        //创建Vue实例
+        let vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //让router对象与vue创建联系  将对象注册在实例上，用来监听path变化
+            router: routerObj,
+            //私有组件
+            components: {
+                'loginCom': login,
+                'registerCom': register
+            }
+        });
+    </script>
+</body>
+</html>

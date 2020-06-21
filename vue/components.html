@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>组件(components)</title>
+
+</head>
+<body>
+    <div id="app">
+        <my-div></my-div>
+        <myh3></myh3>
+        <my-com></my-com>
+    </div>
+    <template id="tmpl">
+        <div>
+            <h5>这个是通过方式3创建出来的组件模板，改模板可直接书写在Vue实例外部</h5>
+        </div>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        //创建组件方式1：使用Vue.extend 创建全局的Vue组件模板
+        /* let com1 = Vue.extend({
+            template: '<div>这是一个div</div>'
+        })
+        Vue.component('myDiv', com1) */
+        //此方式参照模板创建一个组件然后提供使用，切记在页面使用的时候标签要改成my-div的形式，大写会报错
+        Vue.component('myDiv', Vue.extend({
+            template: '<div>这是用Vue.extend和Vue.component创建出来的组件div <br> 上面这两步可以合成一步完成</div>'
+        }));
+
+        //创建组件的方式2： Vue.component('组件名称', {template: ''})
+        Vue.component('myh3', {
+            template: '<h3>这是我用Vue.component方式创建出来的组件h3</h3>'
+        })
+
+        //创建组件方式3：可以在Vue实例控制的区域外 用Vue内部的template标签 id为template模板指向的id 来创建模板结构
+        //此方式依然要以组件名为标签名的方式在Vue实例控制区域内使用
+        Vue.component('myCom', {
+            template: '#tmpl'
+        })
+        //创建vue实例
+        let vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+</html>

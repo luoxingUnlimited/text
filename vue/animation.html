@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>动画</title>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: salmon;
+        }
+
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: #f69;
+        }
+        /* v-enter: 元素进入动画状态之前的起始时间点 */
+        /* v-leave-to: 元素离开动画状态的结束时间点*/
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(500px);
+        }
+        /* v-enter-active: 元素入场动画的时间段 */
+        /* v-leave-active: 元素离开动画的时间段 */
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        /* v-enter-to: 元素进入动画状态的结束时间点 */
+        /* v-leave: 元素结束动画状态的开始时间点 */
+        /* .v-enter-to,
+        .v-leave {
+            opacity: 1;
+        } */
+
+        .ball {
+            width: 20px;
+            height: 20px;
+            background-color: #66f;
+            border-radius: 50%;
+        }
+
+        ul {
+            padding: 0;
+        }
+        li {
+            list-style: none;
+            border: 2px dashed #6f6;
+            margin-top: 10px;
+            height: 30px;
+            line-height: 30px;
+            display: block;
+            width: 100%;
+        }
+        li:hover {
+            background-color: #99f;
+            transition: 1s ease;
+        }
+        /* 实现动过效果 */
+        .item-enter,
+        .item-leave-to {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        .item-enter-active,
+        .item-leave-active {
+            transition: opacity 1s ease-in, transform 1s ease-in-out;
+        }
+        /* v-move v-leave-active 固定写法 能实现后续元素上来填补空缺元素的时候的缓冲效果，而不是直接上来 */
+        .item-move {
+            transition: opacity 1s ease-in, transform 1s ease-in-out;
+        }
+        .item-leave-active {
+            position: absolute;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="app">
+        <!-- 需求： 点击按钮 让box1显示，再点击让box1隐藏 -->
+        <!-- 实现动画方法一 -->
+        <input type="button" value="toggle" @click="flag=!flag" />
+        <div class="box1" v-if="flag"></div>
+        <hr>
+        <!-- 需求： 利用Vue官方提供的transition元素把box2包裹起来，让其内部的box2实现动画效果 -->
+        <!-- 实现动画方法二 -->
+        <input type="button" value="transition" @click="isShow=!isShow" />
+        <transition>
+            <div class="box2" v-show="isShow"></div>
+        </transition>
+        <hr />
+        <!-- 实现动画方法三 ：利用钩子实现半场动画-->
+        <!-- 需求：点击按钮的时候，让小球掉落。无返回 只有掉落状态 -->
+        <input type="button" value="加入购物车" @click="isOK=!isOK" />
+        <transition name="ball"
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+        >
+            <div class="ball" v-show="isOK" v-bind:css="false"></div>
+        </transition>
+        <hr />
+        <!-- 需求： 让列表添加项的时候出现动画效果 -->
+        <div>
+            <label>
+                Id: <input type="text" v-model="id" />
+            </label>
+            <label>
+                Name: <input type="text" v-model="name" />
+            </label>
+            <input type="button" value="添加" @click="add" />
+        </div>
+        <transition-group name="item" appear tag="ul">
+            <!-- 给transition-group添加appear,可以实现页面刚展示出来的入场效果-->
+            <li v-for="(item, i) in list" :key="item.id" @click="del(i)">
+                {{item.id}} ----- {{item.name}}
+            </li>
+        </transition-group>
+    
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        //创建vue实例
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false,
+                isShow: false,
+                isOK: false,
+                id: '',
+                name: '',
+                list: [
+                    {id: 1, name: '钱学森'},
+                    {id: 2, name: '袁隆平'},
+                    {id: 3, name: '邓稼先'},
+                    {id: 4, name: '鲁迅'}
+                ]
+            },
+            methods: {
+                beforeEnter(el) {
+                    //动画入场前，动画尚未开始，可以设置元素开始动画之前的起始样式
+                    el.style.transform = 'translate(0, 0)';
+                },
+                enter(el, done) {
+                    //el.offsetWidth 没有实际的作用，但是不写没有动画的效果， 可以认为有强制动画效果刷新的作用
+                    el.offsetWidth//el.offsetHeight el.offsetTop el.offsetLeft  和offset相关的均可以
+                    //动画开始的样式 可以设置小球完成动画到，之后的结束状态
+                    el.style.transform = 'translate(200px, 500px)';
+                    el.style.transition = 'transform 2s ease';
+                    done()//done就是afterEnter的调用
+                },
+                afterEnter(el) {
+                    this.isOK = !this.isOK;
+                    //这句话有两个功能： 1.控制小球的显示与隐藏
+                    //2.直接跳过后半场动画，让isOK标识符直接变为false，当再次点击按钮的时候isOK从false到true，显示出来。 
+                },
+
+                add() {
+                    //添加项
+                    this.list.push({id: this.id, name: this.name})
+                    this.name = '';
+                    this.id = '';
+                },
+                del(i) {
+                    //删除项
+                    this.list.splice(i, 1);
+                }
+                
+            }
+        })
+    </script>
+</body>
+</html>

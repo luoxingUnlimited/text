@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>实现书写评论功能</title>
+    <style>
+        body, label, input, textarea, ul, li, div {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        input, textarea {
+            outline: none;
+        }
+        .comment {
+            padding: 10px;
+        }
+        .comment label {
+            display: block;
+            width: 100%;
+            height: 100px;
+            line-height: 100px;
+            position: relative;
+        }
+        .comment .ipt,
+        .comment .ta {
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            font-size: 16px;
+            text-indent: 10px;
+        }
+        .comment .ta {
+            height: 50px;
+            top: 70px;
+        }
+        .btn {
+            width: 80px;
+            height: 30px;
+            margin-top: 40px;
+            background-color: rgb(133, 182, 238);
+            font-size: 16px;
+            border-color: rgb(133, 182, 238);
+            border-radius: 5px;
+        }
+        .content {
+            margin-top: 20px;
+            padding: 0 10px;
+        }
+        .content li {
+            position: relative;
+            height: 40px;
+            border: 1px solid #ccc;
+            line-height: 40px;
+            text-indent: 10px;
+            margin-bottom: 10px;
+        }
+        .content li .right {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            background-color: rgb(146, 146, 146);
+            color: #fff;
+            padding: 0 10px;
+            border-radius: 10px;
+            line-height: 20px;
+            text-indent: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 搭建页面结构 -->
+        <comment-com @func="loadComments"></comment-com>
+        <div class="content">
+            <ul>
+                <li v-for="item in list" :key="item.id">
+                    <div class="left">{{item.commentary}}</div>
+                    <div class="right">评论人：{{item.name}}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <template id="tmpl">
+        <div class="comment">
+            <label>
+                评论人：
+                <input type="text" class="ipt" v-model="name"/>
+            </label>
+            <label>
+                评论内容：
+                <textarea class="ta" v-model="commentary"></textarea>
+            </label>
+            <input type="button" value="发表评论" class="btn" @click="postComment"/>
+        </div>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        //创建组件模板
+        let componentBox = {//组件中的data是函数，要返回一个对象
+            template: '#tmpl',
+            data() {
+                return {
+                    name: '',
+                    commentary: ''
+                }  
+            },
+            methods: {
+                postComment() {
+                    //1.先要拿到内存中存储的数据
+                    //2.然后将新数据和内存中存储的数据一起放到内存中
+                    //组织一个评论对象 
+                    var comment = {id: Date.now(), name: this.name, commentary: this.commentary}
+                    //从localStorage中获取所有的评论放进comments中
+                    var list = JSON.parse(localStorage.getItem('comments') || '[]')
+                    //将新对象放进列表中的第一项
+                    list.push(comment);
+                    //然后再将这个list重新保存到localStorage中
+                    localStorage.setItem('comments', JSON.stringify(list));
+                    this.name = ''
+                    this.commentary = ''
+                    //调用父组件的方法加载评论列表的方法，让评论直接加载
+                    this.$emit('func');
+                }
+
+            }
+        }
+        //创建vue实例
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    {id: Date.now(), name: '卡密尔', commentary: '自负会让每个人都屈膝跪下'},
+                    {id: Date.now(), name: '艾瑞莉娅', commentary: '真正的意志是不会被击败的'},
+                    {id: Date.now(), name: '菲奥娜', commentary: '精准而优雅'}
+                ]
+            },
+            methods: {
+                loadComments() {//从本地的localStorage中加载评论列表
+                    var list = JSON.parse(localStorage.getItem('comments') || '[]');
+                    this.list = list;
+                }
+            },
+            /* created() {//第二个生命周期函数，data和methods都已经初始化完成 调用评论加载方法，让评论加载在页面
+                this.loadComments()
+            }, */
+            components: {//定义私有组件 将组件注册在实例中
+                'commentCom': componentBox
+            }
+        })
+    </script>
+</body>
+</html>

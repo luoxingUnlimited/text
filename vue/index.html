@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌案例</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+</head>
+<body>
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    Id: <input type="text" class="form-control" v-model="id">
+                </label>
+                <label>
+                    Name: <input type="text" class="form-control" v-model="name" @keyup.113="add">
+                </label>
+                <input type="button" value="添加" class="btn btn-primary" @click="add">
+                <label>
+                    搜索名称关键字：<input type="text" class="form-control" v-model="keywords">
+                </label>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Ctime</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keywords)" v-bind:key="item.id">
+                    <td v-text="item.id"></td>
+                    <td v-text="item.name"></td>
+                    <td>{{ item.ctime | dateFormat }}</td>
+                    <td>
+                        <!-- .prevent阻止元素的默认行为 -->
+                        <!-- 给事件处理函数添加(),可以实现传参-->
+                        <a href="" @click.prevent="del(item.id)">删除</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-resource-1.3.4.js"></script>
+    <script>
+        //定义一个全局过滤器
+        Vue.filter('dateFormat', (dateStr) => {
+            let d = new Date(dateStr);
+            //获取年月日
+            let year = d.getFullYear();
+            let month = (d.getMonth() + 1).toString().padStart(2, '0');//实现字符串填充内容的方法
+            let day = (d.getDate()).toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        });
+
+        //创建vue实例
+        let vm = new Vue({
+            //指定控制区域
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                keywords: '',
+                list: [
+                    {id: 1, name: '奔驰', ctime: new Date()},
+                    {id: 2, name: '大众', ctime: new Date()},
+                    {id: 3, name: '奇瑞', ctime: new Date()}
+                ]
+            },
+            /* created() {
+                //Vue实例中的data和methods初始化完毕后，就会执行created这个生命周期函数
+                this.getAllList();
+            }, */
+            methods: {
+                add() {
+                    //添加的方法：
+                    //1.直接从data上获取id和name
+                    //2.创建对象接收
+                    let car = {id: this.id, name: this.name, ctime: new Date()};
+                    //3.将这个对象，调用数组的方法，将属性添加到list中
+                    this.list.push(car);
+                    this.id = this.name = '';
+                    //4.vue实现了数据的双向绑定，在修改data数据的同时，vue监听数据的改变，并渲染回页面
+                }, 
+                del(id) {
+                    //1.根据id,找到要删除的这一项的索引
+                    //数组的some遍历方法，会根据条件找元素，找到正确的一项return true 就会结束遍历
+                    this.list.some((item, index) => {
+                        if (item.id === id) {
+                            //2.调用数组的splice 方法删除元素 删除索引为index的项，删一项
+                            this.list.splice(index, 1);
+                            return true;
+                        }
+                    });
+                    //findIndex(callback)该方法也可以用来查找数组元素
+                    var index = this.list.findIndex((item) => {
+                        if (item.id === id) {
+                            return true;
+                        }
+                    });
+                    console.log(index);
+                },
+                search(keywords) { 
+                    //根据关键字，进行数据的搜索
+                    //var newList = [];
+                    //1.遍历所有数据，找到与keywords匹配的项，取出来组成新的数组
+                    /* this.list.forEach((item) => {
+                        if(item.name.indexOf(keywords) !== -1) {//''空字符串也是包含其中 不会返回-1
+                            //只要字符串中存在keywords关键字，就不会返回-1
+                            newList.push(item);
+                        }
+                    });  */
+                    //数组的filter方法，参数为一回调函数，遍历数组，返回判断条件的结果为true的项组成的数组
+                    let newList = this.list.filter((item) => {
+                        //字符串.includes('需要包含的字符串')，如果包含 那一项对应的返回值为true 不包含，对应的返回值是false
+                        if (item.name.includes(keywords)) {
+                            return item;//返回结果是true的项
+                        }
+                    });
+                    //2.将新数组渲染在页面
+                    return newList;
+                }/* ,
+
+                getAllList() {
+                    //ajax请求
+                    this.$http.get('http://vue.studyit.io/api/getprodlist').then((result) => {
+                        var result = result.body;
+                        if (result.status === 0) {
+                            //表示请求成功
+                            this.list = result.message;
+                        } else {
+                            console.log('添加失败');
+                        }
+                    })
+                },
+                add() {
+                    //post请求添加数据到后台服务器  
+                    this.$http.post('http://vue.studyit.io/api/addproduct', {name: this.name}, {emulateJSON: true}).then((result) => {
+                        if (result.body.status === 0) {
+                            this.getAllList();//重新渲染品牌列表
+                            this.name = '';//清空name
+                        } else {
+                            console.log('请求失败');
+                        }
+                    })
+                },
+                del(id) {
+                    this.$http.get('http://vue.studyit.io/api/delproduct/:' + id).then((result) => {
+                        if (result.body.status === 0) {
+                            this.getAllList();//请求成功，刷新数据
+                        } else {
+                            console.log('删除失败');
+                        }
+                    })
+                } */
+            }
+        });
+
+
+        
+    </script>
+</body>
+</html>

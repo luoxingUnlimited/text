@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路由</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 创建页面路由链接 -->
+        <router-link to='/account'>account</router-link>
+        <!-- 将路由指向的组件渲染在页面 -->
+        <router-view></router-view>
+    </div>
+    <template id="tmpl">
+        <div>
+            <h3>
+                这是account组件
+            </h3>
+            <router-link to="/account/login">登录</router-link>
+            <router-link to="/account/register">注册</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        //创建组件模板对象
+        let account = {
+            template: '#tmpl'
+        };
+        let login = {
+            template: '<h3>登录组件</h3>'
+        };
+        let register = {
+            template: '<h3>注册组件</h3>'
+        }
+        //创建路由对象
+        let router = new VueRouter({
+            routes: [{
+                path: '/account', 
+                component: account, 
+                children: [
+                {path: 'login', component: login},
+                {path: 'register', component: register}
+                ]
+            },
+                //{path: '/account/login', component: login},
+                //{path: '/account/register', component: register}
+            ]
+        })
+        //创建Vue实例
+        let vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //将路由挂载在实例上
+            router: router
+        })
+    </script>
+</body>
+</html>
