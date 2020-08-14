@@ -1,0 +1,70 @@
+<!--index.wxml-->
+
+<!-- 轮播插件 -->
+<swiper class="slides">
+    <!-- 
+    <swiper-item wx:for="{{slides}}" wx:key="id">
+        <navigator wx:if="{{item.link}} "url="{{item.link}}">有link就显示navigator标签，没有就不显示
+            <image src="{{item.image}}" mode="aspectFill" />
+        </navigator>
+    </swiper-item>
+     -->
+    <swiper-item>
+        <image src="../../assets/images/banner-01.png" mode="aspectFill" />
+    </swiper-item>
+    <swiper-item>
+        <image src="../../assets/images/banner-02.png" />
+    </swiper-item>
+</swiper>
+
+<view class="grids">
+    <!-- 
+    <navigator class="item" wx:for="{{categories}}" wx:key="id" url="/pages/list/list?cat={{item.id}}">
+        <image src="{{item.icon}}" />
+        <text>{{item.name}}</text>
+    </navigator>
+
+     -->
+    <navigator class="item" url="/pages/list/list">
+    <!-- <navigator class="item" url="/pages/list/list?cat={{item.id}}"> -->
+
+        <image src="../../assets/icons/grid-01.png" />
+        <text>美食</text>
+    </navigator>
+    <view class="item">
+        <image src="../../assets/icons/grid-02.png" />
+        <text>洗浴足疗</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-03.png" />
+        <text>结婚啦</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-04.png" />
+        <text>KTV</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-05.png" />
+        <text>找工作</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-06.png" />
+        <text>辅导班</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-07.png" />
+        <text>汽车保养</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-08.png" />
+        <text>租房</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/icons/grid-09.png" />
+        <text>装修</text>
+    </view>
+</view>
+<view class="links">
+    <image src="../../assets/images/link-01.png" />
+    <image src="../../assets/images/link-02.png" />
+</view>

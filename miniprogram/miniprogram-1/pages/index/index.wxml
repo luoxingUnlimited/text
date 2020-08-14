@@ -1,0 +1,35 @@
+<!--index.wxml-->
+<view class="container">
+  <view>
+    <text class="user-motto">{{motto}}</text>
+    <view>{{'view块级元素？'}}</view>
+    <text>{{'text行内元素？abc'}}</text>
+    <text>{{111+222}}</text>
+    <checkbox checked="{{ false }}"></checkbox>
+  </view>
+  <button bindtap="btnTapHandler">按钮</button>
+  <view class="demo"></view>
+  <!-- icon  -->
+  <!-- icon的类型type，有效值：success, success_no_circle, info, warn, waiting, cancel, download, search, clear -->
+  <icon type="success_no_circle" color="#f00" size="50px"></icon>
+  <icon type="info"></icon>
+  <icon type="success"></icon>
+  <icon type="warn"></icon>
+  <icon type="waiting"></icon>
+  <icon type="cancel"></icon>
+  <icon type="download"></icon>
+  <icon type="search"></icon>
+  <icon type="clear"></icon>
+  <text selectable="true">123456
+  654321   123</text>
+
+  <view class="progress-box" style="width:100%;">
+    <progress percent="20" show-info stroke-width="3" />
+  </view>
+  <view class="progress-box" style="width:100%;">
+    <progress percent="60" active stroke-width="3" />
+  </view>
+
+
+
+</view>

@@ -1,0 +1,37 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="search">
+    <image src="../../images/plus.png" bindtap="addListHandler"></image>
+    <input type="text" placeholder="Anything here..." value="{{ content }}" bindinput="inputChangedHandler" bindconfirm="addListHandler" />
+  </view>
+  <block wx:if="{{list.length}}">
+  <view class="list">
+    <view class="item {{ item.completed ? 'completed' : ''}}" wx:for="{{ list }}" bindtap="toggleListHandler" data-index="{{index}}">
+      <icon type="{{ item.completed ? 'success' : 'circle' }}"></icon>
+      <text>{{ item.name }}</text>
+      <icon type="clear" size="20" catchtap="removeListHandler" data-index="{{index}}"></icon>
+    </view>
+    <!-- <view class="item">
+        <icon type="success"></icon>
+        <text>Learning HTML</text>
+        <icon type="clear" size="20"></icon>
+    </view>
+    <view class="item">
+        <icon type="circle"></icon>
+        <text>Learning CSS</text>
+        <icon type="clear" size="20"></icon>
+    </view>
+    <view class="item">
+        <icon type="circle"></icon>
+        <text>Learning JavaScript</text>
+        <icon type="clear" size="20"></icon>
+    </view> -->
+  </view>
+  <view class="footer">
+    <text bindtap="toggleAllHandler">Toggle all</text>
+    <text wx:if="{{leftCount}}">{{leftCount}} {{leftCount > 1 ? 'items' : 'item'}} left</text>
+    <text bindtap="clearHandler">Clear completed</text>
+  </view>
+  </block>
+  <view wx:else>null</view>
+</view>

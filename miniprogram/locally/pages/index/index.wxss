@@ -1,0 +1,51 @@
+/**index.wxss**/
+.slides {
+    height: 380rpx;
+}
+
+.slides navigator,
+.slides image {
+    width: 750rpx;
+    height: 100%;
+}
+
+.grids {
+    background-color: #fff;
+    color: #888;
+    font-size: 28rpx;
+    border-left: 1rpx solid #eee;
+    border-bottom: 1rpx solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+}
+.grids .item {
+    width: 33.3333%;
+    height: 250rpx;
+    border-right: 1rpx solid #eee;
+    border-top: 1rpx solid #eee;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.grids .item image {
+    width: 70rpx;
+    height: 70rpx;
+}
+.grids .item text {
+    margin-top: 20rpx;
+    font-size: 28rpx; 
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+    background-color: #fff;
+    margin: 10rpx 0;
+}
+.links image {
+    height: 230rpx;
+    width: 350rpx;
+}

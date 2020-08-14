@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评分案例</title>
+    <style>
+        li {
+            list-style: none;
+            float: left;
+            font-size: 50px;
+            color: rgb(248, 245, 38);
+        }
+    </style>
+    <script src="jquery-1.12.2.js"></script>
+    <script>
+        //鼠标经过五角星的时候，当前的五角星和前面的五角星都变成实心的，鼠标离开恢复原状
+        //鼠标点击，鼠标再移开五角星不发生变化
+        $(function () {
+            $('ul>li').mouseenter(function () {
+                $(this).text('★').prevAll('li').text('★');
+                $(this).nextAll('li').text('☆');
+            }).mouseleave(function () {
+                $('ul').find('li').text('☆');
+                $('ul>li[index=1]').text('★').prevAll('li').text('★');
+            }).click(function () {
+                //$(this).text('★').prevAll('li').text('★');
+                //$('ul>li').off('mouseleave');
+                $(this).attr('index', '1'),siblings('li').removeAttr('index');
+            });
+        });
+    </script>
+</head>
+<body>
+    <ul>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+    </ul>
+</body>
+</html>

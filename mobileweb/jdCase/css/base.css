@@ -1,0 +1,47 @@
+/* 公共样式 */
+/* 1.样式的重置，去掉元素的默认样式 */
+html, body, ul, ol, li, img, a, p, div, span, dl, dt, dd, input, form {
+    margin: 0;
+    padding: 0;
+    /* 设置盒模型 */
+    box-sizing: border-box;
+    /* 去除移动端特有的点击高亮显示效果 */
+    -webkit-tap-highlight-color: transparent;/* 透明 */
+}
+body {
+    font-size: 13px;
+    font-family: "微软雅黑",sans-serif;/* 设置字体为微软雅黑，没有就采用后面默认的 */
+}
+a,
+a:hover {
+    text-decoration: none;
+    color: #777;
+}
+ul {
+    list-style: none;
+}
+input {
+    /* 清除获取焦点时的边框 */
+    outline: none;
+    border: none;
+    border: 1px solid #000;
+}
+/* 清除浮动 */
+/* 有些内容是浮动的，无法设置高度，只能清除浮动后才能设置 */
+.clearfix::before,
+.clearfix::after {
+    content: "";/* 伪元素一定要写content值 */
+    display: block;/* 伪元素是行级元素，所以要转换 */
+    height: 0;/* 清除浮动 高度要设置为零 */
+    line-height: 0;
+    clear: both;
+    visibility: hidden;/* 为了设置高度不受限 */
+}
+/* 2.添加新的样式 */
+/* 添加浮动 */
+.f_left {
+    float: left;
+}
+.f_right {
+    float: right;
+}

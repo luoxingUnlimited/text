@@ -1,0 +1,244 @@
+/* 设置最大宽度和最小宽度 防止收缩导致页面布局变形 */
+.jd_layout {
+    width: 100%;
+    max-width: 640px;
+    min-width: 320px;
+    margin: 0 auto;
+    background-color: #eee;
+    border: 1px solid #777;
+    border-top: 0;
+}
+/* 顶部搜索块 */
+.jd_search {
+    width: 100%;
+    max-width: 640px;
+    height: 40px;
+    position: fixed;/* 固定在顶部 */
+    background-color: rgba(233, 35, 34, 0);/* 京东红 */
+    z-index: 999;
+}
+.jd_logo {
+    height: 30px;
+    width: 56px;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    background: url(../images/jd-sprites.png) no-repeat 0 -108px;
+    background-size: 200px 200px;/* 调整背景图大小 */
+}
+.jd_login {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+}
+.jd_searchBox {
+    width: 100%;
+    height: 100%;
+    padding-left: 76px;
+    padding-right: 50px;
+    /* position: relative; 因为是基于整个jd_search盒子内部的 jd_search盒子给了定位 这个搜索和字可以不添加定位也没事*/
+}
+.jd_searchBox input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 15px;
+    margin-top: 4px;
+    /* padding-left: 28px; 和text-indent达到的效果一致*/
+    text-indent: 28px;
+}
+/* 使用伪元素 给input添加放大镜 */
+.jd_searchBox::before {
+    content: "";
+    width: 27px;
+    height: 23px;
+    position: absolute;
+    left: 78px;
+    top: 8px;
+    background: url(../images/jd-sprites.png) no-repeat -56px -108px;
+    background-size: 200px 200px;
+}
+
+/* 轮播图区域 */
+.jd_banner {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.jd_bannerImg {
+    width: 800%;
+    position: relative;
+}
+.jd_bannerImg li {
+    width: 12.5%;
+    float: left;
+}
+/* 添加了两张复印的首位之后，修改的样式 */
+/* .jd_bannerImg {
+    width: 1000%;
+    偏移transform 
+    transform: translateX(-10%); 
+    相对定位 
+    position: relative;
+    left: -100%;
+}
+.jd_bannerImg li {
+    width: 10%;
+    float: left; 
+}*/
+.jd_bannerImg li img {
+    width: 100%;
+    /* 清除文本基线 img默认对齐方式以文本基线对齐 导致下方出现减隙 */
+    /* 1.可以将文本字体大小设置为零 
+        2.vertical-align:bottom 将文本设置为底对齐
+        3.将图片设置为块元素
+    */
+    display: block;/* 取消图片基线 */
+}
+/* 标记样式 */
+.jd_bannerIndicator {
+    width: 110px;
+    height: 10px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.jd_bannerIndicator li {
+    width: 9px;
+    height: 3px;
+    background-color: #999;
+    margin-left: 4px;
+    border-radius: 3px;
+    float: left;
+}
+.jd_bannerIndicator li:first-of-type {/* 找到第一个元素 */
+    margin-left: 0;
+}
+.jd_bannerIndicator li.active {/* 交集选择器 */
+    background-color: #fff;
+    width: 11px;
+}
+/* 导航部分样式 */
+.jd_nav {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #fff;
+}
+.jd_nav li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    margin-top: 5px;
+}
+.jd_nav li img {
+    width: 50px;
+}
+.jd_nav li p {
+    line-height: 25px;   
+}
+/* 产品区样式 */
+.jd_product {
+    width: 100%;
+}
+.jd_productBox {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px #ccc;
+}
+.jd_productBox .jd_pTip {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #ccc;
+    color: #666;
+    padding-left: 30px;
+}
+.jd_productBox .jd_pTip h3 {
+    position: relative;
+}
+.jd_productBox .jd_pTip h3::before {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background-color: #e92322;
+    left: -8px;
+    top: 9px;
+}
+/* 产品块图片链接 */
+.a_50 {
+    width: 50%;
+    display: block;
+}
+.a_50 img {
+    width: 100%;
+    display: block;
+}
+.b_left {
+    border-left: 1px solid #ccc;
+}
+.b_bottom {
+    border-bottom: 1px solid #ccc;
+}
+.b_right {
+    border-right: 1px solid #ccc;
+}
+/* 设置一个样式标记： .jd_sk 秒杀块样式 */
+.jd_sk .jd_pTip {
+    border-bottom: none;
+    padding-left: 0;
+}
+.jd_sk .jd_pTip .jd_sk_icon {
+    width: 16px;
+    height: 20px;
+    background: url(../images/seckill-icon.png);
+    background-size: 16px 20px;/* 二倍图 宽高设置最好与原图的宽高成比例 */ 
+    margin-left: 10px;
+    margin-top: 3px;
+}
+.jd_sk .jd_pTip .jd_sk_text {
+    color: #e92322;
+    margin-left: 10px;
+}
+.jd_sk .jd_pTip .jd_sk_time {
+    margin-left: 10px;
+}
+.jd_sk .jd_pTip .jd_sk_time span {
+    display: inline-block;
+    width: 12px;
+    height: 18px;
+    line-height: 18px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+}
+.jd_sk .jd_pTip .jd_sk_time span:nth-last-of-type(3n) {
+    background-color: transparent;
+    color: #000;
+    width: 6px;
+}
+.jd_sk .jd_right {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.jd_sk .jd_pContent {
+    padding: 20px;
+}
+.jd_sk .jd_pContent ul {
+    width: 100%;
+}
+.jd_sk .jd_pContent li {
+    width: 33.33%;
+    float: left;
+    text-align: center;
+}
+.jd_sk .jd_pContent li img {
+    width: 60%;
+    display: inline-block;/* 去除文本基线 */ 
+}

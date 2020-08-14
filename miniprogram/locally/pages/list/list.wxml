@@ -1,0 +1,132 @@
+<!--pages/list/list.wxml-->
+<view class="search">
+    <input type="text" placeholder="搜索" />
+    <icon type="search" />
+</view>
+<view class="content">
+    <!-- 
+    <navigator class="item" wx:for="{{shops}}" wx:key="id" url="/pages/detail/detail?item={{item.id}}">
+        <image src="{{item.images[0]}}" />
+        <view class="info">
+            <text class="title">{{item.name}}</text>
+            <text class="tel">电话：{{item.phone}}</text>
+            <text class="add">地址：{{item.address}}</text>
+            <text class="time">营业时间：{{item.businessHours}}</text>
+        </view>
+        <text class="icon">{{item.score}}</text>
+    </navigator> -->
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+    <view class="item">
+        <image src="../../assets/images/cake.jpg" />
+        <view class="info">
+            <text class="title">宫廷月亮虾饼</text>
+            <text class="tel">电话：15530710686</text>
+            <text class="add">地址：</text>
+            <text class="time">营业时间：</text>
+        </view>
+        <text class="icon">100</text>
+    </view>
+</view>
+<view wx:if="{{hasMore}}" class="load_more loading">
+    正在加载...
+</view>
+<view wx:else class="load_more">没有更多了</view>

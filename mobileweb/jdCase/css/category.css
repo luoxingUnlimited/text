@@ -1,0 +1,133 @@
+/* 全屏页面的实现  */
+html, body {
+    width: 100%;
+    height: 100%;
+}
+/* 整个容器大小 */
+.ct_layout {
+    width: 100%;
+    height: 100%;
+}
+/* 头部样式 */
+.ct_header {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    position: absolute;
+    /* 为了让页面不出现滚动条。实现全屏，给头部盒子加定位，这样头部盒子不占位置，内容高度就是整个容器盒子的高度 就不会加上头部的50px导致出现滚动条*/
+}
+.ct_back,
+.ct_menu {
+    width: 49px;
+    height: 49px;
+    position: absolute;
+    top: 0;
+    background-image: url(../images/sprites.png);
+    background-size: 200px 200px;
+    padding: 14px;
+    background-origin: content-box;/* 从内容填充 要先设置padding值*/
+    background-clip: content-box;/* 设置的是裁切 控制的是显示 */
+}
+.ct_back {
+    background-position: -20px 0px;
+    left: 0;
+}
+.ct_menu {
+    background-position: -60px 0px;
+    right: 0;
+}
+.ct_search {
+    width: 100%;
+    height: 100%;
+    padding: 0 60px;
+}
+.ct_search input {
+    width: 100%;
+    height: 40px;
+    margin-top: 5px;
+    text-indent: 10px;
+    border-radius: 5px;
+    border: 1px solid #777;
+    color: #666;
+    font-size: 16px;
+}
+/* 内容部分样式 */
+.ct_content {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    /* 给内容加上内边距 让内容盒子里面的内容能够从头部盒子下面开始显示 而不是盒子左上角显示违背头部盒子压住 */
+}
+/* 左边内容 */
+.ct_cLeft {
+    width: 100px;
+    height: 100%;
+    /* position: absolute; */
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+.ct_cLeft ul {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.ct_cLeft li {
+    width: 100%;
+    height: 50px;
+}
+.ct_cLeft li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    line-height: 50px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+/* 当前被选中的列表状态 */
+.ct_cLeft li.active a {
+    background-color: #fff;
+    color: #e92322;
+    border-right: none;
+    border-bottom: none;
+}
+/* 右边内容 */
+.ct_cRight {
+    height: 100%;
+    /* float: right; */
+    margin-left: 100px;/* 让右边的内容能够占满右边 */
+    display: flex;/* 默认水平 */
+    flex-direction: column;/* 让其垂直放置 */
+}
+.ct_rImg {
+    width: 100%;
+    display: block;/* 将a转换为块元素 */
+}
+.ct_rImg img {
+    width: 100%;
+    display: block;/* 去除图片底部留白 */
+}
+.ct_cRight h3 {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.ct_hotCategory {
+    width: 100%;
+    overflow: hidden;
+    flex: 1;
+    position: relative;
+}
+.ct_hotCategory ul {
+    overflow: hidden;
+}
+.ct_hotCategory li {
+    width: 33.33%;
+    float: left;
+    text-align: center;
+}
